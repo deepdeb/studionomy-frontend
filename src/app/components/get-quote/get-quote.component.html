@@ -71,78 +71,80 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12">
-                <table class="table table-bordered">
-                    <thead class="table-bg">
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Specialization</th>
-                            <th scope="col">Crews</th>
-                            <th colspan="2"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <!-- <input type="text" class="form-control datepicker" [(ngModel)]="bookingDate" (change)="getEquipmentAndEmployee()"> -->
-                                <input type="date" class="form-control datepicker" [(ngModel)]="bookingDate">
-                            </td>
-                            <td>
-                                <!-- <div class="form-group" [(ngModel)]="specializations"> -->
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select equipment'"
-                                        [settings]="dropdownEquipmentSettings" [data]="allInventoryList"
-                                        [(ngModel)]="selectedEquipmentItems" (onSelect)="onItemSelected()">
-                                    </ng-multiselect-dropdown> -->
-                                    <input type="text" class="form-control" id="" [(ngModel)]="specializations">
-                                <!-- </div> -->
-                            </td>
-                            <td>
-                                <!-- <div class="form-group" [(ngModel)]="crews"> -->
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select employee'"
-                                    [settings]="dropdownStaffsSettings" [data]="allEmployeeList"
-                                    [(ngModel)]="selectedStaffItems" (onSelect)="onStaffSelected()"
-                                    (onDeSelect)="onStaffDeselected($event)">
-                                    </ng-multiselect-dropdown> -->
-                                    <input type="text" class="form-control" id="" [(ngModel)]="crews">
-                                <!-- </div> -->
-                            </td>
-                            <td>
-                                <button class="btn btn-primary" (click)="addEqupEmpDetails()" >+</button>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let item of equipmemtBookingDetails;let i=index;">
-                            <td>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-bg">
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Specialization</th>
+                                <th scope="col">Crews</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <!-- <input type="text" class="form-control datepicker" [(ngModel)]="bookingDate" (change)="getEquipmentAndEmployee()"> -->
+                                    <input type="date" class="form-control datepicker" [(ngModel)]="bookingDate">
+                                </td>
+                                <td>
+                                    <!-- <div class="form-group" [(ngModel)]="specializations"> -->
+                                        <!-- <ng-multiselect-dropdown [placeholder]="'Select equipment'"
+                                            [settings]="dropdownEquipmentSettings" [data]="allInventoryList"
+                                            [(ngModel)]="selectedEquipmentItems" (onSelect)="onItemSelected()">
+                                        </ng-multiselect-dropdown> -->
+                                        <input type="text" class="form-control" id="" [(ngModel)]="specializations">
+                                    <!-- </div> -->
+                                </td>
+                                <td>
+                                    <!-- <div class="form-group" [(ngModel)]="crews"> -->
+                                        <!-- <ng-multiselect-dropdown [placeholder]="'Select employee'"
+                                        [settings]="dropdownStaffsSettings" [data]="allEmployeeList"
+                                        [(ngModel)]="selectedStaffItems" (onSelect)="onStaffSelected()"
+                                        (onDeSelect)="onStaffDeselected($event)">
+                                        </ng-multiselect-dropdown> -->
+                                        <input type="text" class="form-control" id="" [(ngModel)]="crews">
+                                    <!-- </div> -->
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" (click)="addEqupEmpDetails()" >+</button>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let item of equipmemtBookingDetails;let i=index;">
+                                <td>
 
-                                {{item.bookingDate}}
-                            </td>
-                            <!-- <td>
-                                <span *ngFor="let eq of item.equipments;let last = last;">{{eq.inv_code}}{{!last ?
-                                    ', ' : ''}}</span>
-                            </td>
-                            <td>
-                                <span *ngFor="let eq of item.employee;let last = last;">{{eq.empName}}{{!last ?
-                                    ',':''}}</span>
-                            </td> -->
-                            <td>
-                                {{item.specializations}}
-                            </td>
-                            <td>
-                                {{item.crews}}
-                            </td>
-                            <td>
-                                <ul class="action_btn">
-                                    <li>
-                                        <a style="cursor: pointer;" (click)="equipmentTableEdit(i)"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                    </li>
-                                    <li>
-                                        <a style="cursor: pointer;" (click)="equipmentTableRemove(i)"><i
-                                                class="fa-solid fa-trash"></i></a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    {{item.bookingDate}}
+                                </td>
+                                <!-- <td>
+                                    <span *ngFor="let eq of item.equipments;let last = last;">{{eq.inv_code}}{{!last ?
+                                        ', ' : ''}}</span>
+                                </td>
+                                <td>
+                                    <span *ngFor="let eq of item.employee;let last = last;">{{eq.empName}}{{!last ?
+                                        ',':''}}</span>
+                                </td> -->
+                                <td>
+                                    {{item.specializations}}
+                                </td>
+                                <td>
+                                    {{item.crews}}
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li>
+                                            <a style="cursor: pointer;" (click)="equipmentTableEdit(i)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                        </li>
+                                        <li>
+                                            <a style="cursor: pointer;" (click)="equipmentTableRemove(i)"><i
+                                                    class="fa-solid fa-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-sm-12 col-md-12">
                 <div class="row align-items-center">

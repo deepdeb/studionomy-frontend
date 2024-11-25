@@ -6,7 +6,7 @@
             'dd-MM-yyyy'}}</p>
         <div class="event_cal_bgimg">
             <div class="event_cal jobcalender">
-                <h1 *ngIf="userType == 0; else freelanceCal" class="site_section_title" style="text-align: center;margin:10px 0;">Studio's Calendar</h1>
+                <h1 *ngIf="userType == 0; else freelanceCal" class="site_section_title" style="display: inline-block;margin:10px 0;">Studio's Calendar</h1>
                 <ng-template #freelanceCal>
                     <h1 class="site_section_title" style="text-align: center;margin:10px 0;">{{name}}'s Calendar</h1>
                 </ng-template>

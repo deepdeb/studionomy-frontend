@@ -40,7 +40,7 @@
 @media only screen and (max-width: 460px) {
     .employee_top_head{
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: space-between;
     }
     .emp_record{
         order: 1;
@@ -375,7 +375,7 @@
         align-items: flex-start;
     }
     .subscriptions .packages_area .packages_tab .nav-tabs .nav-link{
-        font-size: 12px;
+        font-size: 10px !important;
         padding: 4px;
     }
     .subscriptions .packages_area .tab-pane .package_heading{
@@ -397,6 +397,14 @@
     }
 }
 @media only screen and (max-width: 991px) {
+    .event_cal .site_section_title::after{
+        height: 12px !important;
+        width: 12px !important;
+        top: 26px !important;
+    }
+    .fc .fc-button {
+        padding: 3px !important;
+    }
     /* .book_keeping_data input{
         width: 80%;
         margin: auto;
@@ -533,7 +541,7 @@
         padding: 14px 10px;
     }
     .subscriptions .packages_area .packages_tab .nav-tabs .nav-link{
-        font-size: 10px;
+        font-size: 12px;
         padding: 3px 5px;
     }
     .subscriptions .packages_area .tab-content .tab-pane .pack ul li{
@@ -587,7 +595,10 @@
     }
 }
 @media only screen and (min-width: 992px){
- 
+    .date_range{
+        display: flex;
+        align-items: center;
+    }
 }
 @media only screen and (max-width: 768px) {
     .record{

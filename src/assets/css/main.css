@@ -55,6 +55,22 @@ p {
     font-size: 32px;
     font-weight: 600;
     text-transform: capitalize;
+    position: relative;
+    padding-bottom: 8px;
+}
+.event_cal .site_section_title{
+    border-bottom: 1px solid #183153;
+}
+.event_cal .site_section_title::after{
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    background: linear-gradient(to right, #244b81, #0a58ca, #029bfd, #1c3a63);
+    top: 38px;
+    right: 45%;
+    transform: rotate(45deg);
+    /* transform: translate(-50%,-50%); */
 }
 
 ul {

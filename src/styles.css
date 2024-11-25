@@ -322,6 +322,8 @@ th .fc-col-header-cell-cushion {
 .event_cal {
   position: relative;
   z-index: 111;
+  text-align: center;
+  
 }
 
 .fa-trash {

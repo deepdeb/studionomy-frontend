@@ -420,25 +420,25 @@
 
                         <h5 class="network_heading">Search options</h5>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <label class="form-label">select Date</label>
-                                <div class="row">
-                                    <div class="col-6 col-md-6">
-                                        <div class="d-flex align-items-center mb-3">
+                                <div class="row ">
+                                    <div class="col-6 ">
+                                        <div class="date_range mb-3">
                                             <p class="mb-0 me-1" style="font-size: 14px;">From:</p>
                                             <input type="date" class="form-control mb-0" style="padding: 4px;" [(ngModel)]="search_start_date">
                                         </div>
                                     </div>
                                     
-                                    <div class="col-6 col-md-6">
-                                        <div class="d-flex align-items-center mb-3">
+                                    <div class="col-6 ">
+                                        <div class="date_range mb-3">
                                             <p class="mb-0 me-1" style="font-size: 14px;">To:</p>
                                             <input type="date" class="form-control mb-0" style="padding: 4px;" [(ngModel)]="search_end_date">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="inputCountry12" class="form-label">Select Type</label>
                                 <select id="userType" class="form-control" style="appearance: auto;" [(ngModel)]="registerType" (change)="get_register_type()">
                                     <option value="">Select</option>
@@ -446,7 +446,7 @@
                                     <option value="2">Equipment Owners</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="inputCountry12" class="form-label">Select Name</label>
                                 <select id="skills" class="form-control" style="appearance: auto;" [(ngModel)]="search_name">
                                     <option value="">Select</option>
