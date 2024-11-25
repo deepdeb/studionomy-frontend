@@ -1,0 +1,346 @@
+<app-header></app-header>
+<section class="hero_section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="hero_bg_title">Welcome to <br> Studionomy</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About section  -->
+<section class="about_section sec_gap">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="section_block_title">
+                    <h2 class="site_section_title">About Us</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="about_text">
+                    Studionomy is a software to manage Photography Studios and similar workplaces. This is a beautifully designed website
+                    exclusively tailored to the daily needs of a photography studio.
+                </p>
+                <ul class="needs-ul">
+                    <li>Quotation Building</li>
+                    <li>Job Entries</li>
+                    <li>Inventory Management</li>
+                    <li>Employee Records</li>
+                    <li>Billing</li>
+                    <li>Dynamic Calendar</li>
+                    <li>Multiple Accounting</li>
+                    <!-- <li>Networking</li> -->
+                </ul>
+                <p class="about_text">
+                    But thats not all. We are also providing a strong networking platform amongst Studios , Free Lancers
+                    and Equipment Owners.
+                </p>
+                <p class="about_text">
+                    Freelancers and Equipment-Owners will have their independent shareable profiles. Here free lancers
+                    can showcase their photographic and cinematographic talents through social media links.
+                    Equipment-Owners will be able to share their equipment inventory for renting.
+                </p>
+                <p class="about_text">
+                    Most importantly calendars of Studios, freelancers and equipment owners are dynamically
+                    inter-connected. You need not ever maintain any other records for your job search, job bookings,
+                    dates, equipment for various jobs, billing and payments.
+                </p>
+                <p class="about_text">
+                    Last but not the least, we encourage you to be a part of this amazing platform with very attractive
+                    price packages, exclusively fabricated for all your needs.
+                </p>
+                <p class="about_text">
+                    We also encourage our members to share their feedback and valuable suggestions with us to improve
+                    further based on your requirements.
+                </p>
+                <!-- <div class="sign_in mt-3">
+                    <a href="about.html" class="menu_links register_btn">learn more</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- get Registered section  -->
+<section class="get_registered_section sec_gap">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="section_block_title">
+                    <h2 class="site_section_title">Get Registered</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-4 col-lg-4">
+                <div class="studio_owner">
+                    <div class="reg_content hover_expand" (click)="goToRegisterStudio()" style="cursor: pointer;">
+                        <div class="reg_icons_wrap">
+                            <img src="assets/img/icon/studioowner.png" alt="studioowner">
+                        </div>
+                        <a class="all_tittles">Studios</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="Freelancers">
+                    <div class="reg_content hover_expand" (click)="goToRegisterFreelancer()" style="cursor: pointer;">
+                        <div class="reg_icons_wrap">
+                            <img src="assets/img/icon/freelancer.png" alt="freelancer">
+                        </div>
+                        <a class="all_tittles">Freelancers</a>
+                        <!-- <h3 class="all_tittles">Freelancers</h3> -->
+                    </div>
+                    <!-- Freelancers -->
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="EquipmentOwners">
+                    <div class="reg_content hover_expand" (click)="goToRegisterEquipmentOwner()" style="cursor: pointer;">
+                        <div class="reg_icons_wrap">
+                            <img src="assets/img/icon/equipmentowner.png" alt="equipmentowner">
+                        </div>
+                        <a class="all_tittles">Equipment Owners</a>
+                    </div>
+                    <!-- Equipment Owners -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Buy Services section  -->
+<!-- <section class="buy_services_section sec_gap">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="section_block_title">
+                    <h2 class="site_section_title">Buy Subscriptions</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-4 col-lg-4">
+                <div class="studio_owner">
+                    <div class="reg_content hover_expand" (click)="goToSubscription(0)" style="cursor: pointer;">
+                        <div class="reg_icons_wrap">
+                            <img src="assets/img/icon/studioowner.png" alt="studioowner">
+                        </div>
+                        <a class="all_tittles">Studios</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="Freelancers">
+                    <div class="reg_content hover_expand" (click)="goToSubscription(1)" style="cursor: pointer;">
+                        <div class="reg_icons_wrap">
+                            <img src="assets/img/icon/freelancer.png" alt="freelancer">
+                        </div>
+                        <a class="all_tittles">Freelancers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="EquipmentOwners">
+                    <div class="reg_content hover_expand" (click)="goToSubscription(2)"  style="cursor: pointer;">
+                        <div class="reg_icons_wrap">
+                            <img src="assets/img/icon/equipmentowner.png" alt="equipmentowner">
+                        </div>
+                        <a class="all_tittles">Equipment
+                            Owners</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<section class="testimonial sec_gap">
+    <div class="container-fluid">
+        <div class="section_block_title">
+            <h2 class="site_section_title">what our clients say</h2>
+        </div>
+        <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide *ngFor="let data of feedbackList">
+                <div class="item">
+                    <div class="feedback_card">
+                        <div class="card_txt">
+                            <i class="fa-solid fa-quote-left"></i>
+                            <p>{{data.feedback_details}}
+                            </p>
+                        </div>
+                        <div class="triangle-down"></div>
+                        <div class="card_img">
+                            <img src="assets/img/icon/feedback_face-3.png" alt="client" loading="lazy">
+                            <strong>{{data.name}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+
+    </div>
+</section>
+
+
+<!-- <section class="testimonial sec_gap">
+    <div class="container">
+        <div class="section_block_title">
+            <h2 class="site_section_title">what our clients say</h2>
+        </div>
+        <div class="owl-carousel owl-theme">
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-1.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-2.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-3.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-4.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-1.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-2.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-3.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-4.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback_card">
+                    <div class="card_txt">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempora nemo alias modi
+                            repudiandae eius cumque natus sapiente aliquam distinctio.
+                        </p>
+                    </div>
+                    <div class="triangle-down"></div>
+                    <div class="card_img">
+                        <img src="assets/img/icon/feedback_face-1.png" alt="client" loading="lazy">
+                        <strong>Mona Lott</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<app-footer></app-footer>

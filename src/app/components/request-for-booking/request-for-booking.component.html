@@ -1,0 +1,60 @@
+<!-- modal.component.html -->
+<h1 mat-dialog-title class="text-center event_heading"><strong>Freelance Hiring request for: {{name}}</strong></h1>
+<div mat-dialog-content class="eventdetails">
+    <div class="my-request-booking row g-3">
+        <!-- <div class="text-center">
+            <h5 class="form-label">Edit request for: {{ name }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-6 col-md-6">
+            <label for="inputReference13" class="form-label">Equipments:</label>
+            <select class="form-control" style="appearance: auto;">
+                <option value="">Select Equipment</option>
+                <option *ngFor="let item of brandList" [value]="item.brand_id">
+                    {{item.brand_name}}</option>
+            </select>
+        </div> -->
+        <div class="col-sm-12 col-md-12 d-flex">
+            <label for="inputReference20" class="form-label">Job Description: </label>
+            <span style="font-weight: 550;color: black;">&nbsp;{{job_description}}</span>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <label for="inputReference20" class="form-label">Hiring Date: </label>
+            <input type="text" class="form-control" [ngModel]="dateFormat(req_date)" readonly>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <label for="inputReference21" class="form-label">Job No: </label>
+            <input type="text" class="form-control" [(ngModel)]="job_number" (change)="getJobDetails()">
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <label for="inputReference23" class="form-label">Event Location: </label>
+            <input type="text" class="form-control" [(ngModel)]="event_location">
+        </div>
+        <div class="col-sm-12 col-md-12" *ngIf="dateList.length>0">
+            <label for="inputReference101" class="form-label">Job Dates:</label>
+            <ng-multiselect-dropdown [placeholder]="'Select Dates'" [settings]="dropdownDateSettings"
+                [data]="dateList" [(ngModel)]="selectedDates">
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <label for="inputReference14" class="form-label">Skills:</label>
+            <ng-multiselect-dropdown [placeholder]="'Select Skill'" [settings]="dropdownSkillSettings"
+                [data]="skillList" [(ngModel)]="selectedSkillItems" (onDeSelect)="onStaffDeselected($event)">
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <label for="inputReference23" class="form-label">Payment: </label>
+            <input type="text" class="form-control" [(ngModel)]="payment" (keypress)="handleKeyPress($event)"
+                (keyup)="handleKeyPress($event)">
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <label for="inputReference15" class="form-label">Message: </label>
+            <textarea class="form-control" [(ngModel)]="message"></textarea>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <div class="btn_group">
+        <button type="submit" class="btn btn-primary" (click)="sendRequest()"> Send </button>
+        <button mat-button (click)="onClose()" type="button" class="btn-warning close_ylw_btn">Close</button>
+    </div>
+</div>

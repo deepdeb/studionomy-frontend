@@ -1,0 +1,590 @@
+/* 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+.owl-carousel .owl-item img {
+  display: block;
+  width: auto;
+}
+
+body {
+  overflow-y: scroll !important;
+}
+
+.table thead tr th{
+  white-space: nowrap;
+}
+.add_job {
+  text-transform: capitalize;
+  color: rgb(0, 0, 0);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.report_btn {
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 4px 8px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.account-property-details {
+  position: relative;
+  padding: 10px 16px;
+  background: #eeefef;
+  margin-top: 16px;
+  box-shadow: 0px 2px 6px #0000005c;
+  color: #c46c02;
+  cursor: pointer;
+}
+
+.account-property-details h6 {
+  cursor: pointer;
+}
+
+.profile_menu li:not(:last-child) {
+  margin-right: 16px;
+}
+
+.profile_menu {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.clear {
+  background: #ddb802 !important;
+  margin-top: 4px;
+}
+
+/* .new_head_style h4{
+    display: inline-block;
+  } */
+.name_search {
+  padding: 4px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 2px;
+}
+
+.name_search select {
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.name_search select option {
+  text-transform: capitalize;
+}
+
+.new_head_style i {
+  /* margin-left: auto; */
+  padding: 4px;
+  background: #c2c2c2;
+  border-radius: 2px;
+  margin-left: 4px;
+}
+
+.date_area {
+  text-align: center;
+  /* margin: 16px 0; */
+  /* padding: 8px;
+    background: white; */
+}
+
+/* .new_head_style span {
+  margin-left: 14px;
+} */
+
+.employee_top_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.record {
+  display: flex;
+  align-items: center;
+  /* width: 150px; */
+}
+.job_add button {
+  padding:4px;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.record .form-select {
+  width: 45%;
+  padding: 0px 26px 4px 4px;
+  height: 25px;
+}
+.job_add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* .date_area{
+  display: flex;
+  margin-bottom: 12px;
+  } */
+/* .date_area input{
+    width: 100%;
+  } */
+/* .date_area .end_date{
+    margin-left: 12px;
+ } */
+.new_head_style label {
+  font-size: small;
+}
+
+.fa-magnifying-glass {
+  cursor: pointer;
+}
+
+.fa-xmark {
+  cursor: pointer;
+}
+
+.nxt_pre_btn {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.nxt_pre_btn button {
+  border-radius: 50%;
+  padding: 4px 10px;
+  border: none;
+  background: white;
+  box-shadow: 0 1px 6px #b3b3b3;
+}
+
+.previous_btn {
+  color: #ff761e;
+  margin-right: 8px;
+}
+
+.next_btn {
+  color: #034bb1;
+}
+
+.calendar {
+  color: #ffffff;
+  margin-right: 16px;
+  padding: 4px 8px;
+  border: none;
+  box-shadow: none;
+  background: #00cd36;
+}
+
+.calendar i {
+  margin-right: 6px;
+}
+
+.eventdetails p {
+  margin-bottom: 6px;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: rgb(65, 65, 65);
+}
+
+.eventdetails p strong {
+  font-size: larger;
+  color: black !important;
+}
+
+.close_ylw_btn {
+  margin-left: auto;
+  border-radius: 4px;
+  padding: 4px 16px;
+}
+
+.event_heading {
+  border-bottom: 1px dotted #c2c2c2;
+  margin-bottom: 16px !important;
+}
+
+.event_heading strong {
+  font-size: 24px;
+}
+
+.btn-warning:focus {
+  box-shadow: none !important;
+  border: none;
+  outline: none;
+}
+
+.fc-button {
+  text-transform: capitalize !important;
+  background: #029bfd !important;
+  color: white !important;
+  opacity: 1 !important;
+  border: none !important;
+  transition: all 0.5s;
+}
+
+.fc-icon {
+  color: white;
+}
+
+.fc-button-group .fc-button {
+  background: #183153 !important;
+}
+
+.fc-toolbar-title {
+  background: linear-gradient(to right, #244b81, #0a58ca, #029bfd, #1c3a63);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.event_cal thead th {
+  background: #810360 !important;
+}
+
+.fc-scrollgrid-sync-table tbody tr td {
+  border: 1px solid #810360;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+.fc .fc-toolbar {
+  flex-wrap: wrap;
+}
+
+/* th.fc-day-sun .fc-scrollgrid-sync-inner{
+  background: #ffbbbb;
+}
+th.fc-day-mon .fc-scrollgrid-sync-inner{
+  background: #d6ffbb;
+}
+th.fc-day-tue .fc-scrollgrid-sync-inner{
+  background: #bbbfff;
+}
+th.fc-day-wed .fc-scrollgrid-sync-inner{
+  background: #f9be99;
+}
+th.fc-day-thu .fc-scrollgrid-sync-inner{
+  background: #fffabb;
+}
+th.fc-day-fri .fc-scrollgrid-sync-inner{
+  background: #bbfaff;
+}
+th.fc-day-sat .fc-scrollgrid-sync-inner{
+  background: #d9d9d9;
+}*/
+th .fc-col-header-cell-cushion {
+  color: white;
+}
+
+.jobcalender .fc-scrollgrid-sync-table tbody {
+  /* background-image: url(../src/assets/img/background/calender_bg_1.png); */
+  background-repeat: repeat;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  padding: 32px;
+}
+
+.publiccalender .fc-scrollgrid-sync-table tbody {
+  /* background-image: url(../src/assets/img/background/calender_bg_3.png); */
+  background-repeat: repeat;
+  background-position: center;
+  background-color: rgb(178, 238, 57);
+  position: relative;
+  padding: 32px;
+}
+
+.bookingcalender .fc-scrollgrid-sync-table tbody {
+  /* background-image: url(../src/assets/img/background/hire_card_bg_3.png); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  padding: 32px;
+}
+
+.fc-scrollgrid-sync-table tbody::after {
+  position: absolute;
+  content: "";
+  background: white;
+  height: 100%;
+  width: 100%;
+  opacity: 0.4;
+  top: 0;
+  left: 0;
+}
+
+.event_cal {
+  position: relative;
+  z-index: 111;
+}
+
+.fa-trash {
+  cursor: pointer !important;
+}
+
+.fa-pen-to-square {
+  cursor: pointer !important;
+}
+
+
+/*  Request for Booking---------------- */
+
+/* ----------------------------  Calender css------------- */
+.fc-event {
+  background-color: #DB81B0;
+  color: white;
+}
+
+.fc-event-title {
+  font-size: 6px !important;
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  cursor: pointer !important;
+}
+
+td a {
+  cursor: pointer !important;
+}
+
+.fc-event a {
+  white-space: pre-wrap !important;
+}
+
+.request_modal {
+  padding: 20px;
+  position: relative;
+}
+
+.request_modal h4 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff761e;
+}
+
+.request_modal .card {
+  padding: 10px;
+}
+
+.request_body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(236px, 1fr));
+  gap: 15px;
+}
+
+.request_body h6 {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.request_body h6 span {
+  font-weight: 500;
+}
+
+.request_modal .close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 1px solid;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-content: center;
+  background: #ff7c28;
+  color: #fff;
+  cursor: pointer;
+}
+
+.request_btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 13px;
+}
+
+.request_btn button {
+  border-radius: 3px;
+  border: 0;
+  padding: 10px 25px;
+  line-height: 1;
+  color: #fff;
+  outline: none;
+}
+
+.request_btn button:first-child {
+  background: #44bd32;
+}
+
+.request_btn button:last-child {
+  background: #e1b12c;
+}
+
+.request_edit {
+  background: #1B1464;
+  display: table;
+  padding: 10px;
+  color: #fff;
+  border-radius: 3px;
+  margin-top: 20px;
+  /* margin-left: auto; */
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.request_delete {
+  background: #900000;
+  display: table;
+  padding: 10px;
+  color: #fff;
+  border-radius: 3px;
+  margin-top: 20px;
+  /* margin-left: auto; */
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.request_whatsapp {
+  background: #00d264;
+  display: table;
+  padding: 10px;
+  color: #fff;
+  border-radius: 3px;
+  margin-top: 20px;
+  /* margin-left: auto; */
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dropdown-list {
+  width: auto !important;
+}
+.multiselect-dropdown .dropdown-btn{
+  padding: 4px !important;
+  height: 40px !important;
+  overflow-y: scroll !important;
+}
+.multiselect-dropdown .dropdown-btn .selected-item-container{
+  max-width: 100% !important;
+}
+.multiselect-dropdown .dropdown-btn .selected-item-container .selected-item span{
+  font-size: 10px !important;
+}
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret{
+  line-height: 16px;
+  width: 56px !important;
+  height: 26px !important;
+}
+
+.new_head_style i {
+  font-size: 13px !important;
+}
+.book_keeping_data{
+  display: flex;
+}
+.mat-select {
+  border: 1px solid #ced4da;
+}
+.mat-select:focus {
+  outline: none;
+  border-color: #4d90fe;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+/* ------------------ spinner ..................... */
+.spinner {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #ff761e;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  animation: spin 1s linear infinite;
+}
+.spinner-container {position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }  
+}
+
+@keyframes flash {
+  0%{opacity: 1;}
+  50%{opacity: 0.2;}
+  100%{opacity: 1;}
+}
+
+.flash_text {
+  animation: flash 2s infinite;
+}
+
+/* ------------------ payment success ..................... */
+.payment-success {
+  text-align: center;
+  max-width: 600px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-success h1 {
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.payment-details p {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.payment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+/* ------------------ payment failure ..................... */
+.payment-failure {
+  text-align: center;
+  max-width: 600px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #dc3545;
+}
+
+.payment-failure h1 {
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+.payment-details p {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+}

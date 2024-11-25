@@ -1,0 +1,214 @@
+<app-header></app-header>
+<section class="registration_form sec_gap">
+    <div class="container">
+        <div class="section_block_title">
+            <h2 class="site_section_title">personal details</h2>
+        </div>
+        <div class="my-form row g-3">
+            <div class="col-sm-6 col-md-6" *ngIf="registrationType == 0">
+                <label for="inputName1" class="form-label">studio name</label>
+                <input type="text" class="form-control" id="inputName1" [(ngModel)]="studioName">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputContact2" class="form-label" *ngIf="registrationType == 0">contact
+                    person</label>
+                <label for="inputContact2" class="form-label" *ngIf="registrationType != 0">Name</label>
+                <input type="text" class="form-control" id="inputContact2" [(ngModel)]="name">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputLocation4" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputLocation34" [(ngModel)]="userName">
+            </div>
+            <!-- <div class="col-sm-6 col-md-6" *ngIf="registrationType != 0">
+                <label for="inputAddress3" class="form-label">Address</label>
+                <textarea type="text" class="form-control" id="inputAddress3" [(ngModel)]="address"></textarea>
+            </div> -->
+            <div class="col-sm-6 col-md-6">
+                <label for="inputAddress3" class="form-label">Address</label>
+                <textarea type="text" class="form-control" id="inputAddress3" [(ngModel)]="address"></textarea>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputLocation4" class="form-label">location</label>
+                <input type="text" class="form-control" id="inputLocation4" [(ngModel)]="userLocation">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputCity5" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity5" [(ngModel)]="city">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputPin6" class="form-label">pin</label>
+                <input type="text" class="form-control" id="inputPin6" [(ngModel)]="pin">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputCountry8" class="form-label">country</label>
+                <select id="country" name="country" class="form-control" style="appearance: auto;"
+                    [(ngModel)]="country_id">
+                    <option value="1">India</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputState7" class="form-label">State</label>
+                <select name="state" id="state" class="form-control" style="appearance: auto;" [(ngModel)]="state_id">
+                    <option value="">Select state</option>
+                    <option *ngFor="let item of stateList" [value]="item.state_id">{{item.state_name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputMobile11" class="form-label">mobile no.</label>
+                <!-- <input type="text" class="form-control" id="inputMobile11" [(ngModel)]="mobile"
+                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;"> -->
+                <input type="text" class="form-control" id="inputMobile11" [(ngModel)]="mobile"
+                    onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputMobile11" class="form-label">Alternate mobile no.</label>
+                <!-- <input type="text" class="form-control" id="inputMobile11" [(ngModel)]="alt_mobile"
+                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;"> -->
+                <input type="text" class="form-control" id="inputMobile11" [(ngModel)]="alt_mobile"
+                    onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputEmail12" class="form-label">email id</label>
+                <input type="email" class="form-control" id="inputEmail12" [(ngModel)]="email">
+            </div>
+
+            <!-- <div class="col-sm-6 col-md-4">
+                <label for="inputReference14" class="form-label">Skills:</label>
+                <ng-multiselect-dropdown [placeholder]="'Select Skill'" [settings]="dropdownSkillSettings"
+                    [data]="skillList" [(ngModel)]="skill" (onSelect)="onSkillSelected($event)">
+                </ng-multiselect-dropdown>
+            </div> -->
+
+            <div class="col-sm-6 col-md-4">
+                <label for="inputReference13" class="form-label">reference</label>
+                <select name="reference" id="reference" class="form-control" style="appearance: auto;"
+                    [(ngModel)]="reference">
+                    <option value="">Choose your reference</option>
+                    <option value="Face Book ad">FaceBook ad</option>
+                    <option value="Youtube ad">Youtube ad</option>
+                    <option value="From a Friend">From a Friend</option>
+                    <option value="Call from Studio Lancer">Call from Studio Lancer</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-4" *ngIf="registrationType ==0">
+                <label for="inputLinkedin19" class="form-label">4-digit Passcode</label>
+                <input type="text" class="form-control" id="inputLinkedin19" [(ngModel)]="passcode" maxlength="4">
+            </div>
+
+            <div class="col-sm-6 col-md-4" *ngIf="registrationType ==0">
+                <div class="choose_file">
+                    <label for="formFile1" class="form-label">upload logo</label>
+                    <div class="upload_area">
+                        <input class="form-control" type="file" id="formFile1" (change)="uploadImage('logo')">
+                        <img [src]="workImg1 ? imagePath + workImg1 : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('logo')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="choose_file">
+                    <label for="formFile2" class="form-label">upload your photo</label>
+                    <div class="upload_area">
+                        <input class="form-control" type="file" id="formFile2" (change)="uploadImage('profilePhoto')">
+                        <img [src]="profileImg ? imagePath + profileImg : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('profilePhoto')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="col-sm-6 col-md-4">
+                <div class="choose_file">
+                    <label for="formFile3" class="form-label">upload your work</label>
+                    <div class="upload_area">
+                        <input class="form-control" type="file" id="formFile3" (change)="uploadImage('workPhoto')">
+                        <img [src]="workImg3 ? imagePath + workImg3 : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('workPhoto')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="choose_file">
+                    <label for="formFile4" class="form-label">upload about image</label>
+                    <div class="upload_area">
+                        <input class="form-control" type="file" id="formFile4" (change)="uploadImage('aboutusImage')">
+                        <img [src]="aboutusImg ? imagePath + aboutusImg : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('aboutusImage')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="choose_file">
+                    <label for="formFile5" class="form-label">upload reference image</label>
+                    <div class="upload_area">
+                        <input class="form-control" type="file" id="formFile5" (change)="uploadImage('reffeedbackImage')">
+                        <img [src]="reffeedbackImg ? imagePath + reffeedbackImg : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('reffeedbackImage')">
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col-sm-6 col-md-4">
+                <label for="formFile2" class="form-label">About yourself</label>
+                <textarea type="text" class="form-control about_img" id="inputAbout-img1" placeholder="About yourself"
+                    [(ngModel)]="aboutYouself"></textarea>
+            </div>
+            <!-- <div class="col-sm-6 col-md-4">
+                <label for="formFile2" class="form-label">About your work</label>
+                <textarea type="text" class="form-control about_img" id="inputAbout-img2" placeholder="About your work"
+                    [(ngModel)]="aboutWork"></textarea>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="formFile3" class="form-label">Your future plans</label>
+                <textarea type="text" class="form-control about_img" id="inputAbout-img3"
+                    placeholder="About some references or your future plans" [(ngModel)]="aboutReference"></textarea>
+            </div> -->
+            
+            <!-- <div class="col-sm-6 col-md-4">
+                <div class="choose_file">
+                 <label for="formFile3" class="form-label">upload your work (3)</label>
+                    <div class="upload_area">
+                     <input class="form-control" type="file" id="formFile3">
+                        <img src="assets/img/background/no-photo.png" alt="logo" loading="lazy" class="no_img">
+                        <textarea type="text" class="form-control about_img" id="inputAbout-img3"
+                            placeholder="About some references or your future plans"
+                            [(ngModel)]="aboutReference"></textarea>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-sm-6 col-md-4">
+                <label for="inputWebsite" class="form-label">your website link (if any)</label>
+                <input type="text" class="form-control" id="inputWebsite" [(ngModel)]="websiteLink">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputJd" class="form-label">JD link</label>
+                <input type="text" class="form-control" id="inputJd" [(ngModel)]="jdLink">
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <label for="inputFb14" class="form-label">FB link</label>
+                <input type="text" class="form-control" id="inputFb14" [(ngModel)]="FBLink">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputInsta15" class="form-label">insta link</label>
+                <input type="text" class="form-control" id="inputInsta15" [(ngModel)]="InstaLink">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputYoutube16" class="form-label">youtube link</label>
+                <input type="text" class="form-control" id="inputYoutube16" [(ngModel)]="YoutubeLink">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputLinkedin17" class="form-label">Linked in link</label>
+                <input type="text" class="form-control" id="inputLinkedin17" [(ngModel)]="linkedInLink">
+            </div>
+
+            <div class="col-12">
+                <div class="sign_in">
+                    <button type="submit" class="menu_links login_btn submit_btn" (click)="updateUser()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+<a href="https://api.whatsapp.com/send?phone=919693674916&text=Want%20to%20buy%20your%20products%20.%20Please%20get%20back%20."
+    class="whatsapp_logo">
+    <img src="assets/img/logo/whatsapp_logo.png" alt="whatsapp" loading="lazy">
+</a>

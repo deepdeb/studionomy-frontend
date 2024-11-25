@@ -1,0 +1,186 @@
+<app-header></app-header>
+<app-spinner *ngIf="isLoading"></app-spinner>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="section_block_title">
+            <h2 class="site_section_title">get a quote</h2>
+        </div>
+        <div class="my-form row g-3 quote_form">
+            <div class="col-sm-6 col-md-6">
+                <label for="studioname" class="form-label">Quotation Number</label>
+                <input type="text" id="studioName" class="form-control" [(ngModel)]="quotation_number" readonly>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="studioname" class="form-label">Studio Name</label>
+                <input type="text" id="studioName" class="form-control" [(ngModel)]="studioName" readonly>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="address" class="form-label">Address</label>
+                <textarea id="address" class="form-control" rows="10" [(ngModel)]="address" readonly></textarea>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="evemt_purpose" class="form-label">Job Description</label>
+                <input type="text" id="jobDetails" class="form-control" [(ngModel)]="jobDetails">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="evemt_purpose" class="form-label">Customer First Name</label>
+                <input type="text" id="evemt_purpose" class="form-control" [(ngModel)]="firstName">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="evemt_purpose" class="form-label">Customer Last Name</label>
+                <input type="text" id="evemt_purpose" class="form-control" [(ngModel)]="lastName">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputStart_Date3" class="form-label">Job Start Date</label>
+                <input type="date" class="form-control" id="inputStart_Date3" [(ngModel)]="job_startdate">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputEnd_Date4" class="form-label">Job end Date</label>
+                <input type="date" class="form-control" id="inputEnd_Date4" [(ngModel)]="job_enddate">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputEquipments5" class="form-label">Event Location</label>
+                <input type="text" class="form-control" id="inputEquipments5" [(ngModel)]="eventLocation">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputC_name7" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputC_name7" [(ngModel)]="email">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputPhone_no8" class="form-label">Phone No</label>
+                <input type="text" class="form-control" id="inputPhone_no8" [(ngModel)]="phoneno">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputAlt_phone9" class="form-label">alternative Phone No</label>
+                <input type="text" class="form-control" id="inputAlt_phone9" [(ngModel)]="altphoneno">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputEmail10" class="form-label">Total Amount</label>
+                <input type="number" class="form-control" id="inputEmail10" [(ngModel)]="total_amt">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputAddress11" class="form-label">Project Description</label>
+                <textarea class="form-control" id="inputAddress11" rows="4" [(ngModel)]="projectDesc"></textarea>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="quotationTheme" class="form-label">Upload quotation theme</label>
+                <div class="upload_area">
+                    <input class="form-control" type="file" id="quotationTheme" (change)="uploadImage()">
+                    <img [src]="quotethemeImg ? imagePath + quotethemeImg : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage()">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <table class="table table-bordered">
+                    <thead class="table-bg">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Specialization</th>
+                            <th scope="col">Crews</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <!-- <input type="text" class="form-control datepicker" [(ngModel)]="bookingDate" (change)="getEquipmentAndEmployee()"> -->
+                                <input type="date" class="form-control datepicker" [(ngModel)]="bookingDate">
+                            </td>
+                            <td>
+                                <!-- <div class="form-group" [(ngModel)]="specializations"> -->
+                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select equipment'"
+                                        [settings]="dropdownEquipmentSettings" [data]="allInventoryList"
+                                        [(ngModel)]="selectedEquipmentItems" (onSelect)="onItemSelected()">
+                                    </ng-multiselect-dropdown> -->
+                                    <input type="text" class="form-control" id="" [(ngModel)]="specializations">
+                                <!-- </div> -->
+                            </td>
+                            <td>
+                                <!-- <div class="form-group" [(ngModel)]="crews"> -->
+                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select employee'"
+                                    [settings]="dropdownStaffsSettings" [data]="allEmployeeList"
+                                    [(ngModel)]="selectedStaffItems" (onSelect)="onStaffSelected()"
+                                    (onDeSelect)="onStaffDeselected($event)">
+                                    </ng-multiselect-dropdown> -->
+                                    <input type="text" class="form-control" id="" [(ngModel)]="crews">
+                                <!-- </div> -->
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" (click)="addEqupEmpDetails()" >+</button>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let item of equipmemtBookingDetails;let i=index;">
+                            <td>
+
+                                {{item.bookingDate}}
+                            </td>
+                            <!-- <td>
+                                <span *ngFor="let eq of item.equipments;let last = last;">{{eq.inv_code}}{{!last ?
+                                    ', ' : ''}}</span>
+                            </td>
+                            <td>
+                                <span *ngFor="let eq of item.employee;let last = last;">{{eq.empName}}{{!last ?
+                                    ',':''}}</span>
+                            </td> -->
+                            <td>
+                                {{item.specializations}}
+                            </td>
+                            <td>
+                                {{item.crews}}
+                            </td>
+                            <td>
+                                <ul class="action_btn">
+                                    <li>
+                                        <a style="cursor: pointer;" (click)="equipmentTableEdit(i)"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                    </li>
+                                    <li>
+                                        <a style="cursor: pointer;" (click)="equipmentTableRemove(i)"><i
+                                                class="fa-solid fa-trash"></i></a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-info" (click)="AddCustoField()">Add Custom Field</button>
+                    </div>
+                    <div class="col-md-10" *ngIf="customField">
+                        <div class="other_input_area">
+                            <div class="other_input d-flex">
+                                <input type="text" class="form-control" [(ngModel)]="customName">
+                                <textarea class="form-control" rows="10" [(ngModel)]="customValue"></textarea>
+                                <button type="button" class="btn btn-danger" (click)="removeCustomFields()">x</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputState13" class="form-label">Deliverables
+                </label>
+                <!--  -->
+                <textarea id="deliverables" class="form-control" rows="10" [(ngModel)]="deliverables"></textarea>
+                <!--  -->
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputState13" class="form-label">Terms & conditions</label>
+                <!--  -->
+                <textarea id="termscondition" class="form-control" rows="10" [(ngModel)]="termscondition"></textarea>
+                <!--  -->
+            </div>
+
+            <div class="col-12">
+                <div class="sign_in">
+                    <button type="submit" class="menu_links login_btn submit_btn"
+                        (click)="quotationGenerate()">submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

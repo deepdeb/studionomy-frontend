@@ -1,0 +1,58 @@
+.form-label {
+    display: block;
+    font-weight: 500;
+    color: black;
+    font-family: 'Roboto Slab';
+}
+
+/* span {
+    font-size: 14px !important;
+    color: black !important;
+    font-family: inherit !important;
+} */
+.j_event_details{
+    border: 1px solid #0d0d46;
+    /* height: 100%; */
+}
+.j_event_details_text{
+    padding:  4px 8px;
+    background: #101057;
+    min-height: 130px;
+    height: auto;
+    /* margin:  4px 8px; */
+}
+.j_event_details_text p{
+    margin-bottom: 3px;
+    font-size: 11px !important;
+    font-family: 'Roboto Slab';
+    text-transform: capitalize;
+    color: white ;
+}
+.j_event_details_text strong{
+    color: white !important;
+    font-weight: lighter !important;
+}
+.j_event_details h5{
+    text-transform: capitalize;
+    padding: 3px 8px;
+    background: #0d0d46;
+    color: white;
+    font-size: 15px !important;
+}
+.freelancer_book{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid green;
+}
+.freelancer_book p{
+    margin-bottom: 0;
+}
+.pay{
+    padding: 4px 6px;
+}
+.pay:focus-visible {
+    outline: none;
+}

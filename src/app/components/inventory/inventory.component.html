@@ -1,0 +1,242 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="account-details">
+            <h6 class="personal-heading">Add inventory</h6>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table inventory-table m-0">
+                        <thead>
+                            <tr>
+                                <th>equipment category</th>
+                                <th>equipment sub-category</th>
+                                <th>brand</th>
+                                <th>model no.</th>
+                                <th>price</th>
+                                <th>rental option</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select id="single-select" class="select_list" [(ngModel)]="equipmentCategory"
+                                        (change)="subCategoryName(equipmentCategory)">
+                                        <option value="">select one</option>
+                                        <option *ngFor="let item of equipmentCategoryList" [value]="item.equ_cate_id">
+                                            {{item.equ_categoryName}}</option>
+                                    </select>
+                                </td>
+
+
+                                <!-- <td><input type="text" class="select_list" [(ngModel)]="equipmentSubCategory"></td>
+                                <td><input type="text" class="select_list" [(ngModel)]="company"></td>
+                                <td><input type="text" class="select_list" [(ngModel)]="modelName"></td> -->
+
+                                <td>
+                                    <select id="single-select" class="select_list" [(ngModel)]="equipmentSubCategory">
+                                        <option value="">select one</option>
+                                        <option *ngFor="let item of equipmentSubCategoryList"
+                                            [value]="item.sub_cate_id">
+                                            {{item.sub_cate_name}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="single-select" class="select_list" [(ngModel)]="company">
+                                        <option value="">select one</option>
+                                        <option *ngFor="let item of brandList" [value]="item.brand_id">
+                                            {{item.brand_name}}</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="select_list" [(ngModel)]="modelName"></td>
+                                <td><input type="text" class="select_list" [(ngModel)]="invPrice"
+                                        onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9) if(event.key != '.') return false;">
+                                </td>
+
+                                <td><select class="select_list" [(ngModel)]="rentout">
+                                        <option value="">select one</option>
+                                        <option [value]="1">Yes</option>
+                                        <option [value]="0">No</option>
+                                    </select></td>
+                                <td><button type="submit" class="pay" (click)="inventorysubmit()">submit</button>
+                                    <button type="submit" class="pay clear">clear</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h4 class="inventory_head">inventory List</h4>
+            <div class="employee_top_head mb-3">
+                <div class="record">
+                    <label style="margin-right:6px;font-size: smaller;">Records/Pg: </label>
+                    <select class="form-select" aria-label="Default select example"
+                        (change)="changePageLimitInv($event)">
+                        <option [value]="10">10</option>
+                        <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: smaller;margin-bottom:0;">Total: <span>{{totalInventory}}</span></label>
+                </div>
+            </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>inventory unique code</th>
+                                <th>equipment category</th>
+                                <th>equipment sub-category</th>
+                                <th>brand</th>
+                                <th>model no.</th>
+                                <th>price</th>
+                                <th>rent out</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of inventoryList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <th>{{item.inv_code}}</th>
+                                <td>
+                                    <p>{{item.equ_categoryName}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.sub_cate_name}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.brand_name}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.modelName}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.invPrice > 0">{{item.invPrice}}</p>
+                                    <p *ngIf="item.invPrice == 0"></p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.rentout == 1">Yes</p>
+                                    <p *ngIf="item.rentout == 0">No</p>
+                                </td>
+
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeInv(item.inv_id)"><i class="fa-solid fa-trash"
+                                                    data-bs-toggle="modal" data-bs-target="#invDeleteModal"></i></a>
+                                        </li>
+                                        <li><a (click)="editInventary(item.inv_id,item.equ_cate_id,item.equ_sub_cate,item.company,item.modelName,item.invPrice,item.rentout)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="invPrevious()" [disabled]="invoffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="invNext()"
+                        [disabled]="(totalInventory <= inventoryList.length) || (invlimit > inventoryList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+            <h4 class="inventory_head">my equipments for rent</h4>
+            <div class="employee_top_head mb-3">
+                <div class="record">
+                    <label style="margin-right:6px;font-size: smaller;">Records/Pg: </label>
+                    <select class="form-select" aria-label="Default select example"
+                        (change)="changePageLimitEquipment($event)">
+                        <option [value]="10">10</option>
+                        <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: small;margin-bottom:0;">Total: <span>{{totalEquipment}}</span></label>
+                </div>
+            </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>inventory unique code</th>
+                                <th>equipment category</th>
+                                <th>equipment sub-category</th>
+                                <th>brand</th>
+                                <th>model no.</th>
+                                <th>price</th>
+                                <!-- <th>action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of equipmentList;let i =index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <th>{{item.inv_code}}</th>
+                                <td>
+                                    <p>{{item.equ_categoryName}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.sub_cate_name}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.brand_name}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.modelName}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.invPrice > 0">{{item.invPrice}}</p>
+                                    <p *ngIf="item.invPrice == 0"></p>
+                                </td>
+                                <!-- <td>
+                                    <ul class="action_btn">
+                                        <li><a><i class="fa-solid fa-trash"></i></a></li>
+                                        <li><a><i class="fa-solid fa-pen-to-square"></i></a></li>
+                                    </ul>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="equipPrevious()"
+                        [disabled]="equipmentoffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="equipNext()"
+                        [disabled]="(totalEquipment <= equipmentList.length) || (equipmentlimit > equipmentList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+
+<!-----------------Inventory Delete Modal --------------------->
+<div class="modal fade" id="invDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Inventory Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteInventary()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

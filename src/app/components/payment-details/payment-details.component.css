@@ -1,0 +1,26 @@
+.add_more_btn{
+    width: 100%;
+    background: #000042;
+    color: white;
+    padding: 2px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 4px;
+}
+.empAttn {
+    width: auto;
+    padding: 6px 24px;
+    margin-left: 20px;
+}
+input,select{
+    width: 100%;
+    padding: 4px;
+}
+.delivery_status{
+    display: flex;
+    align-items: center;
+}
+
+.delivery_status .form-check input{
+    width: auto !important;
+}

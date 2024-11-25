@@ -1,0 +1,45 @@
+<div class="edit-heading">
+    <div class="section_block_title">
+        <h2 class="site_section_title" *ngIf="userType == '0'">{{studioName}}</h2>
+        <h2 class="site_section_title" *ngIf="userType == '1'">{{name}}</h2>
+        <h2 class="site_section_title" *ngIf="userType == '2'">{{name}}</h2>
+    </div>
+</div>
+<ul class="profile_menu">
+    <li class="personal-inventory account-property-details" (click)="goToProfile()"
+        [ngStyle]="{ 'color': activeMenu == 'user' ? '#6610f2' : '' }">Profile
+    </li>
+    <li class="personal-inventory account-property-details" (click)="goToInventory()"
+        [ngStyle]="{ 'color': activeMenu == 'inventory' ? '#6610f2' : '' }">Inventory</li>
+    <li class="personal-employee account-property-details" (click)="goToEmployee()" *ngIf="userType !=1 && userType !=2"
+        [ngStyle]="{ 'color': activeMenu == 'employee' ? '#6610f2' : '' }">
+        Employee</li>
+    <li class="personal-bookkeeping account-property-details" (click)="goToBookkeeping()"
+        [ngStyle]="{ 'color': activeMenu == 'book-keeping' ? '#6610f2' : '' }">Book-keeping</li>
+    <li *ngIf="studioRole != 'employee' && (userType ==0 || userType ==2)"
+        class="personal-inventory account-property-details" (click)="goToJob()"
+        [ngStyle]="{ 'color': activeMenu == 'job' ? '#6610f2' : '' }">Job Entry</li>
+    <li *ngIf="studioRole != 'employee' && userType ==0" class="personal-bookkeeping account-property-details"
+        (click)="goTojobBookkeeping()" [ngStyle]="{ 'color': activeMenu == 'job-book-keeping' ? '#6610f2' : '' }">Job
+        Ledger</li>
+    <li class="personal-bookkeeping account-property-details" (click)="goToQuote()"
+        [ngStyle]="{ 'color': activeMenu == 'quote' ? '#6610f2' : '' }" *ngIf="userType ==0">Get-Quote</li>
+    <li class="personal-bookkeeping account-property-details" (click)="goToCalender()"
+        [ngStyle]="{ 'color': activeMenu == 'calender' ? '#6610f2' : '' }">
+        <i class="fa-solid fa-calendar-days"></i>&nbsp;
+        <span *ngIf="userType === '0'; else otherCalendarLabel">Calendar</span>
+        <ng-template #otherCalendarLabel>My Calendar</ng-template>
+    </li>
+    <li class="personal-bookkeeping account-property-details" (click)="goToBookingCalender()"
+        [ngStyle]="{ 'color': activeMenu == 'booking-calender' ? '#6610f2' : '' }" *ngIf="userType == 0">
+        <i class="fa-solid fa-calendar-days"></i>&nbsp;Hire Card
+    </li>
+    <!-- <li class="personal-bookkeeping account-property-details" (click)="goToPublicCalender()"
+        [ngStyle]="{ 'color': activeMenu == 'public-calender' ? '#6610f2' : '' }">
+        <i class="fa-solid fa-calendar-days"></i>&nbsp;Public Calendar
+    </li> -->
+    <li class="personal-bookkeeping account-property-details" (click)="goToNetwork()"
+        [ngStyle]="{ 'color': activeMenu == 'network' ? '#6610f2' : '' }">Network</li>
+    <!-- <li class="personal-bookkeeping account-property-details" (click)="goToReports()"
+        [ngStyle]="{ 'color': activeMenu == 'reports' ? '#6610f2' : '' }">Reports</li> -->
+</ul>

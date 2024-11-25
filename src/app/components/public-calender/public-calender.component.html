@@ -1,0 +1,15 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <p style="text-align: right;font-weight: 500;color: #f7a36d;font-size: 18px;">Date : {{currentDate | date:
+            'dd-MM-yyyy'}}</p>
+        <div class="event_cal_bgimg">
+            <div class="event_cal publiccalender">
+                <h1 class="site_section_title" style="text-align: center;margin:10px 0;">Date Selection Calendar</h1>
+                <full-calendar [options]="calendarOption"></full-calendar>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

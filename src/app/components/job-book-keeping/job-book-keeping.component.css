@@ -1,0 +1,67 @@
+.opening_balance div .select_list{
+    margin: 0 12px 0 0;
+}
+.opening_balance label{
+    margin: 0 12px 4px 0; 
+    font-size: 13px;
+}
+.opening_balance .pay{
+    width: auto;
+    padding: 5px 8px;
+    position: absolute;
+    top: 50%;
+    right: 11px;
+    transform: translateY(-50%);
+}
+/* .opening_balance_top_div{
+        display: block;
+      } */
+      .opening_date{
+        display: flex;
+        align-items: center;
+      }
+@media only screen and (max-width: 767px) {
+    .opening_date{
+        display: block;
+      }
+    .opening_balance .pay{
+        width: auto;
+        padding: 4px 8px;
+        position: absolute;
+        top: 50%;right: 0;
+        transform: translateY(-50%);
+    }
+    .opening_balance div .select_list{
+        margin: 0;
+        width: 100%;
+    }
+    .opening_balance label{
+        margin: 0 6px 4px 0; 
+        font-size: 13px;
+    }
+    
+    .opening_balance_top_div .opening_balance{
+        margin-bottom: 8px;
+    }
+}
+
+
+.entries_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.opening_balance {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.opening_balance label {
+    margin: 0;
+}

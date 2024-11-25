@@ -1,0 +1,151 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="account-details">
+            <div class="employee_head new_head_style ">
+                <div class="entries_header">
+                    <h4>Job Ledger Entries</h4>
+                    <div class="opening_balance">
+                        <label><b>Search Payment</b></label>
+                        <div style="position: relative;display: inline-block;">
+                            <!-- <input type="text" class="select_list" [(ngModel)]="job_number"
+                                style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;"> -->
+                                <input type="text" class="select_list" [(ngModel)]="payment_criteria"
+                                style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;" (keyup.enter)="searchPayments(payment_criteria)">
+                            <button type="submit" class="pay" (click)="searchPayments(payment_criteria)">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="employee_top_head">
+                    <div class="record emp_record book_keeping_record">
+                        <label style="margin-right:6px;">Records/Pg: </label>
+                        <select class="form-select" aria-label="Default select example"
+                            (change)="changePageLimit($event)">
+                            <option [value]="10">10</option>
+                            <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="date_area emp_data_area book_keeping_data ">
+                        <div class="start_date">
+                            <label>Fr :</label>
+                            <input type="date" [(ngModel)]="startDate">
+                        </div>
+                        <div class="end_date">
+                            <label>To :</label>
+                            <input type="date" [(ngModel)]="endDate" [max]="todayDate">
+                        </div>
+                          
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass" style="color: blue;" (click)="search()"></i>
+                        </div>
+                    </div>
+                    <div class="emp_total">
+                        <label style="font-size: smaller;margin-bottom:0;">Total: <span>{{totalCount}}</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Payment Date</th>
+                                <th>Description</th>
+                                <th>Job Number</th>
+                                <th>Job Value</th>
+                                <th>Job Details</th>
+                                <th>Particulars</th>
+                                <th>Payment Amount / Expense</th>
+                                <th>Payment Status</th>
+                                <th>Profit / Loss</th>
+                                <th>Customer Phone no.</th>
+                                <!-- <th>action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of jobbookkeepingList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td style="width: 7%;">
+                                    <p>{{item.payment_date | date:'dd-MM-yy'}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.payment_description}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.job_number}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.job_value}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.job_details}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.payment_type}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.payment_amount + '/-'}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.payment_status}}</p>
+                                </td>
+                                <!-- <td>
+                                    <p>{{item.opening_balance + item.credit_amount -
+                                        item.debit_amount}}</p>
+                                </td> -->
+                                <td>
+                                    <p>{{item.profit}}</p>
+                                </td>
+                                <!-- <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeBookkeeping(item.jb_id,i)" style="cursor: pointer;">
+                                                <i class="fa-solid fa-trash" data-bs-toggle="modal"
+                                                    data-bs-target="#bookkeepingDeleteModal"></i></a>
+                                        </li>
+                                    </ul>
+                                </td> -->
+                                <td>
+                                    <p>{{item.cust_phoneNo}}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="previous()"
+                        [disabled]="jobbookkeepingOffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="next()"
+                        [disabled]="(totalCount <= jobbookkeepingList.length) || (jobbookkeepingLimit > jobbookkeepingList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+<!-- -------------------- Book Keeping Delete Modal --------------- -->
+
+<!-- <div class="modal fade" id="bookkeepingDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Record Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteBookkeeping()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div> -->

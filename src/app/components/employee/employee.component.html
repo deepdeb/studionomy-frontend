@@ -1,0 +1,828 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="account-details" *ngIf="userType !='1'">
+            <h6 class="personal-heading">Add Employee</h6>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table employee-table m-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone No</th>
+                                <th>Alt Phone No</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Date of Joining</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="select_list" [(ngModel)]="empName"></td>
+                                <td><input type="text" class="select_list" [(ngModel)]="empPhone"
+                                        onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                                </td>
+                                <td><input type="text" class="select_list" [(ngModel)]="empAltPhone"
+                                        onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                                </td>
+                                <td><input type="text" [(ngModel)]="empEmail" class="email"></td>
+                                <td><textarea type="text" class="select_list w-100" [(ngModel)]="empAddr"></textarea>
+                                </td>
+                                <td><input type="date" class="select_list" [(ngModel)]="empDateOfJoin" [max]="today">
+                                </td>
+                                <td>
+                                    <button type="submit" class="pay" (click)="employeeSubmit()">submit</button>
+                                    <button type="submit" class="pay clear" (click)="clear()">clear</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="employee_head new_head_style">
+                <h4>Employee List</h4>
+                <div class="employee_top_head">
+                    <div class="record emp_record book_keeping_record">
+                        <label style="font-size: smaller;margin-bottom:0;margin-right:6px;">Records/Pg: </label>
+                        <select class="form-select" aria-label="Default select example"
+                            (change)="changePageLimitEmp($event,0)">
+                            <option [value]="10">10</option>
+                            <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="date_area emp_data_area">
+                        <span>
+                            <select class="select_list" [(ngModel)]="search_emp_id">
+                                <option [value]="0">Select Name</option>
+                                <option *ngFor="let item of allEmployeeList" [value]="item.emp_id">
+                                    {{item.empName}}</option>
+                            </select>
+                        </span>
+                        <span>
+                            <!-- <i class="fa-solid fa-xmark" style="color: red;" (click)="searchClear(0)"></i> -->
+                            <i class="fa-solid fa-magnifying-glass" style="color: blue;" (click)="search(0)"></i>
+                        </span>
+                    </div>
+                    <div class="emp_total">
+                        <label style="font-size: smaller;margin-bottom:0;">Total: <span>{{empTotal}}</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Name</th>
+                                <th>Phone No & Alt Phone No</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Date of joining</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of employeeList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <th>{{item.empName}}</th>
+                                <td>
+                                    <p>{{item.empPhone}} /{{item.empAltPhone}}</p>
+                                </td>
+                                <td class="email">
+                                    <p>{{item.empEmail}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.empAddr}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.empDateOfJoin}}</p>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeEmp(item.emp_id)"><i class="fa-solid fa-trash"
+                                                    data-bs-toggle="modal" data-bs-target="#empDeleteModal"></i></a>
+                                        </li>
+                                        <li><a
+                                                (click)="editEmp(item.emp_id,item.empName,item.empPhone,item.empAltPhone,item.empEmail,item.empAddr,item.empDateOfJoin)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="empNext(0)" [disabled]="employeeoffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="empPrevious(0)"
+                        [disabled]="(empTotal <= employeeList.length) || (employeelimit > employeeList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="account-details" *ngIf="userType !='1'">
+            <h6 class="personal-heading">Add Freelancer</h6>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table employee-table m-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone No</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Date of Joinning</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="select_list" [(ngModel)]="freelancerName"></td>
+                                <td><input type="text" class="select_list" [(ngModel)]="freelancerPhone"
+                                        onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                                </td>
+                                <td><input type="text" [(ngModel)]="freelancerEmail" class="email"></td>
+                                <td><textarea type="text" class="select_list w-100"
+                                        [(ngModel)]="freelancerAddr"></textarea>
+                                </td>
+                                <td><input type="date" class="select_list" [(ngModel)]="freelancerDateOfJoin">
+                                </td>
+                                <td>
+                                    <button type="submit" class="pay" (click)="freelancerSubmit()">submit</button>
+                                    <button type="submit" class="pay clear" (click)="clearfreelancer()">clear</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="employee_head new_head_style">
+                <h4>Freelancer List</h4>
+                <div class="employee_top_head">
+                    <div class="record">
+                        <label style="margin-right:6px;font-size: smaller;">Record Per Page : </label>
+                        <select class="form-select" aria-label="Default select example"
+                            (change)="changePageLimitEmp($event,1)">
+                            <option [value]="10">10</option>
+                            <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="date_area">
+                        <span>
+                            <select class="select_list" [(ngModel)]="search_freelancerId">
+                                <option [value]="0">Select Name</option>
+                                <option *ngFor="let item of allFreelancerList" [value]="item.freelancerId">
+                                    {{item.freelancerName}}</option>
+                            </select>
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-xmark" style="color: red;" (click)="searchClear(1)"></i>
+                            <i class="fa-solid fa-magnifying-glass" style="color: blue;" (click)="search(1)"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h6 style="font-size: smaller;">Total : <span>{{freelancerTotal}}</span></h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Name</th>
+                                <th>Phone No</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Date of joinning</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of freelancerList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <th>{{item.freelancerName}}</th>
+                                <td>
+                                    <p>{{item.freelancerPhone}}</p>
+                                </td>
+                                <td class="email">
+                                    <p>{{item.freelancerEmail}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.freelancerAddr}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.freelancerDateOfJoin}}</p>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeFreelancer(item.freelancerId)"><i
+                                                    class="fa-solid fa-trash" data-bs-toggle="modal"
+                                                    data-bs-target="#freelancerDeleteModal"></i></a>
+                                        </li>
+                                        <li><a
+                                                (click)="editFreelancer(item.freelancerId,item.freelancerName,item.freelancerPhone,item.freelancerEmail,item.freelancerAddr,item.freelancerDateOfJoin)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="empNext(1)" [disabled]="freelanceroffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="empPrevious(1)"
+                        [disabled]="(freelancerTotal <= freelancerList.length) || (freelancerlimit > freelancerList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div class="account-details" *ngIf="userType !='1'" style="margin-bottom: 15px;">
+            <h6 class="personal-heading">Employee Attendance</h6>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table employee-table m-0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Attendance</th>
+                                <th>Outdoor Hrs.</th>
+                                <th>Remarks</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" class="select_list" [(ngModel)]="empEntryTime" [max]="today">
+                                </td>
+                                <td><select class="select_list" [(ngModel)]="emp_attn_name">
+                                        <option value="">select one</option>
+                                        <option *ngFor="let item of allEmployeeList" [value]="item.emp_id">
+                                            {{item.empName}}</option>
+                                    </select></td>
+                                <td><select class="select_list" [(ngModel)]="emp_attendance">
+                                        <option value="">select one</option>
+                                        <option value="P">Present</option>
+                                        <option value="A">Absent</option>
+                                        <option value="WO">Weekly Off</option>
+                                        <option value="L">Leave</option>
+                                    </select></td>
+                                <td><select class="select_list" [(ngModel)]="emp_outdoor_hrs">
+                                        <option value="">select one</option>
+                                        <option value="Quarter Day">Quarter Day</option>
+                                        <option value="Half Day">Half Day</option>
+                                        <option value="Full Day">Full Day</option>
+                                    </select></td>
+                                <td><textarea type="text" [(ngModel)]="empRemarks"></textarea>
+                                </td>
+                                <td>
+                                    <button type="submit" class="pay"
+                                        (click)="employeeAttendanceSubmit()">submit</button>
+                                    <button type="submit" class="pay clear" (click)="empAttnClear()">clear</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="employee_head new_head_style ">
+                <h4>Employee Attendance List</h4>
+                <div class="employee_top_head">
+                    <div class="record">
+                        <label style="margin-right:6px;">Record Per Page : </label>
+                        <select class="form-select" aria-label="Default select example"
+                            (change)="changePageLimitEmpAttn($event)">
+                            <option [value]="10">10</option>
+                            <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="date_area">
+                        <span class="start_date">
+                            <label>From Date :</label>
+                            <input type="date" [(ngModel)]="startDate">
+                        </span>
+                        <span class="end_date">
+                            <label>To Date :</label>
+                            <input type="date" [(ngModel)]="endDate" [max]="today">
+                        </span>
+                        <span>
+                            <select class="select_list" [(ngModel)]="emp_id_for_attn">
+                                <option value="0">Select By Name</option>
+                                <option *ngFor="let item of allEmployeeList" [value]="item.emp_id">
+                                    {{item.empName}}</option>
+                            </select>
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-xmark" style="color: red;" (click)="clearSearch()"></i>
+                            <i class="fa-solid fa-magnifying-glass" style="color: blue;" (click)="empAttnSearch()"></i>
+                        </span>
+
+                    </div>
+                    <div>
+                        <h6 style="font-size: smaller;">Total : <span>{{empAttnTotal}}</span></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Attendance</th>
+                                <th>Outdoor Hrs.</th>
+                                <th>Remarks</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of employeeAttendanceList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td>
+                                    <p>{{item.empEntryTime}}</p>
+                                </td>
+                                <th>{{item.empName}}</th>
+                                <td>
+                                    <p>{{item.emp_attendance}}</p>
+                                </td>
+
+                                <td>
+                                    <p>{{item.emp_outdoor_hrs}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.empRemarks}}</p>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeEmpAttendance(item.empAttn_id)"><i
+                                                    class="fa-solid fa-trash" data-bs-toggle="modal"
+                                                    data-bs-target="#empAttendanceDeleteModal"></i></a>
+                                        </li>
+                                        <li><a
+                                                (click)="editEmpAttendance(item.empAttn_id,item.emp_id,item.empEntryTime,item.emp_attendance,item.emp_outdoor_hrs,item.empRemarks)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="empAttnPrevious()"
+                        [disabled]="employeeAttnoffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="empAttnNext()"
+                        [disabled]="(empAttnTotal <= employeeAttendanceList.length) || (employeeAttnlimit > employeeAttendanceList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="account-details" *ngIf="userType !='1'">
+            <h6 class="personal-heading">Employee Attendance</h6>
+            <div class="mb-3">
+                <span>Select Date :</span>
+                <input type="date" [(ngModel)]="attnDate" [max]="today">
+            </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Name</th>
+                                <th>Attendance</th>
+                                <th>Outdoor Hrs.</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="ng-star-inserted" *ngFor="let item of empAttnArrar; let i = index">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+
+                                <th>{{item.emp_attn_name}}</th>
+                                <td>
+                                    <select id="single-select" class="select_list_attn"
+                                        [(ngModel)]="item.emp_attendance">
+                                        <option value="">select one</option>
+                                        <option value="P">Present</option>
+                                        <option value="A">Absent</option>
+                                        <option value="WO">Weekly Off</option>
+                                        <option value="L">Leave</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="single-select" class="select_list_attn"
+                                        [(ngModel)]="item.emp_outdoor_hrs">
+                                        <option value="">select one</option>
+                                        <option value="F">Full Day</option>
+                                        <option value="H">Half Day</option>
+                                        <option value="Q">Quarter Day</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea type="text" [(ngModel)]="item.empRemarks" style="width: 100%;"></textarea>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style=" text-align: center;">
+                        <button type="submit" class="pay empAttn" (click)="employeeAttendanceSubmit()">submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="employee_head new_head_style">
+                <h4 class="mb-2">Attendance/ Outdoorhours({{monthName}})</h4>
+                <div class="row align-items-center employee_top_head">
+                    <div class="col-12 col-md-9 date_area">
+                        <div class="row g-0">
+                            <div class="col-6 col-md-4">
+                                <div class="start_date record">
+                                    <span>Year :</span>
+                                    <select class="form-select" aria-label="Default select example"
+                                        [(ngModel)]="selectYear">
+                                        <option value="">Select one</option>
+                                        <option [value]="prevTwo">{{prevTwo}}</option>
+                                        <option [value]="perYear">{{perYear}}
+                                        </option>
+                                        <option [value]="year">{{year}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="start_date record">
+                                    <span>Month :</span>
+                                    <select class="form-select" aria-label="Default select example"
+                                        [(ngModel)]="selectcurrentMonthNo"
+                                        (change)="getMonthName(selectcurrentMonthNo)">
+                                        <option value="">Select one</option>
+                                        <option *ngFor="let item of monthList" [value]="item.value">{{item.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-6 col-md-3">
+                                <span class="end_date">
+                                    <label>To Date :</label>
+                                    <input type="date" [(ngModel)]="endDate" [max]="today" style="width: 100%;">
+                                </span>
+                            </div> -->
+                            <div class=" col-12 col-md-4 record">
+                                <span>
+                                    <select class="select_list form-select" style="width: 100%;"
+                                        [(ngModel)]="emp_id_for_attn">
+                                        <option value="0">Select By Name</option>
+                                        <option *ngFor="let item of allEmployeeList" [value]="item.emp_id">
+                                            {{item.empName}}</option>
+                                    </select>
+                                </span>
+                                <span>
+                                    <!-- <i class="fa-solid fa-xmark" style="color: red;" (click)="clearSearch()"></i> -->
+                                    <i class="fa-solid fa-magnifying-glass" style="color: blue;"
+                                        (click)="empAttnSearch()"></i>
+                                </span>
+                            </div>
+                            <!-- <div class="col-12 col-md-3">
+                                <h6 style="font-size: smaller;">Total : <span>{{empAttnTotal}}</span></h6>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <h6 class="personal-heading">Attendance/outdoorhours(February)</h6> -->
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Name</th>
+                                <ng-container *ngFor="let day of daysInMonth">
+                                    <th>{{ day < 10 ? '0' + day : day }}</th>
+                                </ng-container>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <!-- <ng-container *ngFor="let employee of employeeAttendanceList; let i = index">
+                                <tr>
+                                    <th scope="row" class="sl_no" rowspan="2" style="vertical-align: middle;">{{ i +
+                                        1
+                                        }}</th>
+                                    <th rowspan="2" style="vertical-align: middle;">{{employee.empName}}</th>
+                                    <ng-container *ngFor="let day of daysInMonth">
+                                        <td>{{ getAttendanceForDay(employee, day) }}</td>
+                                    </ng-container>
+                                    <th>
+                                        <a
+                                            (click)="editEmpAttendance(employee.empAttn_id,employee.empName,employee.emp_id,employee.empEntryTime,employee.emp_attendance,employee.emp_outdoor_hrs,employee.empRemarks)"><i
+                                                class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <ng-container *ngFor="let day of daysInMonth">
+                                        <td>{{ getAttendanceOutDoorHours(employee, day) }}</td>
+                                    </ng-container>
+                                    <th>
+                                        <a><i class="fa-solid fa-pen-to-square"></i></a>
+                                    </th>
+                                </tr>
+                            </ng-container> -->
+
+                            <ng-container *ngFor="let employee of employeeAttendanceList; let i = index">
+                                <tr>
+                                    <th scope="row" class="sl_no" rowspan="2" style="vertical-align: middle;">{{ i +
+                                        1
+                                        }}</th>
+                                    <th rowspan="2" style="vertical-align: middle;">{{employee.empName}}</th>
+                                    <ng-container *ngFor="let day of daysInMonth">
+                                        <ng-container *ngIf="editFlag; else viewMode">
+                                            <td contenteditable="true">{{getAttendanceForDay(employee, day)}}</td>
+                                        </ng-container>
+                                        <ng-template #viewMode>
+                                            <td>{{ getAttendanceForDay(employee, day) }}</td>
+                                        </ng-template>
+                                    </ng-container>
+                                    <th rowspan="2" style="vertical-align: middle;text-align:center;">
+                                        <a
+                                            (click)="editEmpAttendance(employee.empAttn_id,employee.empName,employee.emp_id,employee.empEntryTime,employee.emp_attendance,employee.emp_outdoor_hrs,employee.empRemarks)"><i
+                                                class="fa-solid fa-pen-to-square" style="color: #008040;"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <ng-container *ngFor="let day of daysInMonth">
+                                        <td>{{ getAttendanceOutDoorHours(employee, day) }}</td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div style="text-align: center;margin-top: 20px;">
+                    <button type="submit" class="pay" style="width: auto;">submit</button>
+                </div> -->
+            </div>
+
+            <!-- <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Attendance</th>
+                                <th>Outdoor Hrs.</th>
+                                <th>Remarks</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of employeeAttendanceList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td>
+                                    <p>{{item.empEntryTime}}</p>
+                                </td>
+                                <th>{{item.empName}}</th>
+                                <td>
+                                    <p>{{item.emp_attendance}}</p>
+                                </td>
+
+                                <td>
+                                    <p>{{item.emp_outdoor_hrs}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.empRemarks}}</p>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeEmpAttendance(item.empAttn_id)"><i
+                                                    class="fa-solid fa-trash" data-bs-toggle="modal"
+                                                    data-bs-target="#empAttendanceDeleteModal"></i></a>
+                                        </li>
+                                        <li><a
+                                                (click)="editEmpAttendance(item.empAttn_id,item.emp_id,item.empEntryTime,item.emp_attendance,item.emp_outdoor_hrs,item.empRemarks)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="empAttnPrevious()"
+                        [disabled]="employeeAttnoffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="empAttnNext()"
+                        [disabled]="(empAttnTotal <= employeeAttendanceList.length) || (employeeAttnlimit > employeeAttendanceList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+
+    <!-- -------------------------------- Freelancer Attendance ----------------------- -->
+
+    <!-- <div class="account-details">
+        <h6 class="personal-heading">Freelancer Attendance Card</h6>
+        <div class="mb-3">
+            <span>Select Date :</span>
+            <input type="date">
+        </div>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table custom-table m-0">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="sl_no">#</th>
+                            <th>Freelancers</th>
+                            <th>Job Details</th>
+                            <th>Outdoor Hrs.</th>
+                            <th>job type</th>
+                            <th>equipments</th>
+                            <th>payment done</th>
+                            <th>due</th>
+                            <th>remarks</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ng-star-inserted">
+                            <th scope="row" class="sl_no">1</th>
+
+                            <th>Debnath Sardar</th>
+                            <td>
+                                <input type="text" class="select_list">
+                            </td>
+                            <td>
+                                <select id="single-select" class="select_list">
+                                    <option value="select one">select one</option>
+                                    <option value="Full Day">Full Day</option>
+                                    <option value="Half Day">Half Day</option>
+                                    <option value="Quarter Day">Quarter Day</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="select_list">
+                            </td>
+                            <td>
+                                <input type="text" class="select_list">
+                            </td>
+                            <td>
+                                <input type="text" class="select_list">
+                            </td>
+                            <td>
+                                <input type="text" class="select_list">
+                            </td>
+                            <td>
+                                <input type="text" class="select_list">
+                            </td>
+                            <td rowspan="100%" style="vertical-align: middle;">
+                                <button type="submit" class="pay">submit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div> -->
+</section>
+<app-footer></app-footer>
+<!-- -------------------- Employee Delete Modal --------------- -->
+
+<div class="modal fade" id="empDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Employee Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteEmployee()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------- Freelancer Delete Modal --------------- -->
+
+<div class="modal fade" id="freelancerDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Freelancer Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteFreelancer()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------- Employee Attendance Delete Modal --------------- -->
+
+<div class="modal fade" id="empAttendanceDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Attendance Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteEmpAttendance()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ---------------------- Attendance Edit Modal ------------------------ -->
+
+<ng-template #editAttn>
+    <div class="attendance_table" style="width: max-content;">
+        <h5 style="text-transform:none" class="text-center mt-3">Edit Attendance for {{ " " + editForEmpName}}</h5>
+        <div class="mb-3 mt-3">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom:20px">
+                <span style="white-space: nowrap;">Select Date :</span>
+                <input type="date" [(ngModel)]="attnDate" [max]="today" (change)="getEmpAttendanceByDate()" class="form-control">
+                <select [(ngModel)]="empAttendance" class="form-control">
+                    <option value="">Select Attendance</option>
+                    <option value="P">Present</option>
+                    <option value="A">Absent</option>
+                    <option value="WO">Weekly Off</option>
+                    <option value="L">Leave</option>
+                </select>
+                <select [(ngModel)]="empOutdoorHours" class="form-control">
+                    <option value="">Select Outdoor Hours</option>
+                    <option value="F">Full Day</option>
+                    <option value="H">Half Day</option>
+                    <option value="Q">Quarter Day</option>
+                </select>
+            </div>
+            <!-- <div class="attend_input"> -->
+                <!-- <div>
+                    <span>Attendance</span>
+                    <input type="text" size="1" [(ngModel)]="empAttendance">
+                </div>
+                <div>
+                    <span>Outdoor Hrs</span>
+                    <input type="text" size="1" [(ngModel)]="empOutdoorHours">
+                </div> -->
+                <div>
+                    <span>Remarks : </span>
+                    <input type="text" [(ngModel)]="empRemarks" class="form-control">
+                </div>
+            <!-- </div> -->
+           
+            <div class="request_btn">
+                <button type="submit" (click)="employeeAttendanceEdit()">Update Attendance</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

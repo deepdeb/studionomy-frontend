@@ -1,0 +1,60 @@
+<div class="log_in_area">
+    <div class="my-form">
+        <a href="index.html" class="logo_forgot_login">
+            <!-- <img src="assets/img/logo/SL-Logo.png" alt="logo"> -->
+            <img src="assets/img/logo/NOMY2.png" alt="logo" loading="lazy" >
+            <!-- <span class="logo_title">Studio Lancers</span> -->
+        </a>
+        <h6 class="h6">Log in</h6>
+        <div class="form-group mb-3">
+            <input type="text" class="form-control" id="exampleInputchange5" aria-describedby="emailHelp"
+                placeholder="Username" [(ngModel)]="userName" (keyup.enter)="login()">
+        </div>
+        <div class="form-group mb32" style="position: relative;">
+            <input type="password" class="form-control" id="exampleInputconfirm6" aria-describedby="emailHelp"
+                placeholder="Password" [(ngModel)]="password" (keyup.enter)="login()" style="position: relative;">
+            <span class="fa fa-fw fa-eye" id="passview" style="position: absolute;
+                top: 50%;
+                right: 6px;
+                transform: translateY(-50%);" (click)="passwordShowHide()"></span>
+        </div>
+        <div class="mb-3">
+            <a routerLink="/forgot-password" class="forgot-password">forgot password?</a>
+        </div>
+        <button type="button" class="menu_links login_btn submit_btn" (click)="login()">Submit</button>
+        <!-- <h6 class="h6">Login will be valid for 4 hours</h6> -->
+    </div>
+</div>
+
+<ng-template #roleVerify>
+    <div class="request_modal">
+        <h4>Verify Identity</h4>
+        <div class="card">
+            <div class="request_body">
+                <label>
+                    <input type="radio" name="studioRole" [(ngModel)]="studioRole" (keyup.enter)="nextStep()" value="owner">
+                    Studio Owner's Passkey
+                </label>
+                <label>
+                    <input type="radio" name="studioRole" [(ngModel)]="studioRole" (keyup.enter)="nextStep()" value="employee">
+                    Studio Employee Sign-in
+                </label>
+                <button type="button" class="menu_links login_btn submit_btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #enterOTP>
+    <div class="request_modal">
+        <h4>Enter 4 digit Passcode</h4>
+        <div class="card">
+            <div class="request_body">
+                <label>
+                    <input type="password" class="form-control" name="OTP" [(ngModel)]="OTP" (keyup.enter)="OTP === passcode ? closeModal() : handleIncorrectOTP()" maxlength="4">
+                </label>
+                <button type="button" class="menu_links login_btn submit_btn" (click)="OTP === passcode ? closeModal() : handleIncorrectOTP()">Next</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

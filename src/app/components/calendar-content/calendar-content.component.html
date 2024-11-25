@@ -1,0 +1,122 @@
+<!-- modal.component.html -->
+<h1 mat-dialog-title class="text-center event_heading" style="margin-bottom: 6px !important;"><strong>-: Job Details
+        :-</strong></h1>
+<div mat-dialog-content class="eventdetails pb-1">
+    <!-- <div style="text-align: right;margin-bottom: 8px;">
+        <a (click)="editJob(job_id)"><i class="fa-solid fa-pen-to-square" style="color: blue;font-size: 18px;"></i></a>
+    </div> -->
+    <div class="row align-items-center">
+        <div class="col-md-3 mb-2">
+            <div class="j_event_details ">
+                <h5>event details</h5>
+                <div class="j_event_details_text">
+                    <p><strong>Name : </strong> {{ job_details }}</p>
+                    <p><strong>No.: </strong> {{job_number}}</p>
+                    <p><strong>Date :</strong> {{job_startDate}} To {{job_endDate}}</p>
+                    <!-- <p><strong>End Date :</strong> {{job_endDate}}</p> -->
+                    <p><strong>Location :</strong> {{event_location}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-2" *ngIf="studioRole != 'employee'">
+            <div class="j_event_details ">
+                <h5>customer details</h5>
+                <div class="j_event_details_text">
+                    <p><strong>Name : </strong> {{cust_name}}</p>
+                    <p><strong>Phone : </strong> {{cust_phoneNo}}</p>
+                    <p><strong>Email : </strong><span class="text-lowercase"
+                            style="font-size: 12px;">{{cust_email}}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-2" *ngIf="studioRole != 'employee'">
+            <div class="j_event_details ">
+                <h5>payment details</h5>
+                <div class="j_event_details_text">
+                    <p><strong>Total Amount : </strong> {{total_amount}}</p>
+                    <p><strong>Booking Amount : </strong> {{booking_amount}}</p>
+                    <p><strong>Paid Amount : </strong> {{total_paid_amount}}</p>
+                    <p><strong>Due Amount : </strong>{{due_amount}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <div class="j_event_details">
+                <h5>product details</h5>
+                <div class="j_event_details_text">
+                    <p><ng-container *ngFor="let item of products;let last=last;let i =index;"><label
+                                style="font-weight: 400;">{{i+1}}.</label>&nbsp;<span>{{item}}</span><ng-container
+                                *ngIf="!last"><br></ng-container></ng-container></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive ">
+        <table class="table table-bordered table-striped table-hover">
+            <thead style="background: #0d0d46;color: white;">
+                <tr style="text-transform: capitalize;">
+                    <th scope="col">date</th>
+                    <th scope="col">equipments</th>
+                    <th scope="col">employee</th>
+                    <!-- <th scope="col">Freelancer</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of equipmentEmployeeDetails">
+                    <td>{{dateFormat(item.booked_from)}}</td>
+                    <td>{{item.inv_code}}</td>
+                    <td>{{item.empName}}</td>
+                    <!-- <td></td> -->
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="freelancer_book">
+        <p>Freelancer</p> <button type="submit" class="pay" style="width: auto;" (click)="goToNetwork()">book <i
+                class="fa-solid fa-arrow-right-long"></i></button>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Event Name :</label><span>{{ job_details }}</span>
+            <label class="form-label">Event No :</label> <span>{{ job_number }}</span>
+            <label class="form-label">Start Date :</label><span>{{ job_startDate }}</span>
+            <label class="form-label">End Date :</label> <span>{{ job_endDate }}</span>
+            <label class="form-label">Event Location :</label><span>{{ event_location }}</span>
+            <label class="form-label">Customer Name :</label><span>{{ cust_name }}</span>
+            <label class="form-label">Phone :</label> <span>{{ cust_phoneNo }}</span>
+            <label class="form-label">Email :</label><span>{{ cust_email }}</span>
+            <label class="form-label">Total Amount :</label><span>{{ total_amount }}</span>
+            <label class="form-label">Booking Amount :</label><span>{{ booking_amount }}</span>
+            <label class="form-label">Paid Amount :</label> <span>{{ total_paid_amount }}</span>
+            <label class="form-label">Due Amount :</label> <span>{{ due_amount }}</span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Products :</label><br> <ng-container
+                *ngFor="let item of products;let last=last;let i =index;"><label
+                    style="font-weight: 400;">{{i+1}}.</label><span>{{item}}</span><ng-container
+                    *ngIf="!last"><br></ng-container></ng-container>
+            <label class="form-label">Equipments :</label><br> <ng-container
+                *ngFor="let item of equipments;let last=last;let i =index;"><label
+                    style="font-weight: 400;">{{i+1}}.</label><span>{{item}}</span><ng-container
+                    *ngIf="!last"><br></ng-container></ng-container>
+            <label class="form-label">Employee :</label><br> <ng-container
+                *ngFor="let item of empName;let last=last;let i =index;"><label
+                    style="font-weight: 400;">{{i+1}}.</label><span>{{item}}</span><ng-container
+                    *ngIf="!last"><br></ng-container></ng-container>
+            <label class="form-label">Freelancer :</label><br> <ng-container
+                *ngFor="let item of external_employee;let last=last;let i =index;"><label
+                    style="font-weight: 400;">{{i+1}}.</label><span>{{item}}</span><ng-container
+                    *ngIf="!last"><br></ng-container></ng-container>
+        </div>
+
+    </div> -->
+
+
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: flex-end;">
+    <div style="display: flex; gap: 5px;">
+        <button type="submit" class="btn btn-primary" (click)="editJob(job_id)"> Edit </button>
+        <button mat-button (click)="onClose()" type="button" class="btn-warning close_ylw_btn">Close</button>
+    </div>
+</div>

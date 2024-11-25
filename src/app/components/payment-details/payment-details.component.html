@@ -1,0 +1,251 @@
+<app-header></app-header>
+
+<section class="subscriptions sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="section_block_title">
+            <h2 class="site_section_title">customer relations</h2>
+        </div>
+        
+        <div class="packages_area">
+            <div class="registration_form">
+                <div class="my-form">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCountry12" class="form-label">job id :</label>
+                            <span>{{job_number}}</span>
+                        </div>    
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity14" class="form-label">event :</label>
+                            <span>{{job_details}}</span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity14" class="form-label">job value :</label>
+                            <span> {{job_value}}</span>
+                        </div> 
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity14" class="form-label">due amount :</label>
+                            <span> {{due_amount}}</span>
+                        </div>            
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity14" class="form-label">Customer name :</label>
+                            <span>{{custName}}</span>
+                        </div>                        
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity14" class="form-label">mobile no :</label>
+                            <span>{{phoneNo}}</span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity14" class="form-label">alternative mobile no :</label>
+                            <span> {{altPhoneNo}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="account-details">
+                <h6 class="personal-heading">customer payments</h6>
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="table custom-table border m-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="sl_no">#</th>
+                                    <th>date</th>
+                                    <th>particulars</th>
+                                    <th>description</th>
+                                    <th>value</th>
+                                    <!-- <th></th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="sl_no">1</th>
+                                    <td>
+                                        <input type="date" [(ngModel)]="payment_date">
+                                    </td>
+                                    <td>
+                                        <select  class="select_list_attn" [(ngModel)]="payment_type">
+                                            <option value="">select one</option>
+                                            <option value="Payment">payment</option>
+                                            <!-- <option value="Discount">discount</option>                                             -->
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="payment_description">
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="payment_amount" onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                                    </td>
+                                    <!-- <td>
+                                        <p class="add_more_btn" ><i class="fa-solid fa-plus"></i></p>
+                                    </td> -->
+                                </tr>
+                                <!-- <tr>
+                                    <th scope="row" class="sl_no"></th>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        <p>Total Value:</p>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <!-- <tbody>
+                            <tr *ngFor="let row of addDynamicRow?.controls; let index = index;">
+                                <th scope="row" class="sl_no">1</th>
+                                <td>
+                                    <input type="date" [(ngModel)]="date">
+                                </td>
+                                <td>
+                                    <select  class="select_list_attn" [(ngModel)]="particulars">
+                                        <option value="">select one</option>
+                                        <option [value]="">payment</option>
+                                        <option [value]="">discount</option>                                            
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" [(ngModel)]="description">
+                                </td>
+                                <td>
+                                    <input type="text">
+                                </td>
+                                <td>
+                                    <button (click)="onRemoveRow(index)">Remove</button>
+                                </td>
+                            </tr>
+                          </tbody> -->
+                        <div style="text-align: center;">
+                            <button type="submit" class="pay empAttn" (click)="payment_submit()" >submit</button>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>   
+            <div class="account-details">
+                <h6 class="personal-heading">expenses</h6>
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="table custom-table border m-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="sl_no">#</th>
+                                    <th>date</th>
+                                    <th>particulars</th>
+                                    <th>description</th>
+                                    <th>value</th>
+                                    <!-- <th></th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="sl_no">1</th>
+                                    <td>
+                                        <input type="date" [(ngModel)]="exp_payment_date">
+                                    </td>
+                                    <td>
+                                        <select  class="select_list_attn" [(ngModel)]="exp_payment_type">
+                                            <option value="">select one</option>
+                                            <option value="equipment owner">Equipment Owner</option>
+                                            <option  value="Album">Album</option> 
+                                            <option value="transport">Transport</option>
+                                            <option value="Discount">Discount</option>
+                                            <option value="video">Video</option>
+                                            <option value="others">Others</option>                                                          
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="exp_payment_description">
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="exp_payment_amount" onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                                    </td>
+                                    <!-- <td>
+                                        <p class="add_more_btn"><i class="fa-solid fa-plus"></i></p>
+                                    </td> -->
+                                </tr>
+                                <!-- <tr >
+                                    <th scope="row" class="sl_no"></th>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        <p>Total Value:</p>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <div style="text-align: center;">
+                            <button type="submit" class="pay empAttn" (click)="expense_submit()">submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="account-details">
+                <h6 class="personal-heading">deliveries</h6>
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="table custom-table border m-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="sl_no">#</th>
+                                    <th>products</th>
+                                    <th>date</th>
+                                    <th>delivery status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of products.split(','); let i = index; let last = last">
+                                    <th scope="row" class="sl_no">{{i+1}}</th>
+                                    <td>
+                                        <p>{{item}}</p>
+                                    </td>
+                                    <td>
+                                        <input type="date" [(ngModel)]="delivery_date">
+                                    </td>
+                                    <td>
+                                        <div class="delivery_status">
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios1">
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                <strong>Yes</strong>
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios2" id="exampleRadios2" checked>
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    <strong>No</strong>
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="pay empAttn" (click)="saveDelivaryStatus(product_id)">Save</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

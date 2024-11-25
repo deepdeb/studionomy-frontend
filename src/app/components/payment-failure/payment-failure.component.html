@@ -1,0 +1,11 @@
+<div class="payment-container">
+    <div class="payment-failure">
+      <h1>Payment Failed</h1>
+      <div class="payment-details">
+        <p><strong>Order ID:</strong> {{ orderId }}</p>
+        <!-- <p><strong>Error Code:</strong> {{ errorCode }}</p> -->
+        <p><strong>Message:</strong> {{ message }}</p>
+      </div>
+      <button (click)="retryPayment()" class="btn btn-primary">Retry Payment</button>
+    </div>
+  </div>

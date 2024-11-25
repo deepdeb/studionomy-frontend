@@ -1,0 +1,22 @@
+.my-request-booking .form-label{
+    display: block;
+    font-weight: 500;
+    color: black;
+    font-family: 'Roboto Slab';
+}
+.my-request-booking .form-control {
+    font-size: 14px;
+}
+
+.btn_group {
+    padding: 0px 24px 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn_group button {
+    width: 100%;
+}

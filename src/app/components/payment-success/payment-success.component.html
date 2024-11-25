@@ -1,0 +1,12 @@
+<div class="payment-container">
+    <div class="payment-success">
+      <h1>Payment Successful!</h1>
+      <div class="payment-details">
+        <p><strong>Payment Status:</strong> {{ responseCode }}</p>
+        <p><strong>Transaction ID:</strong> {{ transactionId }}</p>
+        <p><strong>Amount:</strong> Rs. {{ amount }}/-</p>
+      </div>
+      <button (click)="goToProfile()" class="btn btn-primary">Return to profile</button>
+    </div>
+  </div>
+  

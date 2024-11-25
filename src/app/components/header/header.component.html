@@ -1,0 +1,249 @@
+<div class="mini_header_container">
+    <div class="container-fluid">
+        <div class="mini_header_wrap">
+            <div class="logo_container">
+                <a (click)="goToHome()" class="logo_wrap">
+                    <!-- <img src="assets/img/logo/SL-Logo.png" alt="logo">
+                    <span class="logo_title">Studio Lancers</span> -->
+                    <img src="assets/img/logo/NOMY2.png" alt="logo">
+                    <!-- <span class="logo_title">Studionomy</span> -->
+                </a>
+            </div>
+
+
+            <div class="social_icons_wrap">
+                <ul class="social_icons_ul">
+                    <li><a href="" class="icons_links"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="" class="icons_links"><i class="fa-brands fa-square-instagram"></i></a></li>
+                    <li><a href="" class="icons_links"><i class="fa-brands fa-square-x-twitter"></i></a></li>
+                    <li><a href="" class="icons_links"><i class="fa-solid fa-envelope"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main_header_container">
+    <div class="container">
+        <div class="main_header_wrap">
+
+            <nav>
+                <div class="menu_links_section">
+                    <ul class="menu_links_wrap" style="cursor: pointer;">
+                        <li><a (click)="goToHome()" class="menu_links">Home</a></li>
+                        <!-- <li><a href="about.html" class="menu_links">About Us</a></li> -->
+                        <li><a href="#" class="menu_links">Website tour</a></li>
+                        <li><a href="#" class="menu_links">References</a></li>
+                        <li>
+                            <a href="" class="menu_links">Contact Us <span><i
+                                        class="fa-solid fa-chevron-down"></i></span></a>
+                            <div class="sub_menu_content">
+                                <ul class="sub_menu_wrap" style="color: white;">
+                                    <li>
+                                        <a (click)="goToFeedback()">feedback</a>
+                                    </li>
+
+                                    <li>
+
+                                        <a (click)="goToQuery()">Query</a>
+                                    </li>
+                                    <li>
+                                        <a (click)="goToContactus()">Contact us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a (click)="goToProfile(userId)" class="menu_links" *ngIf="userId">my profile</a></li>
+
+                        <!-- <li *ngIf="userType == '0'"><a (click)="goToJob()" class="menu_links">job entry</a></li> -->
+
+                    </ul>
+                </div>
+
+
+                <div class="account_section">
+                    <ul class="account_wrap top-btns" style="cursor: pointer;color: white;">
+                        <li>
+                            <button class="btn search_icon " type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><i
+                                    class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+                        </li>
+                        <li>
+                            <a class="menu_links register_btn">Register</a>
+                            <div class="sub_menu_content smc_menu">
+                                <ul class="sub_menu_wrap">
+                                    <li><a (click)="goToRegisterStudio()">Studios</a></li>
+                                    <li><a (click)="goToRegisterFreelancer()">Freelancers</a></li>
+                                    <li><a (click)="goToRegisterEquipmentOwner()">Equipment Owners</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+
+                            <a class="menu_links login_btn register_btn" *ngIf="!userId" (click)="goToLogin()">Login</a>
+                            <a class="menu_links login_btn register_btn" *ngIf="userId" (click)="logout()">Logout</a>
+                        </li>
+                        <li hidden>
+                            <a (click)="goToSubscription()" class="menu_links register_btn">subscriptions</a>
+                        </li>
+                        <li *ngIf="userId">
+                            <a (click)="goToProfile(userId)" class="new_user_icon">
+                                <img *ngIf="userProfileImage; else defaulticon" [src]="imagePath + userProfileImage" style="height: 45px; width:45px; border-radius:50%; object-fit: cover;">
+                                <ng-template #defaulticon>
+                                    <i class="fa-solid fa-circle-user"></i>
+                                </ng-template>
+                                <!-- <img src="assets/img/icon/new_user_icon.png" class="new_user_icon" alt="USER" loding="lazy"> -->
+                            </a>
+                            <div class="sub_menu_content smc_menu">
+                                <ul class="sub_menu_wrap">
+                                    <li class="log-img"><a (click)="goToProfile(userId)" class="icons_links">profile</a>
+                                    </li>
+                                    <li class="log-img"><a (click)="logout()" class="icons_links"><img
+                                                src="assets/img/icon/white_logout_icon.png" alt="LOG OUT"
+                                                loading="lazy"><span>log out</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="mobile-nav">
+    <nav class="navbar">
+        <div class="container">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+            </button>
+            <button class="btn search_icon " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                aria-controls="offcanvasTop"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle new_user_icon" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-circle-user" (click)="goToProfile(userId)"></i>
+                                <!-- <img src="assets/img/icon/new_user_icon.png" class="new_user_icon" alt="USER" loding="lazy"> -->
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="log-img"><a (click)="goToProfile(userId)" class="icons_links">profile</a>
+                                </li>
+                                <li class="log-img"><a (click)="goToHome()" class="icons_links"><img
+                                            src="assets/img/icon/white_logout_icon.png" alt="LOG OUT"
+                                            loading="lazy"><span>log out</span></a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                            class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" (click)="goToHome()">Home</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                      <a class="nav-link" href="about.html">about us</a>
+                    </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Website tour</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">References</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                contact us
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- feedback Button trigger modal -->
+                                    <a (click)="goToFeedback()">feedback</a>
+                                    <!-- <button type="button" class="dropdown-item modal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                Feedback
+                            </button> -->
+                                </li>
+
+                                <li>
+                                    <!-- queries Button trigger modal -->
+                                    <!-- <button type="button" class="dropdown-item modal_btn" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal1">
+                                        Queries
+                                    </button> -->
+                                    <a (click)="goToQuery()">Query</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li class="nav-item" *ngIf="userType == '0'"><a (click)="goToJob()" class="nav-link">job
+                                entry</a></li> -->
+
+                        <!-- <li><a (click)="goToJob()" class="menu_links">job entry</a></li> -->
+
+                        <li class="nav-item" *ngIf="userId">
+                            <a class="nav-link" (click)="goToProfile(userId)">My Profile</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        </li> -->
+                    </ul>
+
+                    <div class="account_section">
+                        <ul class="navbar-nav account_wrap top-btns">
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle menu_links register_btn" data-bs-toggle="collapse"
+                                    href="#collapseExample" role="button" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    Register
+                                </a>
+                                <ul class="dropdown-menu collapse" id="collapseExample">
+                                    <li><a (click)="goToRegisterStudio()">Studios</a></li>
+                                    <li><a (click)="goToRegisterFreelancer()">Freelancers</a></li>
+                                    <li><a (click)="goToRegisterEquipmentOwner()">Equipment Owners</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <!-- Button trigger modal -->
+                                <!-- <button type="button" class="menu_links login_btn" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" *ngIf="!userId">
+                                    Login
+                                </button> -->
+
+                                <a class="menu_links login_btn register_btn" *ngIf="!userId"
+                                    (click)="goToLogin()">Login</a>
+
+                                <a class="menu_links login_btn register_btn" *ngIf="userId"
+                                    (click)="logout()">Logout</a>
+
+                            </li>
+                            <li>
+                                <a (click)="goToSubscription()" class="menu_links register_btn">subscriptions</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <a href="profile.html">
+                <img src="assets/img/icon/new_user_icon.png" class="new_user_icon" alt="USER" loding="lazy">
+            </a> -->
+    </nav>
+</div>
+
+
+<a href="https://api.whatsapp.com/send?phone=919693674916&text=Want%20to%20buy%20your%20products%20.%20Please%20get%20back%20."
+    class="whatsapp_logo">
+    <img src="assets/img/logo/whatsapp_logo.png" alt="whatsapp" loading="lazy">
+</a>

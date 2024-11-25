@@ -1,0 +1,57 @@
+
+
+
+.custom-table .fa-star{
+    font-size: 12px;
+    margin-right: 4px;
+}
+.cal_dates{
+    padding: 4px;
+    border-radius: 50%;
+    color: white;
+    font-size: 11px;
+    /* box-shadow: 0px 1px 8px #00000061; */
+}
+.gray_date{
+    background: #868686;
+}
+.green_date{
+    background: #018b46;
+}
+.purple_date{
+    background: #aa02aa;
+}
+.cal_dates_ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 6px 0;
+}
+.mid_cal_date{
+   padding: 10px !important;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .custom-table .fa-star{
+        font-size: 12px;
+        margin-right: 2px;
+    }
+    .mid_cal_date{
+        padding: 7px !important;
+    }
+    .cal_dates{
+        padding: 3px;
+        border-radius: 50%;
+        color: white;
+        font-size: 10px;
+        box-shadow: 0px 1px 8px #00000061;
+    }
+    .pay {
+        padding: 2px 4px;
+        font-size: 11px !important;
+    }
+    .custom-table tr th, td{
+        font-size: 11px;
+    }
+}

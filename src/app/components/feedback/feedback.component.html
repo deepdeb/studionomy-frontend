@@ -1,0 +1,90 @@
+<app-header></app-header>
+<section class="feedback sec_gap">
+    <div class="container-fluid">
+        <div class="edit-heading">
+            <div class="section_block_title">
+                <h2 class="site_section_title">your feedback</h2>
+            </div>
+        </div>
+        <div class=" feedback_details">
+            <div class="row feedback-row">
+                <div class="col-md-6">
+                    <div class="account-details contact_details">
+                        <h6 class="personal-heading">get in touch</h6>
+                        <ul>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <p>
+                                    8986871860 / 9798301441
+                                </p>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                <p class="email">
+                                    Shaldar07@gmail.com
+                                </p>
+                            </li>
+                            <li class="address">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <p>
+                                    bokaro steel city, jharkhand
+                                </p>
+                            </li>
+                        </ul>
+                        <div class="f_q_img">
+                            <img src="assets/img/background/feedback_pic.png" alt="FEEDBACK IMAGE" loading="lazy">
+                        </div>
+                    </div>
+                    <!-- <div class="f_q_img">
+                    <img src="assets/img/background/smile_img.png" alt="FEEDBACK IMAGE" loading="lazy">
+                </div> -->
+
+                </div>
+                <div class="col-md-6">
+                    <div class="account-details contact_form">
+                        <h6 class="personal-heading">feedback form</h6>
+                        <div class="my-form row g-3">
+                            <div class="col-sm-12 col-md-12">
+                                <label for="inputName1" class="form-label">name</label>
+                                <input type="text" class="form-control" id="inputName1" [(ngModel)]="name">
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <label for="inputMobile11" class="form-label">mobile no.</label>
+                                <input type="text" class="form-control" id="inputMobile11" [(ngModel)]="mobile"
+                                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <label for="inputMobile11" class="form-label">alternative mobile no.</label>
+                                <input type="text" class="form-control" id="inputMobile11" [(ngModel)]="alt_mobile"
+                                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <label for="inputEmail12" class="form-label">email id</label>
+                                <input type="email" class="form-control" id="inputEmail12" [(ngModel)]="email">
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <label for="formFile" class="form-label">upload your image</label>
+                                <input class="form-control" type="file" id="profileImage" [(ngModel)]="profileImg"
+                                    (change)="uploadImage()">
+                            </div>
+                            <!-- <div class="col-sm-6 col-md-6">
+                                <label for="formFile" class="form-label">upload your image</label>
+                                <input class="form-control" type="file" id="profileImage" [(ngModel)]="profileImg">
+                            </div> -->
+                            <div class="col-sm-12 col-md-12">
+                                <label for="inputAddress3" class="form-label">your feedback</label>
+                                <textarea type="text" class="form-control" id="inputAddress3"
+                                    [(ngModel)]="feedback_details"></textarea>
+                            </div>
+                            <div class="sign_in">
+                                <button type="submit" class="menu_links login_btn submit_btn"
+                                    (click)="submitFeedback()" [disabled]="buttonDisabled">submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

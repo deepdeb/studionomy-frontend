@@ -1,0 +1,524 @@
+<app-header></app-header>
+<app-spinner *ngIf="isLoading"></app-spinner>
+<section class="subscriptions sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="section_block_title">
+            <h2 class="site_section_title">networks</h2>
+        </div>
+        <div class="packages_area">
+            <nav class="packages_tab">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                            type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                            (click)="getMyNetworkList()">my networks</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                            type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+                            (click)="searchTab(1)">freelancers</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                            type="button" role="tab" aria-controls="nav-contact" aria-selected="false"
+                            (click)="searchTab(2)">equipment
+                            owners</button>
+                        <button class="nav-link" id="nav-payment-tab" data-bs-toggle="tab" data-bs-target="#nav-payment"
+                            type="button" role="tab" aria-controls="nav-payment" aria-selected="false">payment</button>
+                    </div>
+                    <div style="display: flex;" class="job_details_network" style="font-size:18px;">
+                        <!-- <p *ngIf="job_details"><strong>Job description: </strong>{{job_details}}</p> -->
+                        <p *ngIf="job_startDate && job_endDate"><span style="color: #183153;" style="font-weight:500;">Job date: </span> {{job_startDate}} to {{job_endDate}}</p>
+                        <!-- <p *ngIf="event_location"><strong>Event location: </strong> {{event_location}}</p> -->
+                    </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane  fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <h5 class="network_heading">All networks</h5>
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table class="table custom-table border mt-1">
+                                <thead>
+                                    <tr style="width: 100%;">
+                                        <th scope="col" class="sl_no" style="width: 2%;">sl no.</th>
+                                        <th>ID</th>
+                                        <th>name</th>
+                                        <th>address</th>
+                                        <th>phone no/<br>alt ph no</th>
+                                        <th>equipments</th>
+                                        <th>my rating</th>
+                                        <!-- <th>available dates ( <i class="fa-regular fa-calendar-days"></i> {{ currentDate | date: 'MMMM' }} )
+                                        </th> -->
+                                        <th>Action</th>
+                                        <th>payment history</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of myNetworkList;let i= index;">
+                                        <th scope="row" class="sl_no">{{offset + i + 1}}</th>
+                                        <td>
+                                            <a>001</a>
+                                        </td>
+                                        <td>
+                                            <a>{{item.name}}</a>
+                                        </td>
+                                        <td>
+                                            {{item.address}},<br>{{item.city}},<br>{{item.pin}}
+                                        </td>
+                                        <td>
+                                            <p>{{item.mobile}}<strong>/</strong><br>{{item.alt_mobile}}</p>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="item.inv_code && item.inv_code.length">
+                                                <p
+                                                    *ngFor="let equipment of item.inv_code.split(','); let i = index; let last = last">
+                                                    <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                                    equipment }}{{ last ? '' : '' }}<br />
+                                                </p>
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <ul class="cal_dates_ul mt-0">
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li style="padding-left: 8px;border-left: 2px solid black;"><button
+                                                        style="border: none;padding: 0;"><i
+                                                            class="fa-regular fa-pen-to-square"
+                                                            style="color: #ff761e;font-size: 16px;"></i></button></li>
+                                            </ul>
+                                        </td>
+                                        <td style=" text-transform: capitalize ;text-align: center;">
+
+                                            <ul class="cal_dates_ul">
+                                                <!-- <li><span class="cal_dates gray_date">21</span></li>
+                                                <li><span class="cal_dates gray_date">22</span></li>
+                                                <li><span class="cal_dates gray_date">23</span></li>
+                                                <li><span class="cal_dates green_date mid_cal_date">{{ currentDate | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates green_date">23</span></li>
+                                                <li><span class="cal_dates purple_date">22</span></li>
+                                                <li><span class="cal_dates purple_date">21</span></li> -->
+                                                <!-- <li style="padding-left: 8px;border-left: 2px solid black;"><span class="pay"
+                                                        (click)="goToCalender(item.userId,item.userType)" style="cursor: pointer;">book</span></li> -->
+                                                <li style="padding-left: 8px;"><span class="pay"
+                                                            (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)" style="cursor: pointer;">book</span></li>
+                                            </ul>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a style="text-transform: capitalize; color: blue;">go to payment <i
+                                                    class="fa-solid fa-arrow-right-long"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="network_form">
+                        <h5 class="network_heading">Select your area</h5>
+                        <div class="my-form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inputCountry12" class="form-label">Country</label>
+                                    <select id="country" name="country" class="form-control" style="appearance: auto;"
+                                        [(ngModel)]="country">
+                                        <option value="1">India</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputState13" class="form-label">State</label>
+                                    <select name="state" id="state" class="form-control" style="appearance: auto;"
+                                        [(ngModel)]="state" (change)="getCityList()">
+                                        <option value="">Select state</option>
+                                        <option *ngFor="let item of stateList" [value]="item.state_id">
+                                            {{item.state_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputCity14" class="form-label">City/Area</label>
+                                    <select name="city" id="city" class="form-control" style="appearance: auto;"
+                                        [(ngModel)]="city">
+                                        <option value="">Select city</option>
+                                        <option *ngFor="let item of cityList" [value]="item">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <h5 class="network_heading">Search options</h5>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="inputCountry12" class="form-label">Skills</label>
+                                    <select id="skills" name="country" class="form-control" style="appearance: auto;"
+                                        [(ngModel)]="skill">
+                                        <option value="">Select Skill</option>
+                                        <option value="Photographer">Photographer</option>
+                                        <option value="Videographer">Videographer</option>
+                                        <option value="Cinematographer">Cinematographer</option>
+                                        <option value="Dronographer">Dronographer</option>
+                                        <option value="Helper">Helper</option>
+                                        <option value="Lightman">Lightman</option>
+                                        <option value="Cine Camera Operater">Cine Camera Operater</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Name(Optional)</label>
+                                    <input type="text" class="form-control" [(ngModel)]="contactPersonName">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">ID(Optional)</label>
+                                    <input type="text" class="form-control" [(ngModel)]="id">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" class="form-control" [(ngModel)]="date">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button class="display_btn" (click)="search(1)">search</button>
+                        </div>
+                    </div>
+                    <h5 class="network_heading">Freelancers list</h5>
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table class="table custom-table border mt-1">
+                                <thead>
+                                    <tr style="width: 100%;">
+                                        <th scope="col" class="sl_no" style="width: 2%;">sl no.</th>
+                                        <th>ID</th>
+                                        <th>name</th>
+                                        <th>address</th>
+                                        <th>phone no / Alt ph no</th>
+                                        <th>equipments</th>
+                                        <th>my rating</th>
+                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date: 'MMMM' }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of searchData; let i=index;">
+                                        <th scope="row" class="sl_no">{{offset+i+1}}</th>
+                                        <td>
+                                            <a></a>
+                                        </td>
+                                        <td>
+                                            <a>{{item.name}}</a>
+                                        </td>
+                                        <td>
+                                            {{item.address}},{{item.city}},{{item.pin}},{{item.state_name}}
+                                        </td>
+                                        <td>
+                                            <p>{{item.mobile}}<strong>/</strong>{{item.alt_mobile}}</p>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="item.inv_code && item.inv_code.length">
+                                                <p
+                                                    *ngFor="let equipment of item.inv_code.split(','); let i = index; let last = last">
+                                                    <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                                    equipment }}{{ last ? '' : '' }}<br />
+                                                </p>
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <ul class="cal_dates_ul mt-0">
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li style="padding-left: 8px;border-left: 2px solid black;"><button
+                                                        style="border: none;padding: 0;"><i
+                                                            class="fa-regular fa-pen-to-square"
+                                                            style="color: #ff761e;font-size: 16px;"></i></button></li>
+                                            </ul>
+                                        </td>
+                                        <td style=" text-transform: capitalize">
+                                            <ul class="cal_dates_ul">
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{ datesToCheck[0] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{ datesToCheck[1] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{ datesToCheck[2] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{ datesToCheck[3] | date: 'dd' }}</span></li>
+                                                <li style="padding-left: 8px;border-left: 2px solid black;"><span
+                                                        class="pay" (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                        style="cursor: pointer;">book</span></li>
+                                                <li style="padding-left: 8px;"><span class="pay renew"
+                                                        style="cursor: pointer;"
+                                                        (click)="addToMyNetwork(item.userId)">add</span></li>
+                                            </ul>
+
+
+                                            <!-- <input type="date" class="form-control" width="100%">
+                                            <div class="d-flex mt-2">
+                                                <p class="pay me-1" (click)="goToCalender()" style="cursor: pointer;">book me</p>
+                                                <a href="#" class="pay renew">add me</a>
+                                            </div> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div class="network_form my-form">
+                        <h5 class="network_heading">Select your area</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="inputCountry12" class="form-label">Country</label>
+                                <select id="country" name="country" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="country">
+                                    <option value="1">India</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputState13" class="form-label">State</label>
+                                <select name="state" id="state" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="state" (change)="getCityList()">
+                                    <option value="">Select state</option>
+                                    <option *ngFor="let item of stateList" [value]="item.state_id">
+                                        {{item.state_name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputCity14" class="form-label">City/Area</label>
+                                <select name="city" id="city" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="city">
+                                    <option value="">Select city</option>
+                                    <option *ngFor="let item of cityList" [value]="item">{{item}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <h5 class="network_heading">Search options</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="inputCountry12" class="form-label">Equipment Type</label>
+                                <select id="single-select" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="equipmentCategory">
+                                    <option value="">select one</option>
+                                    <option *ngFor="let item of equipmentCategoryList" [value]="item.equ_cate_id">
+                                        {{item.equ_categoryName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputCountry12" class="form-label">Brands(Optional)</label>
+                                <select id="single-select" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="company">
+                                    <option value="">select one</option>
+                                    <option *ngFor="let item of brandList" [value]="item.brand_id">
+                                        {{item.brand_name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Name(Optional)</label>
+                                <input type="text" class="form-control" [(ngModel)]="contactPersonName">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">ID(Optional)</label>
+                                <input type="text" class="form-control" [(ngModel)]="id">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-control" [(ngModel)]="date">
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button class="display_btn" (click)="search(2)">search</button>
+                        </div>
+                    </div>
+                    <h5 class="network_heading">Equipment owners</h5>
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table class="table custom-table border mt-1">
+                                <thead>
+                                    <tr style="width: 100%;">
+                                        <th scope="col" class="sl_no" style="width: 2%;">sl no.</th>
+                                        <th>ID</th>
+                                        <th>name</th>
+                                        <th>address</th>
+                                        <th>phone no/alt ph no</th>
+                                        <th>equipments</th>
+                                        <th>my rating</th>
+                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date: 'MMMM' }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of searchData; let i=index;">
+                                        <th scope="row" class="sl_no">{{offset+i+1}}</th>
+                                        <td>
+                                            <a></a>
+                                        </td>
+                                        <td>
+                                            <a>{{item.name}}</a>
+                                        </td>
+                                        <td>
+                                            {{item.address}},{{item.city}},{{item.pin}},{{item.state_name}}
+                                        </td>
+                                        <td>
+                                            <p>{{item.mobile}}<strong>/</strong>{{item.alt_mobile}}</p>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="item.inv_code && item.inv_code.length">
+                                                <p
+                                                    *ngFor="let equipment of item.inv_code.split(','); let i = index; let last = last">
+                                                    <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                                    equipment }}{{ last ? '' : '' }}<br />
+                                                </p>
+                                            </ng-container>
+                                        </td>
+                                        <!-- <td>
+                                            {{item.inv_code}}
+                                        </td> -->
+                                        <td>
+                                            <ul class="cal_dates_ul mt-0">
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li><i class="fa-regular fa-star"></i></li>
+                                                <li style="padding-left: 8px;border-left: 2px solid black;"><button
+                                                        style="border: none;padding: 0;"><i
+                                                            class="fa-regular fa-pen-to-square"
+                                                            style="color: #ff761e;font-size: 16px;"></i></button></li>
+                                            </ul>
+                                        </td>
+                                        <td style=" text-transform: capitalize">
+                                            <ul class="cal_dates_ul">
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{ datesToCheck[0] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{ datesToCheck[1] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{ datesToCheck[2] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{ datesToCheck[3] | date: 'dd' }}</span></li>
+                                                <li style="padding-left: 8px;border-left: 2px solid black;"><span
+                                                        class="pay" (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                        style="cursor: pointer;">book</span></li>
+                                                <li style="padding-left: 8px;"><span class="pay renew"
+                                                        style="cursor: pointer;"
+                                                        (click)="addToMyNetwork(item.userId)">add</span></li>
+                                            </ul>
+
+                                            <!-- <input type="date" class="form-control" width="100%">
+                                            <div class="d-flex mt-2">
+                                                <p class="pay me-1" (click)="goToCalender()" style="cursor: pointer;">book me</p>
+                                                <a href="#" class="pay renew">add me</a>
+                                            </div> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+                <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
+                    <div class="network_form my-form">
+
+                        <h5 class="network_heading">Search options</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">select Date</label>
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0 me-1" style="font-size: 14px;">From:</p>
+                                            <input type="date" class="form-control mb-0" style="padding: 4px;" [(ngModel)]="search_start_date">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-6 col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0 me-1" style="font-size: 14px;">To:</p>
+                                            <input type="date" class="form-control mb-0" style="padding: 4px;" [(ngModel)]="search_end_date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputCountry12" class="form-label">Select Type</label>
+                                <select id="userType" class="form-control" style="appearance: auto;" [(ngModel)]="registerType" (change)="get_register_type()">
+                                    <option value="">Select</option>
+                                    <option value="1">Freelancers</option>
+                                    <option value="2">Equipment Owners</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputCountry12" class="form-label">Select Name</label>
+                                <select id="skills" class="form-control" style="appearance: auto;" [(ngModel)]="search_name">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let item of userList" [value]="item.userId">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button type="submit" class="display_btn" (click)="searchJobs()">search</button>
+                        </div>
+                    </div>
+                    <h5 class="network_heading">payment details</h5>
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table class="table custom-table border mt-1">
+                                <thead>
+                                    <tr style="width: 100%;">
+                                        <th scope="col" class="sl_no" style="width: 4%;">sl no.</th>
+                                        <th>Job ID</th>
+                                        <th>freelancer/equipment owner</th>
+                                        <th>event date</th>
+                                        <th>events</th>
+                                        <th>charges</th>
+                                        <th>last paid</th>
+                                        <th>total paid</th>
+                                        <th>due</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="jobList.length != 0">
+                                    <tr *ngFor="let item of jobList;let i=index;">
+                                        <th scope="row" class="sl_no">{{i+1}}</th>
+                                        <td>
+                                            <a href="#">{{item.job_number}}</a>
+                                        </td>
+                                        <td>
+                                            {{item.cust_name}}
+                                        </td>
+                                        <td>
+                                            <p>{{dateFormat(item.job_startDate)}}</p>
+                                            <p>To</p>
+                                            <p>{{item.job_endDate}} </p>
+                                        </td>
+                                        <td>
+                                            <p>{{item.job_details}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{item.total_amount}}/-</p>
+                                        </td>
+                                        <td>
+                                            <p>{{item.last_paid_amount}}/-</p>
+                                            <p>{{item.last_payment_date}}</p>
+                                        </td>
+                                        <td>
+                                            <span>{{item.total_paid_amount}}/-</span>
+                                        </td>
+                                        <td>
+                                            <span>{{item.due_amount}}/-</span>
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <a (click)="goToPaymentDetails(item.job_id)" class="pay" style="cursor: pointer;">pay
+                                                again</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<app-footer></app-footer>

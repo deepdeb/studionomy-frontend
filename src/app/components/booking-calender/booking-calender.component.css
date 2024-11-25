@@ -1,0 +1,6 @@
+tbody {
+    background-color: rgb(64, 199, 64) !important;
+}
+td{
+    cursor: pointer !important;
+}

@@ -1,0 +1,22 @@
+.booking_table {
+    overflow: unset;
+}
+
+@media (max-width:575px) {
+    .booking_table {
+        overflow: scroll;
+    }
+    .dropdown-list {
+        position: absolute;
+        padding-top: 6px;
+        width: 244px !important;
+        left: -50px;
+        z-index: 9999;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background: #fff;
+        margin-top: 10px;
+        box-shadow: 0 1px 5px #959595;
+        overflow: unset !important;
+    }
+}

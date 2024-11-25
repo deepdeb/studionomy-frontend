@@ -1,0 +1,41 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <p style="text-align: right;font-weight: 500;color: #f7a36d;font-size: 18px;">Date : {{currentDate | date:
+            'dd-MM-yyyy'}}</p>
+        <div class="event_cal_bgimg">
+            <div class="event_cal bookingcalender">
+                <h1 class="site_section_title" style="text-align: center;margin:10px 0;">Studio's Hiring Calendar</h1>
+                <full-calendar [options]="requestBookingcalendarOption"></full-calendar>
+            </div>
+        </div>
+
+    </div>
+</section>
+<app-footer></app-footer>
+
+<ng-template #requestDetails>
+    <div class="request_modal">
+        <h4>Request Details</h4>
+        <div class="card">
+            <div class="request_body">
+                <h6>Request From : <span>{{studioName}}</span></h6>
+                <h6>Request To : <span>{{reqDetails.freelancerName}}</span></h6>
+                <h6>Studio Phone No : <span>{{reqDetails.studioMobile}}</span></h6>
+                <h6>Phone No : <span>{{reqDetails.freelancerMobile}}</span></h6>
+                <!-- <h6>Alt Phone No : <span>{{reqDetails.alt_mobile ? reqDetails.alt_mobile : 'Not available'}}</span></h6> -->
+                <h6>Skills : <span>{{reqDetails.skills}}</span></h6>
+                <h6>Message : <span>{{reqDetails.message}}</span></h6>
+                <h6>Booking Date : <span>{{dateFormat(reqDetails.req_date)}}</span></h6>
+                <h6>Event Location : <span>{{reqDetails.event_location}}</span></h6>
+            </div>
+        </div>
+        <div class="close" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+        <div style="display: flex; gap:5px; justify-content:end;">
+            <div class="request_whatsapp" (click)="whatsappReqBooking()"><i class="fa-brands fa-whatsapp fa-xl"></i></div>
+            <div (click)="deleteReqBooking(dateFormat(reqDetails.req_date))" class="request_delete"><i class="fa-solid fa-trash"></i> Delete</div>
+            <div (click)="editReqBooking()" class="request_edit"><i class="fa-solid fa-pen-to-square"></i> Edit</div>
+        </div>
+    </div>
+</ng-template>

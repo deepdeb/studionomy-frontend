@@ -1,0 +1,787 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <div class="account_action_div">
+            <div class="share_profile">
+                <strong>Do you want your profile to be visible?</strong>
+                <div class="share_check">
+                    <div class="form-check" style="margin-right: 16px;">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                            [checked]="profile_share == 1" [value]="1" (change)="checkProfileValue($event)">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            <small>Yes</small>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                            [checked]="profile_share == 0" id="flexRadioDefault2" [value]="0"
+                            (change)="checkProfileValue($event)">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            <small>No</small>
+                        </label>
+                    </div>
+                    <button type="submit" class="share_submit ms-2" (click)="shareProfile()">Submit</button>
+                    <button type="submit" class="share_submit ms-2" style="background-color: #00d264;padding: 3px 7px;"
+                        (click)="shareProfileToWhatsapp()"><i class="fa-brands fa-whatsapp fa-lg"></i></button>
+                </div>
+            </div>
+            <div class="button-group" style="display: flex; justify-content: flex-end">
+                <div class="edit-heading">
+                    <div>
+                        <button type="button" class="edit-btn" (click)="changePassword()">
+                            <img src="assets/img/icon/change-password.png" alt="logo" loading="lazy"> change password
+                        </button>
+                    </div>
+                </div>
+                <div class="edit-heading" *ngIf="studioRole != 'employee'">
+                    <div>
+                        <button type="button" class="edit-btn" (click)="updateUser()">
+                            <img src="assets/img/icon/edit.png" alt="logo" loading="lazy"> edit profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-common-header></app-common-header>
+        <div class="account-details personal_info">
+            <h6 class="personal-heading">personal information</h6>
+            <h3>contact person : <span>{{name}}</span></h3>
+            <!-- <h6>reference : <span>FaceBook ad</span></h6>  -->
+            <div class="details-div">
+                <div class="details_left_area">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="phone_div contact_div">
+                                <i class="fa-solid fa-phone"></i>
+                                <h5>contact no.</h5>
+                                <p *ngIf="alt_mobile">
+                                    <span>{{mobile}}</span> / <span>{{alt_mobile}}</span>
+                                </p>
+                                <p *ngIf="!alt_mobile">
+                                    <span>{{mobile}}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="email_div contact_div">
+                                <i class="fa-solid fa-envelope"></i>
+                                <h5>email id</h5>
+                                <p class="email">
+                                    {{email}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="address_div contact_div">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <h5>address</h5>
+                                <p>
+                                    {{address1}},
+                                </p>
+                                <p>
+                                    {{address2}},
+                                </p>
+                                <p>
+                                    {{country}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="account-details" *ngIf="userType == '0'"> -->
+        <div class="account-details" *ngIf="studioRole != 'employee' && userType != '1'">
+            <h6 class="personal-heading">My Jobs</h6>
+            <!-- <h6 class="personal-heading">My Delivered Job</h6> -->
+            <div class="jobs_btn_div">
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': jobType == 'all' ?  '#183153' : ''}" (click)="allJob()">all
+                    jobs</button>
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': jobType == 'upcoming' ?  '#183153' : ''}"
+                    (click)="upcomingJob()">upcoming jobs</button>
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': jobType == 'past' ?  '#183153' : ''}" (click)="pastJob()">past
+                    jobs</button>
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': jobType == 'closed' ?  '#183153' : ''}" (click)="closedJob()">closed
+                    jobs</button>
+            </div>
+            <div class="profile_job_search row align-items-center">
+                <div class="col-12 col-md-3">
+                    <!-- <label for="inputLocation4" class="form-label">Job Details</label> -->
+                    <input type="text" class="form-control" id="inputLocation7" [(ngModel)]="job_search_criteria"
+                        (keyup.enter)="searchJob()" placeholder="Search Job">
+                </div>
+                <div class="col-12 col-md-3 profile_job_search_btn">
+                    <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()"><i
+                            class="fa-solid fa-magnifying-glass" style="color: white;"></i> Search</button>
+                    <!-- <button type="submit" class="jobs_btn pay clear" (click)="clearSearchJob()">clear</button> -->
+                </div>
+            </div>
+            <!-- <button>upcoming jobs</button>
+            <button>delivered jobs</button> -->
+            <div class="employee_top_head">
+                <div class="record emp_record book_keeping_record">
+                    <label style="margin-right:6px;font-size: smaller;">Records/Pg: </label>
+                    <select class="form-select" aria-label="Default select example"
+                        (change)="changePageLimitJob($event)">
+                        <option [value]="10">10</option>
+                        <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="job_add" style="text-align: center;">
+                    <button class="btn-primary add_job" (click)="goToJob()">Add job</button>
+                    <!-- <div class=" start_date">
+                        <label class=" me-1" style="font-size: smaller;">Fr: </label>
+                        <input type="date" [(ngModel)]="startDate" style="font-size: smaller;">
+                    </div>
+                    <div class=" end_date" style="font-size: smaller;">
+                        <label class=" me-1">To: </label>
+                        <input type="date" [(ngModel)]="endDate" (change)="showWarning()" [max]="todayDate" style="font-size: smaller;">
+                    </div>
+                    <button class="btn-success report_btn" (click)="jobReport()"
+                        *ngIf="jobList.length > 0 && studioRole != 'employee'">Report</button> -->
+                    <!-- <p style="margin-bottom: 8px; white-space: nowrap;">Total : <span>{{jobCount}}</span></p> -->
+                </div>
+                <div class="emp_total">
+                    <label style="font-size: small;margin-bottom:0;">Total: <span>{{jobCount}}</span></label>
+                </div>
+            </div>
+            <div class="table-container mt-1">
+                <div class="table-responsive">
+                    <table class="table custom-table border m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>job id, job type & job description</th>
+                                <th>job duration & event location</th>
+                                <th>equipments</th>
+                                <th>staffs</th>
+                                <th>freelancer</th>
+                                <th>products of event</th>
+                                <th>customer name, address</th>
+                                <th>phone no</th>
+                                <!-- <th>event location</th> -->
+                                <th>job amount & paid amount</th>
+                                <!-- <th>paid amount</th> -->
+                                <!-- <th>last paid amount</th> -->
+                                <!-- <th>last paid amount & date</th> -->
+                                <!-- <th>total paid amount</th> -->
+                                <!-- <th>due amount</th> -->
+                                <!-- <th>next payment</th> -->
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="jobList.length > 0">
+                            <tr *ngFor="let item of jobList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td>
+                                    <p>{{item.job_number}}</p>
+                                    <p>{{item.job_details}}</p>
+                                    <p>{{item.job_type}}</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    <p style="font-size: 11px;"> {{item.job_startDate}} </p>
+                                    <p class="text-center" style="font-size: 11px;">To</p>
+                                    <p style="font-size: 11px;"> {{item.job_endDate}} </p><br>
+                                    <p>{{item.event_location}}</p>
+                                </td>
+                                <td style="font-size: 10px;">
+                                    <ng-container *ngIf="item.equipments && item.equipments.length">
+                                        <p
+                                            *ngFor="let equipment of item.equipments.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                            equipment }}{{ last ? '' : '' }}<br />
+                                        </p>
+                                    </ng-container>
+                                </td>
+
+                                <td>
+                                    <ng-container *ngIf="item.empName && item.empName.length">
+                                        <p *ngFor="let emp of item.empName.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{emp}}
+                                        </p>
+                                    </ng-container>
+
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="item.external_employee && item.external_employee.length">
+                                        <p
+                                            *ngFor="let emp of item.external_employee.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{emp}}
+                                        </p>
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="item.products && item.products.length">
+                                        <p
+                                            *ngFor="let product of item.products.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{product}}
+                                        </p>
+                                    </ng-container>
+
+                                </td>
+                                <td>
+                                    <p>{{item.cust_name}}</p>
+                                    <p>{{item.cust_address}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.cust_phoneNo}} </p>
+                                    <p>{{item.cust_altPhoneNo}}</p>
+                                </td>
+                                <!-- <td>
+                                    <p>{{item.event_location}}</p>
+                                </td> -->
+                                <td>
+                                    <p>{{item.total_amount}}/-</p>
+                                    <!-- <p>{{item.due_amount}}/-</p> -->
+                                    <p>{{item.total_paid_amount}}/-</p>
+                                </td>
+                                <!-- <td>
+                                    <p>{{item.booking_amount}}/-</p>
+                                    <p>{{item.total_paid_amount}}/-</p>
+                                </td> -->
+
+                                <!-- <td>
+                                    <p>{{item.last_paid_amount}}/-</p>
+                                </td> -->
+
+                                <!-- <td>
+                                    <p>{{item.last_paid_amount}}/-</p>
+
+                                    <p>{{item.last_payment_date}}</p>
+                                </td> -->
+
+                                <!-- <td>
+                                    <p>{{item.total_paid_amount}}/-</p>
+                                </td> -->
+                                <!-- <td>
+                                    <p>{{item.due_amount}}/-</p>
+                                </td> -->
+                                <!-- <td><a class="pay" style="cursor: pointer;"
+                                        (click)="payForJob(item.job_id,item.job_number,item.job_details,item.event_location,item.job_startDate,item.job_endDate,item.cust_name,item.cust_phoneNo,item.total_amount,item.total_paid_amount,item.last_paid_amount,item.due_amount)"
+                                        data-bs-toggle="modal" data-bs-target="#jobpayment">pay</a></td> -->
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="goToPaymentDetails(item.job_id)"><i
+                                                    class="fa-regular fa-eye"></i></a></li>
+                                        <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
+                                                (click)="removeJob(item.job_id)"><i class="fa-solid fa-trash"
+                                                    data-bs-toggle="modal" data-bs-target="#jobDeleteModal"></i></a>
+                                        </li>
+                                        <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
+                                                (click)="editJob(item.job_id)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                        </li>
+                                        <!-- <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
+                                            (click)="editJob(item.job_id, item.job_startDate)"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                        </li> -->
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="jobList.length == 0">
+                        <h5 style="text-align: center;">No Jobs found</h5>
+                    </div>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="previous()" [disabled]="joboffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="next()"
+                        [disabled]="(jobCount <= jobList.length) || (joblimit > jobList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="account-details" *ngIf="studioRole != 'employee' && userType == 0">
+            <h6 class="personal-heading">My Quotations</h6>
+            <div class="jobs_btn_div">
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': quotationType == 'all' ?  '#183153' : ''}"
+                    (click)="allQuotation()">all quotes</button>
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': quotationType == 'upcoming' ?  '#183153' : ''}"
+                    (click)="upcomingQuotation()">upcoming quotes</button>
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': quotationType == 'past' ?  '#183153' : ''}"
+                    (click)="pastQuotation()">past quotes</button>
+                <button type="button" class="btn-primary jobs_btn"
+                    [ngStyle]="{'background-color': quotationType == 'closed' ?  '#183153' : ''}"
+                    (click)="closedQuotation()">closed quotes</button>
+            </div>
+            <div class="profile_job_search row align-items-center">
+                <div class="col-12 col-md-3">
+                    <input type="text" class="form-control" id="inputLocation7" [(ngModel)]="quote_search_criteria"
+                        (keyup.enter)="searchQuotation()" placeholder="Search Quotation">
+                </div>
+                <!-- <div class="col-12 col-md-3">
+                    <input type="text" class="form-control" id="inputLocation4" [(ngModel)]="cust_name"
+                        placeholder="Enter Customer Name">
+                </div>
+                <div class="col-12 col-md-3">
+                    <input type="text" class="form-control" id="inputCity5" [(ngModel)]="cust_phoneNo"
+                        placeholder="Enter Phone No">
+                </div> -->
+                <div class="col-12 col-md-3 profile_job_search_btn">
+                    <button type="button" class="jobs_btn delivered_btn " (click)="searchQuotation()"><i
+                            class="fa-solid fa-magnifying-glass" style="color: white;"></i> Search</button>
+                </div>
+            </div>
+            <div class="employee_top_head">
+                <div class="record">
+                    <label style="margin-right:6px;font-size: smaller;">Records/Pg:</label>
+                    <select class="form-select" aria-label="Default select example"
+                        (change)="changePageLimitJob($event)">
+                        <option [value]="10">10</option>
+                        <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="job_add" style="text-align: center;">
+                    <!-- <p style="font-size: smaller;margin-bottom: 8px; white-space: nowrap;">Total : <span>{{quotationCount}}</span></p> -->
+                    <!-- <button class="btn-success report_btn" (click)="quoteReport()"
+                        *ngIf="quotationList.length > 0 && studioRole != 'employee'">Report</button> -->
+                </div>
+                <div class="emp_total">
+                    <label style="font-size: smaller;margin-bottom:0;">Total: <span>{{quotationCount}}</span></label>
+                </div>
+            </div>
+            <div class="table-container mt-1">
+                <div class="table-responsive">
+                    <table class="table custom-table border m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>quotation number & job description</th>
+                                <th>job duration & event location</th>
+                                <th>booking date</th>
+                                <th>specialization</th>
+                                <th>crew</th>
+                                <th>customer name & phone no</th>
+                                <th>job amount</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="quotationList.length > 0">
+                            <tr *ngFor="let item of quotationList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td>
+                                    <p>{{item.quotation_number}}</p>
+                                    <p>{{item.job_details}}</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    <p style="font-size: 11px;"> {{item.job_startDate}} </p>
+                                    <p class="text-center" style="font-size: 11px;">To</p>
+                                    <p style="font-size: 11px;"> {{item.job_endDate}} </p><br>
+                                    <p>{{item.event_location}}</p>
+                                </td>
+                                <td style="font-size: 10px;">
+                                    <ng-container *ngIf="item.bookingDate && item.bookingDate.length">
+                                        <p
+                                            *ngFor="let item of item.bookingDate.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                            item }}{{ last ? '' : '' }}<br />
+                                        </p>
+                                    </ng-container>
+                                </td>
+                                <td style="font-size: 10px;">
+                                    <ng-container *ngIf="item.specialization && item.specialization.length">
+                                        <p
+                                            *ngFor="let item of item.specialization.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                            item }}{{ last ? '' : '' }}<br />
+                                        </p>
+                                    </ng-container>
+                                </td>
+                                <td style="font-size: 10px;">
+                                    <ng-container *ngIf="item.crew && item.crew.length">
+                                        <p *ngFor="let item of item.crew.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                            item + " " + 'crew'}}{{ last ? '' : '' }}<br />
+                                        </p>
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <p>{{item.cust_firstName + " " + item.cust_lastName}}</p>
+                                    <p>{{item.cust_phoneNo}} </p>
+                                    <p>{{item.cust_altPhoneNo}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.total_amount}}/-</p>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
+                                                (click)="removeJob(item.job_id)"><i class="fa-solid fa-trash"
+                                                    data-bs-toggle="modal" data-bs-target="#jobDeleteModal"></i></a>
+                                        </li>
+                                        <li><a (click)="quotation_number = item.quotation_number"><i
+                                                    class="fa-solid fa-check-circle fa-lg" data-bs-toggle="modal"
+                                                    data-bs-target="#jobConvertModal" style="color:#05bbaa;"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="quotationList.length == 0">
+                        <h5 style="text-align: center;">No quotes found</h5>
+                    </div>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="previous()" [disabled]="joboffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="next()"
+                        [disabled]="(jobCount <= jobList.length) || (joblimit > jobList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <app-reports></app-reports>
+        <!-- MY SUBSCRIPTION SECTION -->
+        <!-- <div class="account-details">
+            <h6 class="personal-heading">my subscriptions</h6>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table border m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>pack name</th>
+                                <th>pack price</th>
+                                <th>number of jobs</th>
+                                <th>pack validity</th>
+                                <th>start date</th>
+                                <th>end date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="buysubscriptionList.length != 0">
+                            <tr *ngFor="let data of buysubscriptionList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td>
+                                    <p>{{data.subs_name}}</p>
+                                </td>
+                                <td>
+                                    <p>{{data.final_amount}}/-</p>
+                                </td>
+                                <td>
+                                    <p>{{data.total_jobs}} Jobs</p>
+                                </td>
+                                <td>
+                                    <p>{{data.subs_type == 0 ? data.validity + ' Days' : 'Main pack validity' }}</p>
+                                </td>
+                                <td>
+                                    <p>{{data.start_date}}</p>
+                                </td>
+                                <td>
+                                    <p>{{data.end_date}}</p>
+                                </td>
+                                <td style="text-align:center; text-transform: capitalize">
+                                    <p style="font-weight: 600;color:green">{{data.isActive ? 'Active' : 'Expired'}}</p>
+                                    <a routerLink="/subscription" class="pay renew">renew</a><a
+                                        routerLink="/subscription"
+                                        style="margin-top: 12px;text-decoration: underline;">all packs</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> -->
+
+
+        <!-- WORK INFORMATION -->
+        <!-- <div class="account-details">
+            <h6 class="personal-heading">work information</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="img_card" style="position: relative;">
+                        <div class="img_area" style="position: relative;">
+                            <img [src]="aboutusImg ? imagePath + aboutusImg : 'assets/img/background/no-photo.png'"
+                                alt="image" loading="lazy" style="filter: blur(2px);">
+                        </div>
+                        <div class="txt_area">
+                            <strong>About Us</strong>
+                            <p>
+                                {{aboutYouself}}
+                            </p>
+                        </div>
+                        <div class="text-overlay">
+                            <strong *ngIf="userType != 1; else aboutMe" style="margin: 0;">About Us</strong>
+                            <ng-template #aboutMe>
+                                <strong style="margin: 0;">About Me</strong>
+                            </ng-template>
+                            <p style="margin: 0;">
+                                {{aboutYouself}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="img_card" style="position: relative;">
+                        <div class="img_area" style="position: relative;">
+                            <img [src]="workImg3 ? imagePath + workImg3 : 'assets/img/background/no-photo.png'"
+                                alt="image" loading="lazy" style="filter: blur(2px);">
+                        </div>
+                        <div class="txt_area">
+                            <strong>Our work</strong>
+                            <p>
+                                {{aboutWork}}
+                            </p>
+                        </div>
+                        <div class="text-overlay">
+                            <strong style="margin: 0;">Our work</strong>
+                            <p style="margin: 0;">
+                                {{aboutWork}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="img_card" style="position: relative;">
+                        <div class="img_area" style="position: relative;">
+                            <img [src]="reffeedbackImg ? imagePath + reffeedbackImg : 'assets/img/background/no-photo.png'"
+                                alt="image" loading="lazy" style="filter: blur(2px);">
+                        </div>
+                        <div class="txt_area">
+                            <strong>References & Feedback</strong>
+                            <p>
+                                {{aboutReference}}
+                            </p>
+                        </div>
+                        <div class="text-overlay">
+                            <strong style="margin: 0;">References & Feedback</strong>
+                            <p style="margin: 0;">
+                                {{aboutReference}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="account-details">
+            <h6 class="personal-heading">social media links</h6>
+            <ul class="personal-ul social_links" style="cursor: pointer;">
+                <li>
+                    <a (click)="gotoLink(YoutubeLink)" class="youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                        <p>youtube link</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="gotoLink(FBLink)" class="facebook">
+                        <i class="fa-brands fa-facebook"></i>
+                        <p>facebook link</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="gotoLink(InstaLink)" class="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                        <p>instagram link</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="gotoLink(linkedInLink)" class="linkedin">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <p>linkedin link</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="gotoLink(websiteLink)" class="website">
+                        <i class="fa-solid fa-globe"></i>
+                        <p>website link</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="gotoLink(jdLink)" class="jd">
+                        <img src="assets/img/icon/jd_logo.png" alt="JD" loading="lazy" class="jd_img">
+                        <p>jd link</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+<a href="https://api.whatsapp.com/send?phone=919693674916&text=Want%20to%20buy%20your%20products%20.%20Please%20get%20back%20."
+    class="whatsapp_logo">
+    <img src="assets/img/logo/whatsapp_logo.png" alt="whatsapp" loading="lazy">
+</a>
+
+
+<!-- -------------------- Job cancel Modal --------------- -->
+
+<div class="modal fade" id="jobDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Job Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteJob()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!------------------------------ Job Convert Modal ------------------------>
+
+<div class="modal fade" id="jobConvertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Convert quotation to job?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="convertToJob(quotation_number)">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ----------------------------- Job Payment------------------------ -->
+
+<div class="modal fade" id="jobpayment" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered edit_modal_dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-center">Payment For Job</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="my-form row g-3">
+                    <div class="col-sm-6 col-md-4">
+                        <label for="inputName1" class="form-label">Job No</label>
+                        <input type="text" class="form-control" id="inputName1" [(ngModel)]="job_number" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="inputPin6" class="form-label">Job Details</label>
+                        <textarea type="text" class="form-control" id="inputPin6" [(ngModel)]="job_details"
+                            readonly></textarea>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="inputName1" class="form-label">Event Location</label>
+                        <textarea type="text" class="form-control" id="inputName1" [(ngModel)]="event_location"
+                            readonly></textarea>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <label for="inputContact2" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="inputContact2" [(ngModel)]="job_startDate" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <label for="inputAddress3" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="inputAddress3" [(ngModel)]="job_endDate" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="inputLocation4" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="inputLocation4" [(ngModel)]="cust_name" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="inputCity5" class="form-label">Phone No</label>
+                        <input type="text" class="form-control" id="inputCity5" [(ngModel)]="cust_phoneNo" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="inputPin6" class="form-label">Total Amount</label>
+                        <input type="text" class="form-control" id="inputPin6" [(ngModel)]="total_amount" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <label for="inputPin6" class="form-label">Total Paid Amount</label>
+                        <input type="text" class="form-control" id="inputPin6" [(ngModel)]="total_paid_amount" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <label for="inputPin6" class="form-label">Last Paid Amount</label>
+                        <input type="text" class="form-control" id="inputPin6" [(ngModel)]="last_paid_amount" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <label for="inputPin6" class="form-label">Due Amount</label>
+                        <input type="text" class="form-control" id="inputPin6" [(ngModel)]="due_amount" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <label for="inputPin6" class="form-label">Payment Amount</label>
+                        <input type="text" class="form-control" id="inputPin6" [(ngModel)]="payAmount"
+                            (keyup)="calculateDueAmount()">
+                    </div>
+                    <div class="col-12">
+                        <div class="sign_in">
+                            <button type="submit" class="menu_links login_btn submit_btn" (click)="payJobAmount()"
+                                data-bs-dismiss="modal">submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!------------------------------ Change Password Modal ------------------------>
+
+<ng-template #PasswordChange>
+    <div class="my-form my_form_2">
+        <div class="request_modal">
+            <div class="card">
+                <div class="modal-header" style="border-bottom: none;">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="closeModal()"></button>
+                </div>
+                <a class="logo_forgot_login">
+                    <!-- <img src="assets/img/logo/SL-Logo.png" alt="logo"> -->
+                    <img src="assets/img/logo/NOMY2.png" alt="logo" loading="lazy" style="height: 46px; width: 250px">
+                    <!-- <span class="logo_title">Studio Lancers</span> -->
+                </a>
+                <div class="mb-3">
+                    <label *ngIf="emailSentMsg" class="form-label">{{emailSentMsg}}</label>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputchange5" class="form-label">enter email <span
+                            class="required">*</span></label>
+                    <input type="text" class="form-control" id="exampleInputchange5" aria-describedby="emailHelp"
+                        [(ngModel)]="toRegisteredMail" (change)="sendOTPMail()">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputOtp4" class="form-label">enter OTP <span class="required">*</span></label>
+                    <input type="number" class="form-control" id="exampleInputOtp4" aria-describedby="emailHelp"
+                        [(ngModel)]="changePasswordOTP">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputchange5" class="form-label">old password <span
+                            class="required">*</span></label>
+                    <input type="password" class="form-control" id="exampleInputchange5" aria-describedby="emailHelp"
+                        [(ngModel)]="oldPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputconfirm6" class="form-label">new password <span
+                            class="required">*</span></label>
+                    <input type="password" class="form-control" id="exampleInputconfirm6" aria-describedby="emailHelp"
+                        [(ngModel)]="newPassword" (keyup.enter)="checkAndChangePassword()">
+                </div>
+                <button type="button" class="menu_links login_btn submit_btn"
+                    (click)="checkAndChangePassword()">Submit</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

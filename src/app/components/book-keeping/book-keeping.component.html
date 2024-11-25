@@ -1,0 +1,216 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="account-details">
+            <h6 class="personal-heading">Add Book Keeping</h6>
+            <div class="row opening_balance_top_div mb-2">
+                <div class="col-5 col-sm-4 opening_balance opening_date">
+                    <label><b>Date:</b></label>
+                    <div>
+                        <input type="date" class="select_list" [(ngModel)]="opening_date">
+                    </div>
+                </div>
+                <div class="col-7 col-sm-4 opening_balance">
+                    <label><b>Opening Balance:</b></label>
+                    <div style="position: relative;display: inline-block;">
+                        <input type="text" class="select_list" [(ngModel)]="opening_balance"
+                            style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;">
+                        <button type="submit" class="pay" (click)="openingBalanceSubmit()"
+                            [disabled]="actual_opening_balance >0 || openingBalSubmitDisabled">submit</button>
+                    </div>
+                </div>
+                <div class="col-7 col-sm-4 opening_balance">
+                    <label><b>Search Entry</b></label>
+                    <div style="position: relative;display: inline-block;">
+                            <input type="text" class="select_list" [(ngModel)]="entryCriteria"
+                            style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;" (input)="getAllBookKeeping()">
+                        <!-- <button type="submit" class="pay">Search</button> -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table employee-table m-0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Opening Balance</th>
+                                <th>Credit Rs</th>
+                                <th>Credit Mode</th>
+                                <th>Debit Rs</th>
+                                <th>Debit Mode</th>
+                                <!-- <th>Closing Balance</th> -->
+                                <th>Remarks</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" class="select_list" [(ngModel)]="book_date" [max]="todayDate">
+                                </td>
+                                <td><textarea type="text" class="select_list" [(ngModel)]="b_description"></textarea>
+                                </td>
+                                <td><input type="text" class="select_list" [(ngModel)]="actual_opening_balance" readonly
+                                        style="color: rgb(156, 19, 19);font-weight: 600;">
+                                </td>
+                                <td>
+                                    <input type="text" class="select_list" [(ngModel)]="credit_amount"
+                                        (keyup)="calculateBalance()"
+                                        onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9) if(event.which != 46) return false;">
+                                </td>
+                                <td><select class="select_list" [(ngModel)]="credit_mode">
+                                        <option value="">select one</option>
+                                        <option value="CASH">CASH</option>
+                                        <option value="ONLINE">ONLINE</option>
+                                    </select></td>
+                                <td><input type="text" [(ngModel)]="debit_amount" (keyup)="calculateBalance()"
+                                        onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9) if(event.which != 46) return false;">
+                                </td>
+                                <td><select class="select_list" [(ngModel)]="debit_mode">
+                                        <option value="">select one</option>
+                                        <option value="CASH">CASH</option>
+                                        <option value="ONLINE">ONLINE</option>
+                                    </select></td>
+                                <!-- <td><input type="text" readonly class="select_list" [(ngModel)]="closing_balance"
+                                        style="color: rgb(156, 19, 19);font-weight: 600;"></td> -->
+                                <td><textarea type="text" class="select_list" [(ngModel)]="remarks"></textarea>
+                                </td>
+                                <td><button type="submit" class="pay" [disabled]="recordSubmitButtonDisabled" (click)="recordSubmit()">submit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="employee_head new_head_style ">
+                <h4 class="employee_head">Book Keeping Entries</h4>
+                <div class="employee_top_head">
+                    <div class="record emp_record book_keeping_record">
+                        <label style="margin-right:6px;">Records/Pg: </label>
+                        <select class="form-select" aria-label="Default select example"
+                            (change)="changePageLimit($event)">
+                            <option [value]="10">10</option>
+                            <option *ngFor="let item of pageList" [value]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="date_area emp_data_area book_keeping_data">
+                        <div class=" start_date">
+                            <label class=" me-1">Fr: </label>
+                            <input type="date" [(ngModel)]="startDate">
+                        </div>
+                        <div class=" end_date">
+                            <label class=" me-1">To: </label>
+                            <input type="date" [(ngModel)]="endDate" [max]="todayDate">
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass" style="color: blue;" (click)="search()"></i>
+                        </div>
+                    </div>
+                    <div class="emp_total">
+                        <label style="font-size: smaller;margin-bottom:0;">Total: <span>{{totalCount}}</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                        <thead>
+
+                            <tr>
+                                <th scope="col" class="sl_no">#</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Balance</th>
+                                <th>Credit Rs</th>
+                                <th style="width: 20px;">Credit Mode</th>
+                                <th>Debit Rs</th>
+                                <th style="width: 20px;">Debit Mode</th>
+                                <th>Closing Balance</th>
+                                <th>Remarks</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of bookkeepingList;let i=index;">
+                                <th scope="row" class="sl_no">{{i+1}}</th>
+                                <td style="width: 7%;">
+                                    <p>{{item.book_date | date:'dd-MM-yy'}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.b_description}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.opening_balance}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.credit_amount}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.credit_mode}}</p>
+                                </td>
+                                <td>
+                                    <p [style.color]="item.debit_amount ? 'magenta' : 'black'">{{item.debit_amount}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.debit_mode}}</p>
+                                </td>
+
+                                <td>
+                                    <p>{{item.opening_balance + item.credit_amount -
+                                        item.debit_amount}}</p>
+                                </td>
+
+                                <td>
+                                    <p>{{item.remarks}}</p>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li><a (click)="removeBookkeeping(item.b_id,i)" style="cursor: pointer;">
+                                                <i class="fa-solid fa-trash" data-bs-toggle="modal"
+                                                    data-bs-target="#bookkeepingDeleteModal"></i></a>
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nxt_pre_btn">
+                    <button type="button" class="previous_btn" (click)="previous()" [disabled]="bookkeepingOffset == 0">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button type="button" class="next_btn" (click)="next()"
+                        [disabled]="(totalCount <= bookkeepingList.length) || (bookkeepingLimit > bookkeepingList.length)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+<!-- -------------------- Book Keeping Delete Modal --------------- -->
+
+<div class="modal fade" id="bookkeepingDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Record Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteBookkeeping()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

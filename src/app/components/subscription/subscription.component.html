@@ -1,0 +1,270 @@
+<app-header></app-header>
+<section class="subscriptions sec_gap">
+    <div class="container-fluid">
+        <div class="section_block_title">
+            <h2 class="site_section_title">subscriptions</h2>
+        </div>
+        <div class="packages_area">
+
+            <nav class="packages_tab">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                        (click)="subscriptionsType(0)">studios</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+                        (click)="subscriptionsType(1)">free lancers</button>
+                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                        type="button" role="tab" aria-controls="nav-contact" aria-selected="false"
+                        (click)="subscriptionsType(2)">equipment
+                        owners</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <h6 class="package_heading"><i><i class="fa-brands fa-slack"></i> Choose a package that suits your
+                            needs & works</i></h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3" *ngFor="let data of subscriptionList">
+                            <div class="pack">
+                                <ul class="pack_ul">
+                                    <li class="pack_name"><strong>{{data.subs_name.toUpperCase()}}</strong></li>
+
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            <s>{{data.amount}}</s>/-</h3>
+                                    </li>
+                                    <li>
+                                        <h3
+                                            *ngIf="data.discount === 0 || data.discount === null || data.discount == ''">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{data.amount}}/-</h3>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'percent'">({{data.discount}}% off)</h5>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'flat'">(flat {{data.discount}}/- off)</h5>
+                                    </li>
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            {{data.final_amount}}/-</h3>
+                                    </li>
+
+                                    <li>
+                                        <h6>manage {{data.no_of_jobs}} jobs</h6>
+                                    </li>
+                                    <li><span>{{data.validity}} days validity</span></li>
+                                </ul>
+                                <a class="go" (click)="payForSubscription(data)">Buy Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h6 class="package_heading top_up_heading"><i><i class="fa-solid fa-feather"></i> Choose a top-up
+                            plan</i></h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" *ngFor="let data of topupsubscriptionList">
+                            <div class="pack top_up_pack">
+                                <ul class="pack_ul">
+                                    <li><strong>{{data.subs_name.toUpperCase()}}</strong></li>
+
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            <s>{{data.amount}}</s>/-</h3>
+                                    </li>
+                                    <li>
+                                        <h3
+                                            *ngIf="data.discount === 0 || data.discount === null || data.discount == ''">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{data.amount}}/-</h3>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'percent'">({{data.discount}}% off)</h5>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'flat'">(flat {{data.discount}}/- off)</h5>
+                                    </li>
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            {{data.final_amount}}/-</h3>
+                                    </li>
+
+                                    <li>
+                                        <h6>manage {{data.no_of_jobs}} jobs</h6>
+                                    </li>
+                                    <li><span>validity period of existing plan</span></li>
+                                </ul>
+                                <a class="go" (click)="payForSubscription(data)">Buy Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <h6 class="package_heading"><i><i class="fa-brands fa-slack"></i> Choose a package that suits your
+                            needs & works</i></h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" *ngFor="let data of subscriptionList">
+                            <div class="pack">
+                                <ul class="pack_ul">
+                                    <li class="pack_name"><strong>{{data.subs_name.toUpperCase()}}</strong></li>
+
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            <s>{{data.amount}}</s>/-</h3>
+                                    </li>
+                                    <li>
+                                        <h3
+                                            *ngIf="data.discount === 0 || data.discount === null || data.discount == ''">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{data.amount}}/-</h3>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'percent'">({{data.discount}}% off)</h5>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'flat'">(flat {{data.discount}}/- off)</h5>
+                                    </li>
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            {{data.final_amount}}/-</h3>
+                                    </li>
+
+                                    <li><span>validity for {{data.validity}} days</span></li>
+                                    <li>
+                                        <span>get all facilities of a registered freelancer</span>
+                                    </li>
+                                    <li>
+                                        <span>no top up for freelancer</span>
+                                    </li>
+                                </ul>
+                                <a class="go" (click)="payForSubscription(data)">Buy Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6  *ngIf="topupsubscriptionList.length > 0" class="package_heading top_up_heading"><i><i class="fa-solid fa-feather"></i> Choose a top-up
+                            plan</i></h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" *ngFor="let data of topupsubscriptionList">
+                            <div class="pack top_up_pack">
+                                <ul class="pack_ul">
+                                    <li><strong>{{data.subs_name.toUpperCase()}}</strong></li>
+
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            <s>{{data.amount}}</s>/-</h3>
+                                    </li>
+                                    <li>
+                                        <h3
+                                            *ngIf="data.discount === 0 || data.discount === null || data.discount == ''">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{data.amount}}/-</h3>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'percent'">({{data.discount}}% off)</h5>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'flat'">(flat {{data.discount}}/- off)</h5>
+                                    </li>
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            {{data.final_amount}}/-</h3>
+                                    </li>
+
+                                    <li>
+                                        <h6>manage {{data.no_of_jobs}} jobs</h6>
+                                    </li>
+                                    <li><span>validity upto promising jobs</span></li>
+                                </ul>
+                                <a href="" class="go">Buy Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <h6 class="package_heading"><i><i class="fa-brands fa-slack"></i> Choose a package that suits your
+                            needs & works</i></h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" *ngFor="let data of subscriptionList">
+                            <div class="pack">
+                                <ul class="pack_ul">
+                                    <li class="pack_name"><strong>{{data.subs_name.toUpperCase()}}</strong></li>
+
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            <s>{{data.amount}}</s>/-</h3>
+                                    </li>
+                                    <li>
+                                        <h3
+                                            *ngIf="data.discount === 0 || data.discount === null || data.discount == ''">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{data.amount}}/-</h3>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'percent'">({{data.discount}}% off)</h5>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'flat'">(flat {{data.discount}}/- off)</h5>
+                                    </li>
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            {{data.final_amount}}/-</h3>
+                                    </li>
+
+                                    <li>
+                                        <h6>record {{data.no_of_jobs}} equipments</h6>
+                                    </li>
+                                    <li><span>validity for {{data.validity}} days</span></li>
+                                </ul>
+                                <a class="go" (click)="payForSubscription(data)">Buy Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 *ngIf="topupsubscriptionList.length > 0" class="package_heading top_up_heading"><i><i class="fa-solid fa-feather"></i> Choose a top-up
+                            plan</i></h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" *ngFor="let data of topupsubscriptionList">
+                            <div class="pack top_up_pack">
+                                <ul class="pack_ul">
+                                    <li><strong>{{data.subs_name.toUpperCase()}}</strong></li>
+
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            <s>{{data.amount}}</s>/-</h3>
+                                    </li>
+                                    <li>
+                                        <h3
+                                            *ngIf="data.discount === 0 || data.discount === null || data.discount == ''">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{data.amount}}/-</h3>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'percent'">({{data.discount}}% off)</h5>
+                                    </li>
+                                    <li class="flash_text" style="color: #ff761e;">
+                                        <h5 *ngIf="data.discount_type == 'flat'">(flat {{data.discount}}/- off)</h5>
+                                    </li>
+                                    <li>
+                                        <h3 *ngIf="data.discount"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                            {{data.final_amount}}/-</h3>
+                                    </li>
+
+                                    <li>
+                                        <h6>record {{data.no_of_jobs}} equipments</h6>
+                                    </li>
+                                    <li><span>validity period of existing plan</span></li>
+                                </ul>
+                                <a class="go" (click)="payForSubscription(data)">Buy Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

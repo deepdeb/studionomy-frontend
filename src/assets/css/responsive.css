@@ -1,0 +1,590 @@
+@media only screen and (max-width: 374.5px) {
+    /* .date_area .end_date {
+        margin: 12px 0 0 0 !important;
+    } */
+    /* .date_area{
+        display: block;
+    } */
+   
+    .book_keeping_data .end_date,.book_keeping_data .start_date{
+        width: 42% !important;
+    }
+    .book_keeping_data input{
+        width: 75% !important;
+        margin: auto;
+     }
+     .new_head_style i {
+        font-size: 10px !important;
+     }
+}
+
+@media only screen and (max-width: 424px) {
+    .needs-ul{
+        columns: 1 !important;
+    }
+    /* .site_section_title{
+        font-size: 13px !important;
+    } */
+    .details_left_area .contact_div{
+        height: auto !important;
+    }
+    .social_links{
+        columns: 1 !important;
+    }
+    /* .book_keeping_record{
+        margin-right: 40px !important;
+        width: 145px !important;
+    } */
+}
+
+@media only screen and (max-width: 460px) {
+    .employee_top_head{
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .emp_record{
+        order: 1;
+        /* margin-right: 155px; */
+    }
+    /* .book_keeping_record{
+        margin-right: 100px;
+        width: 190px;
+    } */
+    .emp_data_area{
+        order: 3;
+       
+    }
+    .emp_total{
+        order: 2;
+    }
+    .job_add{
+        order: 3;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    /* .logo_wrap img{
+        width: 34px;
+    } */
+    /* .logo_wrap img {
+        width: 117.504px !important;
+        height: 21.312px !important;
+    } */
+    .logo_wrap img {
+        width: 140.0256px !important;
+        height: 25.3968px !important;
+    }
+    .logo_forgot_login img {
+        width: 152.76px !important;
+        height: 27.71px !important;
+    }      
+    .logo_wrap .logo_title{
+        font-size: 11px;
+    }
+    .icons_links {
+        font-size: 14px;
+    }    
+    nav{
+        flex-direction: column;
+    }
+    nav .menu_links_section{
+        margin-bottom: 8px;
+    }
+    a.menu_links {
+        font-size: 15px;
+    }
+    .top-btns li .menu_links {
+        padding: 4px 8px !important;
+        font-size: 12px !important;
+    }
+    .sub_menu_content {
+        left: -53px;
+        top: 64px;
+    }
+    .hero_bg_title {
+        font-size: 24px !important;
+        padding: 20px 0px !important;
+        font-weight: 500;
+    }
+    .section_block_title{
+        margin-bottom: 8px;
+    }
+    .section_block_title::after{
+        height: 2px;
+    }
+    .about_text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .reg_icons_wrap {
+        width: 72px;
+        margin: auto;
+    }
+    .all_tittles {
+        font-weight: 500;
+        font-size: 16px;
+        margin: 8px 0 16px ;
+    }
+    .sec_gap {
+        padding: 20px 0;
+    }
+    .my-form .form-control {
+        height: 32px;
+    }
+    .registration_form .my-form{
+        padding: 8px;
+    }
+    .account-details{
+        padding:20px 8px 8px 8px;
+    }
+    .account-details .details-ul{
+        columns: 1 !important;
+    }
+    .account-details .details-ul li ul li{
+        font-size: 15px !important;
+    }
+    .account-details .details-ul li ul li strong{
+        margin-right: 6px;
+        font-size: 16px !important;
+    }
+    .edit-btn{
+      font-size: 13px;
+    }
+    .edit-btn img{
+        width: 14px !important;
+    }
+   .in_touch{
+        font-size: 13px !important;
+    }
+    .in_touch{
+    padding:6px ;
+    }
+    /* .details_left_area .contact_div{
+        padding-top: 56px !important;
+    } */
+    .details_left_area .contact_div{
+        height: auto !important;
+    }
+    
+}
+@media only screen and (max-width: 767px) {
+    .report_btn{
+        width: auto;
+    }
+    .container-fluid{
+        width: 100%;
+        padding-right: var(--bs-gutter-x, 1rem);
+        padding-left: var(--bs-gutter-x, 1rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .fc-scrollgrid-sync-table tbody{
+        background-position: left !important;
+    }
+    .fc-button{
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    }
+    .fc-toolbar-title{
+        font-size: 18px !important;
+    }
+    .name_search{
+        margin-top: 12px;
+    }
+    .account-property-details{
+        padding: 4px;
+        font-size: 12px;
+    }
+    .profile_menu li:not(:last-child) {
+        margin-right: 10px;
+    }
+    .share_profile{
+        display: block;
+      }
+      .share_submit{
+        font-size: 11px;
+        padding: 4px 6px;
+      }
+      .share_check,.share_submit{
+        margin-left: 0;
+      }
+    .search_form_area{
+        width: 80%;
+    }
+    .log_in_area .my-form{
+        width: 90% !important;
+    }
+    .logo_wrap img{
+        width: 40px;
+    }
+    .logo_wrap .logo_title{
+        font-size: 13px;
+    }
+    .icons_links {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .social_icons_ul{
+        gap: 8px;
+    }
+    a.menu_links {
+        font-size: 14px;
+    }
+    .top-btns li .menu_links {
+        padding: 4px 8px !important;
+        font-size: 14px !important;
+    }
+    .hero_bg_title {
+        font-size: 32px !important;
+        padding: 24px 0px;
+    }
+    .site_section_title,.in_touch{
+        font-size: 16px;
+    }
+    /* .in_touch{
+        padding: 6px 10px;
+    } */
+    .modal-title{
+        font-size: 14px;
+    }
+    .needs-ul{
+        width: 100% !important;
+        padding: 16px 20px !important;
+    }
+    .needs-ul li{
+        font-size: 13px;
+        padding-right: 10px!important;
+    }
+    .user_icon {
+        width: 28px;
+    }
+    .icons_links strong{
+        font-size: 15px;
+    }
+    .log-img{
+        padding: 4px 12px;
+        border-radius: 0;
+        background:#183153;
+    }
+    .log-img img{
+        width: 22px;        
+    }
+    .account-details .details-ul{
+        columns: 1;
+    }
+    .edit_modal_dialog{
+        max-width: 500px !important;
+    }
+    .personal-heading{
+        padding: 6px;
+        font-size: 13px;
+    }
+    .account-details h3{
+        font-size: 15px;
+    }
+    .contact_li li i{
+        font-size: 18px;
+        padding: 8px 10px;
+    }
+    .social_links li a i {
+        font-size: 24px;
+    }
+    .details-div .details_left_area{
+        position: relative;
+    }
+    .details-div .details_right_area{
+        padding: 16px;
+        width: 100%;
+    }
+    .site_section_title{
+        font-size: 18px ;
+    }
+    .share_profile strong{
+        font-size: 11px;
+    }
+    /* .details_left_area .contact_div{
+        margin-bottom: 40px;
+    } */
+    .details_left_area .contact_div img{
+        top: -32px;
+    }
+    .details_left_area .contact_div{
+        height: auto !important;
+    }
+    .details_left_area .contact_div img{
+        width: 33% !important;
+    }
+    .copyright_area{
+        display: block;
+        text-align: center;
+    }
+    .copyright_area p{
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    .footer_area .share_div ul li:not(:last-child){
+        margin-right: 12px;
+    }
+    .footer_area .share_div ul li a i{
+        font-size: 15px;
+    }
+    .footer_ul li a{
+        font-size: 14px;
+    }
+    .footer_ul{
+        display: block;
+        text-align: center;
+    }
+    .main_footer img{
+        width: 80px;
+        
+    }
+    .footer_ul li:not(:last-child){
+        margin-right: 0 !important;
+        margin-bottom: 4px;
+    }
+    .details_left_area .contact_div i{
+        font-size: 20px;
+    }
+    .contact_form{
+        margin-top: 16px;
+    }
+    .feedback .feedback_details .contact_details ul li i{
+        font-size: 12px;
+        color: #ff761e;
+        border-radius: 50%;
+        border: 1px dotted #ff761e;
+        margin-right: 12px;
+    }
+    .feedback .feedback_details .contact_details ul li i.fa-location-dot{padding: 8px 10px;}
+    .feedback .feedback_details .contact_details ul li i.fa-envelope,i.fa-phone{padding: 8px;}
+    .feedback .feedback_details .contact_details{
+        padding: 16px;
+    }
+    .whatsapp_logo img{
+        width: 40px;
+    }
+    .feedback .feedback_details .contact_details ul li p{
+        font-size: 14px;
+    }
+    .feedback .feedback_details .contact_details,.contact_form {
+        height: auto;
+        margin-bottom: 24px;
+    }
+    .packages_tab{
+        align-items: flex-start;
+    }
+    .subscriptions .packages_area .packages_tab .nav-tabs .nav-link{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .subscriptions .packages_area .tab-pane .package_heading{
+        font-size: 10px;
+    }
+    .subscriptions .packages_area .tab-pane .package_heading i i{
+        margin-right: 2px;
+    }
+    .subscriptions .packages_area .tab-pane .pack_ul h6{
+        font-size: 11px;
+        width: 75% !important;
+        
+    }
+    .employee_top_head{
+        /* text-align: center; */
+        justify-content: space-around;
+        flex-wrap: wrap;
+        
+    }
+}
+@media only screen and (max-width: 991px) {
+    /* .book_keeping_data input{
+        width: 80%;
+        margin: auto;
+     } */
+    /* .account_action_div{
+        display: block;
+        
+    } */
+    .job_add{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        font-size: 12px;
+    }
+    
+    .employee_top_head{
+        /* text-align: center; */
+        /* justify-content: space-between; */
+        flex-wrap: wrap;
+        
+    }
+    .date_area{
+        margin: 8px 0;
+    }
+    .date_area .start_date{
+        margin-bottom: 8px;
+    }
+    /* .new_head_style span{
+        margin-left: 6px;
+    } */
+    /* .new_head_style i{
+        margin-top: 8px;
+        padding: 6px;
+    } */
+    /* .record .form-select {
+        width: 100%;
+      } */
+    .log_in_area .my-form{
+        width: 75%;
+    }
+    .f_q_img img{
+        height: 150px;
+        margin-top: 16px;
+    }
+    .my-form label{
+        font-size: 13px;
+    }
+    .in_touch{
+        font-size: 16px;
+    }
+     .main_header_container{
+         display: none;
+     }
+     .mobile-nav{
+         display: block;
+     }
+     .mobile-nav .navbar .navbar-toggler{
+        display: block;
+    }
+    .hero_bg_title {
+        font-size: 48px;
+        padding: 44px 0px;
+    }
+    .site_section_title{
+        font-size: 20px;
+    }
+    .needs-ul{
+        width: 85%;
+        padding: 16px 28px !important;
+    }
+    .needs-ul li{
+        font-size: 14px;
+        padding-right: 10px !important;
+    } 
+    .register_nav .offcanvas-header .btn-close i {
+         text-align: right;
+    }   
+    .register_nav .offcanvas-header .user_icon {
+         display: none;
+    } 
+    .log-img{
+        padding: 4px 8px;
+        border-radius: 0;
+        background:#183153;
+    }
+    .log-img img{
+        width: 16px;        
+    }
+    .account-details .details-ul{
+        columns: 2;
+    }
+    .account-details .details-ul li ul li{
+        font-size: 14px !important;
+    }
+    .account-details .details-ul li ul li strong{
+        margin-right: 6px;
+        font-size: 15px !important;
+    }
+    .edit_modal_dialog{
+        max-width: 600px;
+    }
+    .details_ul{
+        columns: 1;
+    }
+    .img_card .img_area img{
+        height: 260px;
+    }
+    .section_block_title{
+        margin-bottom: 8px !important;
+    }
+    .edit-btn img{
+        width: 18px;
+    }
+    .details_left_area .contact_div{
+        height:100%;
+    }
+    .details_left_area .contact_div img{
+        width: 25%;
+    }
+    .subscriptions .packages_area .tab-content .tab-pane .pack{
+        padding: 14px 10px;
+    }
+    .subscriptions .packages_area .packages_tab .nav-tabs .nav-link{
+        font-size: 10px;
+        padding: 3px 5px;
+    }
+    .subscriptions .packages_area .tab-content .tab-pane .pack ul li{
+        margin-bottom: 8px;
+    }
+    .subscriptions .packages_area .tab-content .tab-pane .pack ul li h3{
+        font-size: 20px;
+    }
+    .subscriptions .packages_area .tab-content .tab-pane .pack ul li span{
+        font-size: 12px;
+    }
+    .subscriptions .packages_area .tab-content .tab-pane .pack .go{
+        background: #c6ddff;
+        color: #183153;
+        font-weight: 500;
+        padding: 2px 6px;
+    }
+    .top_up_pack .go{
+        background: #fde2d0 !important;
+    }
+    .top_up_pack .pack_ul li strong{
+        color:#fde2d0;
+        border-bottom: 1px dotted #fde2d0;
+    }
+    .fa-arrow-right-long{
+        font-size: small;
+    }
+    .subscriptions .packages_area .tab-pane h6{
+        font-size: 12px;
+        /* margin: 10px 0; */
+    }
+    .pack_ul li strong{
+        font-size: 16px;
+    }
+    .subscriptions .packages_area .tab-pane .pack h6{
+        color: #183153;
+    }
+    .pack{
+        background: #183153;
+        color: white;
+    }
+    /* .top_up_pack {
+        background: #8f3701 !important;
+    } */
+    .top_up_pack {
+        background: #0d6efd !important;
+    }
+    .job_details_network {
+        font-size: 10px !important;
+        margin-top: 2px;
+    }
+}
+@media only screen and (min-width: 992px){
+ 
+}
+@media only screen and (max-width: 768px) {
+    .record{
+        margin-top: 8px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .job_details_network{
+        margin-top: 10px;
+    }
+}
+

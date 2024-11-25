@@ -1,0 +1,118 @@
+<div class="footer_area sec_gap">
+    <div class="container-fluid">
+        <div class="footer_innersec">
+            <!-- <div class="main_footer">
+                <img src="assets/img/logo/SL-Logo.png" alt="logo" loading="lazy">
+            </div> -->
+            <div class="logo_wrap">
+                <!-- <img src="assets/img/logo/SL-Logo.png" alt="logo" loading="lazy"> -->
+                <img src="assets/img/logo/NOMY2.png" alt="logo" loading="lazy" >
+            </div>
+            <ul class="footer_ul">
+                <li [ngStyle]="{'color': currentURL == 'terms-conditions' ? '#ff761e' : 'white'}"><a (click)="goToTermsAndConditions()">terms & conditions</a></li>
+                <li [ngStyle]="{'color': currentURL == 'privacy-policies' ? '#ff761e' : 'white'}"><a  (click)="goToPrivacyPolicies()">privacy policies</a></li>
+                <li [ngStyle]="{'color': currentURL == 'refund-policy' ? '#ff761e' : 'white'}"><a  (click)="goToRefundPolicy()">refund policy</a></li>
+                <li [ngStyle]="{'color': currentURL == 'disclaimer' ? '#ff761e' : 'white'}"><a  (click)="goToDisclaimer()">disclaimer</a></li>
+                <li [ngStyle]="{'color': currentURL == 'feedbacks' ? '#ff761e' : 'white'}"><a  (click)="goToReferences()">feedbacks</a></li>
+            </ul>
+            
+
+            <div class="copyright_area">
+                <p>&copy; {{today | date:'yyyy'}} Studionomy. all rights reserved.</p>
+
+                <!-- <p style="color: white;text-transform:capitalize;font-size:20px">Visit Count : <span id="visitorCount">0</span></p> -->
+
+                
+                <div class="share_div">
+                    <h4>share : </h4>
+                    <ul>
+                        <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-pinterest"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <!-- <div class="offcanvas-header" style="color: white;">
+      <h4 id="offcanvasTopLabel" style="text-transform: capitalize;">search here</h4>
+      
+    </div> -->
+    <div class="offcanvas-body search_body">
+        <div class="search_form_area">
+            <div class="search-container ">
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="userType"
+                    (change)="checkSearchError()">
+                    <option value="">Select Any One</option>
+                    <option [value]="0">Studios</option>
+                    <option [value]="1">Freelancers</option>
+                    <option [value]="2">Equipment Owners</option>
+                </select>
+                <input type="text" class="search height" placeholder="Type Name..." [(ngModel)]="name"
+                    (keyup)="checkSearchError()">
+                <input type="text" class="date-from height" placeholder="Type City..." [(ngModel)]="city"
+                    (keyup)="checkSearchError()">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="search()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            <span class="text-danger" *ngIf="searchErr" style="font-weight: 700;">{{searchErr}}</span>
+        </div>
+        <button type="button" class="btn-close search_close_icon search_icon text-reset" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal_details modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 6px;">
+                <button type="button" class="cls_btn" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center" *ngIf="userList.length == 0">No Data Found</h5>
+                <div class="search_list sec_gap" *ngIf="userList.length >0">
+                    <div class="listing_area" *ngFor="let item of userList">
+                        <h6 *ngIf="item.userType == '0'">Studio name: {{item.orgName}}</h6>
+                        <h6 *ngIf="item.userType == '0'">Person name: {{item.name}}</h6>
+                        <h6 *ngIf="item.userType == '1'">Person name: {{item.name}}(Freelancers)</h6>
+                        <h6 *ngIf="item.userType == '2'">Person name: {{item.name}}(Equipment Owners)</h6>
+                        <div class="viewDetails">
+                            <ul>
+                                <li>
+                                    <p>Contact No: <span>{{item.mobile}} / {{item.alt_mobile}}</span></p>
+                                </li>
+                                <li>
+                                    <p>City: <span>{{item.city}}</span></p>
+                                </li>
+                            </ul>
+                            <a class="menu_links register_btn" title="View Details" style="cursor: pointer;"><i
+                                    class="fa-solid fa-eye" (click)="userDetails(item.userId)"></i></a>
+                        </div>
+
+                    </div>
+                    <div class="nxt_pre_btn">
+                        <button type="button" class="previous_btn" (click)="previous()" [disabled]="offset == 0">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                        <button type="button" class="next_btn" (click)="next()"
+                            [disabled]="(userTotal <= userList.length) || (limit > userList.length)">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

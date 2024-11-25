@@ -1,0 +1,17 @@
+.action_btn {
+  cursor: pointer;
+}
+
+.custom-snackbar {
+  max-width: 100px;
+}
+.action_btn li:not(:last-child){
+  margin-right: 10px;
+}
+
+@media (min-width:767.5px) {
+  .opening_balance {
+    display: flex;
+  }
+}
+

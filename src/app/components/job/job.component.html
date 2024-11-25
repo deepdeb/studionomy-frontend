@@ -1,0 +1,298 @@
+<app-header></app-header>
+<app-spinner *ngIf="isLoading"></app-spinner>
+<section class="registration_form create_job sec_gap">
+    <div class="container-fluid">
+        <app-common-header></app-common-header>
+        <div class="section_block_title">
+            <h2 class="site_section_title" *ngIf="!job_id">create job</h2>
+            <h2 class="site_section_title" *ngIf="job_id">edit job</h2>
+        </div>
+        <div class="my-form row g-3">
+            <!-- <div class="col-sm-6 col-md-3">
+                <label for="inputJob_details2" class="form-label">Job Type</label>
+                <textarea type="text" class="form-control" id="inputJob_details2" [(ngModel)]="jobType"></textarea>
+            </div> -->
+            <div class="col-sm-6 col-md-3">
+                <label for="inputJob_details2" class="form-label">Job Type</label>
+                <select class="form-select" id="inputJob_details2" [(ngModel)]="jobType">
+                    <option value="">Select an option</option>
+                    <option value="Pre-wedding">Pre-wedding</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Maternity">Maternity</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Baby-shoot">Baby-shoot</option>
+                    <option value="Photoshoot">Photoshoot</option>
+                    <option value="Videoshoot">Videoshoot</option>
+                    <option value="Pic-vid shoot">Pic-vid shoot</option>
+                </select>
+            </div>
+            
+            <div class="col-sm-6 col-md-3">
+                <label for="inputJob_details2" class="form-label">Job Description</label>
+                <textarea type="text" class="form-control" id="inputJob_details2" [(ngModel)]="jobDetails"></textarea>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputStart_Date3" class="form-label">Job Start Date</label>
+                <input type="date" class="form-control" id="inputStart_Date3" [(ngModel)]="startDate" [min]="todatDate">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputEnd_Date4" class="form-label">Job end Date</label>
+                <input type="date" class="form-control" id="inputEnd_Date4" [(ngModel)]="endDate" [min]="todatDate" (change)="showWarning()">
+            </div>
+            <!-- <div class="col-sm-6 col-md-6">
+                <label for="inputEquipments5" class="form-label">Equipments</label>
+
+                <ng-multiselect-dropdown [placeholder]="'Select equipment'" [settings]="dropdownEquipmentSettings"
+                    [data]="allInventoryList" [(ngModel)]="selectedEquipmentItems" (onSelect)="onItemSelected()">
+                </ng-multiselect-dropdown>
+
+            </div> -->
+
+            <!-- <div class="col-sm-6 col-md-6">
+                <label for="inputstaffs5" class="form-label">staff</label>
+
+                <ng-multiselect-dropdown [placeholder]="'Select staff'" [settings]="dropdownStaffsSettings"
+                    [data]="allEmployeeList" [(ngModel)]="selectedStaffItems" (onSelect)="onStaffSelected()"
+                    (onDeSelect)="onStaffDeselected($event)">
+                </ng-multiselect-dropdown>
+
+            </div> -->
+
+            <div class="col-sm-12">
+                <div class="table-responsive booking_table">
+                    <table class="table table-bordered table-striped add-flat-table">
+                        <caption style="caption-side: top;">
+                            Equipment & Employee Details (Click +Add after selection)
+                        </caption>
+                        <thead>
+                            <tr style="width: 100%;">
+                                <th style="width: 10%;">Job Date</th>
+                                <th style="width: 40%;">Equipment</th>
+                                <th style="width: 40%;">Employee</th>
+                                <th style="width: 10%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="custom-date-input">
+                                        <input type="date" name="" class="form-control datepicker"
+                                            [(ngModel)]="bookingDate" (change)="getEquipmentAndEmployee()">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="select_drop">
+                                            <ng-multiselect-dropdown [placeholder]="'Select equipment'"
+                                                [settings]="dropdownEquipmentSettings" [data]="allInventoryList"
+                                                [(ngModel)]="selectedEquipmentItems" (onSelect)="onItemSelected()"
+                                                (onDeSelect)="onEquipmentDeselected($event)">
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <ng-multiselect-dropdown [placeholder]="'Select employee'"
+                                            [settings]="dropdownStaffsSettings" [data]="allEmployeeList"
+                                            [(ngModel)]="selectedStaffItems" (onSelect)="onStaffSelected()"
+                                            (onDeSelect)="onStaffDeselected($event)">
+                                        </ng-multiselect-dropdown>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;vertical-align: middle;">                                    
+                                <a style="font-size:16px;cursor: pointer;font-weight: 600;color: rgb(19, 19, 155);" (click)="addEqupEmpDetails()" role="button">
+                                    +Add
+                                </a>
+                                   
+                                </td>
+                            </tr>
+
+                            <!-- <tr *ngFor="let item of mergedEquipmentEmployeeDetails;let i=index;">
+                                <td>
+                                    {{item.booked_from}}
+                                </td>
+                                <td>
+                                    <span >{{item.inv_code}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.empName}}</span>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li>
+                                            <a style="cursor: pointer;" (click)="equipmentTableEdit(i)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                        </li>
+                                        <li>
+                                            <a style="cursor: pointer;" (click)="equipmentTableRemove(i, null)"><i
+                                                    class="fa-solid fa-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr> -->
+
+                            <tr *ngFor="let item of equipmentEmployeeDetails;let i=index;">
+                                <td>
+                                    {{item.booked_from}}
+                                </td>
+                                <td>
+                                    <span >{{item.inv_code}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.empName}}</span>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li>
+                                            <a style="cursor: pointer;" (click)="equipmentTableEdit(i)"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                        </li>
+                                        <li>
+                                            <a style="cursor: pointer;" (click)="equipmentTableRemove(i, null)"><i
+                                                    class="fa-solid fa-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            
+                            <tr *ngFor="let item of equipmemtBookingDetails;let i=index;">
+                                <td>
+                                    {{item.bookingDate}}
+                                </td>
+                                <td>
+                                    <span *ngFor="let eq of item.equipments;let last = last;">{{eq.inv_code}}{{!last ?
+                                        ', ' : ''}}</span>
+                                </td>
+                                <td>
+                                    <span *ngFor="let eq of item.employee;let last = last;">{{eq.empName}}{{!last ?
+                                        ',':''}}</span>
+                                </td>
+                                <td>
+                                    <ul class="action_btn">
+                                        <li>
+                                            <a style="cursor: pointer;"><i
+                                                    class="fa-solid fa-pen-to-square" (click)="equipTableEditNewJob(i)"></i></a>
+                                        </li>
+                                        <li>
+                                            <a style="cursor: pointer;"><i
+                                                    class="fa-solid fa-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- <div class="col-sm-6 col-md-6">
+                <label for="inputstaffs5" class="form-label">freelancer</label>
+                <input type="text" class="form-control" id="inputProducts6" [(ngModel)]="external_employee">
+            </div> -->
+
+            <!-- <div class="col-sm-5 col-md-5" *ngIf="userType == 0"> -->
+            <div class="col-sm-6 col-md-12">
+                <label for="inputProducts6" class="form-label">products</label>
+                <textarea type="text" class="form-control" id="inputProducts6" [(ngModel)]="products"></textarea>
+            </div>
+            <!-- <div class="col-sm-6 col-md-6" *ngIf="userType != 0"></div> -->
+            <div class="col-sm-6 col-md-4">
+                <label for="inputC_name7" class="form-label">Customer Name</label>
+                <input type="text" class="form-control" id="inputC_name7" [(ngModel)]="custName">
+            </div>
+            <!-- <div class="col-sm-6 col-md-4">
+                <label for="inputPhone_no8" class="form-label">Phone No</label>
+                <input type="text" class="form-control" id="inputPhone_no8" [(ngModel)]="phoneNo"
+                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputAlt_phone9" class="form-label">alt Phone No</label>
+                <input type="text" class="form-control" id="inputAlt_phone9" [(ngModel)]="altPhoneNo"
+                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div> -->
+            <div class="col-sm-6 col-md-4">
+                <label for="inputPhone_no8" class="form-label">Phone No</label>
+                <input type="text" class="form-control" id="inputPhone_no8" [(ngModel)]="phoneNo"
+                    onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label for="inputAlt_phone9" class="form-label">alt Phone No</label>
+                <input type="text" class="form-control" id="inputAlt_phone9" [(ngModel)]="altPhoneNo"
+                    onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputEmail10" class="form-label">email id</label>
+                <input type="email" class="form-control" id="inputEmail10" [(ngModel)]="email" placeholder="abc@gmail.com">
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <label for="inputAddress11" class="form-label">Address</label>
+                <textarea type="text" class="form-control" id="inputAddress11" [(ngModel)]="address"></textarea>
+            </div>
+            
+            <div class="col-sm-6 col-md-3">
+                <label for="inputCountry12" class="form-label">country</label>
+                <select id="country" name="country" class="form-control" style="appearance: auto;"
+                    [(ngModel)]="country">
+                    <option [value]="1">India</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputState13" class="form-label">State</label>
+                <select name="state" id="state" class="form-control" style="appearance: auto;" [(ngModel)]="state" (change)="getCityList()">
+                    <option value="">Select an option</option>
+                    <option *ngFor="let item of stateList" [value]="item.state_id">{{item.state_name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputCity14" class="form-label">City</label>
+                <select name="city" id="city" class="form-control" style="appearance: auto;"
+                    [(ngModel)]="city">
+                    <option value="">Select city</option>
+                    <option *ngFor="let item of cityList" [value]="item">{{item}}</option>
+                </select>
+            </div>
+
+            <!-- <div class="col-sm-6 col-md-3">
+                <label for="inputPin15" class="form-label">pin</label>
+                <input type="text" class="form-control" id="inputPin15" [(ngModel)]="pin"
+                    onkeypress="if(this.value.length >5) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+            </div> -->
+            <div class="col-sm-6 col-md-3">
+                <label for="inputEvent_location16" class="form-label">Event Location</label>
+                <input type="text" class="form-control" id="inputEvent_location16" [(ngModel)]="eventLocation">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputAmount17" class="form-label">Total Amount</label>
+                <input type="text" class="form-control" id="inputAmount17" [(ngModel)]="totalAmount"
+                    (keyup)="calculateDueAmount()"
+                    onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9) if(event.which != 46) return false;">
+                    <!-- placeholder="0" -->
+                    
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputAmount18" class="form-label">Booking Amount</label>
+                <input type="text" class="form-control" id="inputAmount18" [(ngModel)]="bookingAmount"
+                    (keyup)="calculateDueAmount()"
+                    onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9) if(event.which != 46) return false;">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="inputAmount19" class="form-label">Due Amount</label>
+                <input type="text" class="form-control" id="inputAmount19" [(ngModel)]="dueAmount">
+            </div>
+
+            <div class="col-12">
+                <div class="sign_in">
+                    <button type="submit" class="menu_links login_btn submit_btn" (click)="createJob()"
+                        *ngIf="!job_id">create
+                        job</button>
+                    <button type="submit" class="menu_links login_btn submit_btn" (click)="createJob()"
+                        *ngIf="job_id">update
+                        job</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

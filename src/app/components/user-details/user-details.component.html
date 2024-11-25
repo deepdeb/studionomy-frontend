@@ -1,0 +1,187 @@
+<app-header></app-header>
+<section class="registration_form create_job sec_gap">
+    <div class="container">
+        <div class="edit-heading">
+            <div class="section_block_title">
+                <h2 class="site_section_title" *ngIf="userType == '0'">{{studioName}}</h2>
+                <h2 class="site_section_title" *ngIf="userType == '1'">{{name}}</h2>
+                <h2 class="site_section_title" *ngIf="userType == '2'">{{name}}</h2>
+            </div>
+        </div>
+        <div class="account-details personal_info">
+            <h6 class="personal-heading">personal information</h6>
+            <h3>contact person : <span>{{name}}</span></h3>
+            <!-- <h6>reference : <span>FaceBook ad</span></h6>  -->
+            <div class="details-div">
+                <div class="details_left_area">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="phone_div contact_div">
+                                <i class="fa-solid fa-phone"></i>
+                                <h5>contact no.</h5>
+                                <p>
+                                    <span>{{mobile}}</span> / <span>{{alt_mobile}}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="email_div contact_div">
+                                <i class="fa-solid fa-envelope"></i>
+                                <h5>email id</h5>
+                                <p class="email">
+                                    {{email}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="address_div contact_div">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <h5>address</h5>
+                                <p>
+                                    {{address1}},
+                                </p>
+                                <p>
+                                    {{address2}},
+                                </p>
+                                <p>
+                                    {{country}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="inventory_head">equipments list</h4>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table custom-table m-0">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="sl_no">#</th>
+                            <th>equipment category</th>
+                            <th>equipment sub-category</th>
+                            <th>brand</th>
+                            <th>model no.</th>
+                            <!-- <th>action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of equipmentList;let i =index;">
+                            <th scope="row" class="sl_no">{{i+1}}</th>
+                            <td>
+                                <p>{{item.equ_categoryName}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.sub_cate_name}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.brand_name}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.modelName}}</p>
+                            </td>
+
+                            <!-- <td>
+                                    <ul class="action_btn">
+                                        <li><a><i class="fa-solid fa-trash"></i></a></li>
+                                        <li><a><i class="fa-solid fa-pen-to-square"></i></a></li>
+                                    </ul>
+                                </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- <div class="account-details">
+            <h6 class="personal-heading">work information</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="img_card">
+                        <div class="img_area">
+                            <img src="assets/img/background/work-1.jpg" alt="image" loading="lazy">
+                        </div>
+                        <div class="txt_area">
+                            <strong>About yourself</strong>
+                            <p>
+                                {{aboutYouself}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="img_card">
+                        <div class="img_area">
+                            <img src="assets/img/icon/equipmentowner.png" alt="image" loading="lazy">
+                        </div>
+                        <div class="txt_area">
+                            <strong>About your work & equipment</strong>
+                            <p>
+                                {{aboutWork}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="img_card">
+                        <div class="img_area">
+                            <img src="assets/img/background/work-2.jpg" alt="image" loading="lazy">
+                        </div>
+                        <div class="txt_area">
+                            <strong>About some references or your future plans</strong>
+                            <p>
+                                {{aboutReference}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div *ngIf="YoutubeLink || FBLink || InstaLink || linkedInLink || websiteLink || jdLink" class="account-details">
+            <h6 class="personal-heading">social media links</h6>
+            <ul class="personal-ul social_links" style="cursor: pointer;">
+                <li *ngIf="YoutubeLink">
+                    <a (click)="gotoLink(YoutubeLink)" class="youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                        <p>youtube link</p>
+                    </a>
+                </li>
+                <li *ngIf="FBLink">
+                    <a (click)="gotoLink(FBLink)" class="facebook">
+                        <i class="fa-brands fa-facebook"></i>
+                        <p>facebook link</p>
+                    </a>
+                </li>
+                <li *ngIf="InstaLink">
+                    <a (click)="gotoLink(InstaLink)" class="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                        <p>instagram link</p>
+                    </a>
+                </li>
+                <li *ngIf="linkedInLink">
+                    <a (click)="gotoLink(linkedInLink)" class="linkedin">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <p>linkedin link</p>
+                    </a>
+                </li>
+                <li *ngIf="websiteLink">
+                    <a (click)="gotoLink(websiteLink)" class="website">
+                        <i class="fa-solid fa-globe"></i>
+                        <p>website link</p>
+                    </a>
+                </li>
+                <li *ngIf="jdLink">
+                    <a (click)="gotoLink(jdLink)" class="jd">
+                        <img src="assets/img/icon/jd_logo.png" alt="JD" loading="lazy" class="jd_img">
+                        <p>jd link</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+<a href="https://api.whatsapp.com/send?phone=919693674916&text=Want%20to%20buy%20your%20products%20.%20Please%20get%20back%20."
+    class="whatsapp_logo">
+    <img src="assets/img/logo/whatsapp_logo.png" alt="whatsapp" loading="lazy">
+</a>
