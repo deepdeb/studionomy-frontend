@@ -25,20 +25,18 @@
                         (click)="shareProfileToWhatsapp()"><i class="fa-brands fa-whatsapp fa-lg"></i></button>
                 </div>
             </div>
-            <div class="button-group" style="display: flex; justify-content: flex-end">
+            <div class="button-group" style="display: flex; align-items: center;">
                 <div class="edit-heading">
-                    <div>
-                        <button type="button" class="edit-btn" (click)="changePassword()">
-                            <img src="assets/img/icon/change-password.png" alt="logo" loading="lazy"> change password
-                        </button>
-                    </div>
+                    <button type="button" class="edit-btn" (click)="changePassword()">
+                        <img src="assets/img/icon/password_change.png" alt="logo" loading="lazy">
+                        <span>change password</span>
+                    </button>
                 </div>
                 <div class="edit-heading" *ngIf="studioRole != 'employee'">
-                    <div>
-                        <button type="button" class="edit-btn" (click)="updateUser()">
-                            <img src="assets/img/icon/edit.png" alt="logo" loading="lazy"> edit profile
-                        </button>
-                    </div>
+                    <button type="button" class="edit-btn" (click)="updateUser()">
+                        <img src="assets/img/icon/edit.png" alt="logo" loading="lazy">
+                        <span>edit profile</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -109,15 +107,20 @@
                     jobs</button>
             </div>
             <div class="profile_job_search row align-items-center">
-                <div class="col-12 col-md-3">
+                <div class="col-9 col-md-3">
                     <!-- <label for="inputLocation4" class="form-label">Job Details</label> -->
                     <input type="text" class="form-control" id="inputLocation7" [(ngModel)]="job_search_criteria"
                         (keyup.enter)="searchJob()" placeholder="Search Job">
+                        <!-- <div class="profile_job_search_btn">
+                            <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()">
+                                <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                            </button>
+                        </div> -->
                 </div>
-                <div class="col-12 col-md-3 profile_job_search_btn">
-                    <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()"><i
-                            class="fa-solid fa-magnifying-glass" style="color: white;"></i> Search</button>
-                    <!-- <button type="submit" class="jobs_btn pay clear" (click)="clearSearchJob()">clear</button> -->
+                <div class="col-3 col-md-2 profile_job_search_btn">                    
+                    <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()">
+                        <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                    </button>
                 </div>
             </div>
             <!-- <button>upcoming jobs</button>
@@ -317,7 +320,7 @@
                     (click)="closedQuotation()">closed quotes</button>
             </div>
             <div class="profile_job_search row align-items-center">
-                <div class="col-12 col-md-3">
+                <div class="col-9 col-md-3">
                     <input type="text" class="form-control" id="inputLocation7" [(ngModel)]="quote_search_criteria"
                         (keyup.enter)="searchQuotation()" placeholder="Search Quotation">
                 </div>
@@ -329,9 +332,9 @@
                     <input type="text" class="form-control" id="inputCity5" [(ngModel)]="cust_phoneNo"
                         placeholder="Enter Phone No">
                 </div> -->
-                <div class="col-12 col-md-3 profile_job_search_btn">
+                <div class="col-3 col-md-2 profile_job_search_btn">
                     <button type="button" class="jobs_btn delivered_btn " (click)="searchQuotation()"><i
-                            class="fa-solid fa-magnifying-glass" style="color: white;"></i> Search</button>
+                            class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
                 </div>
             </div>
             <div class="employee_top_head">

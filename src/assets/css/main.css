@@ -91,17 +91,17 @@ header {
     justify-content: space-between;
 }
 
-.logo_container {
+/* .logo_container {
     display: flex;
     align-items: center;
     justify-content: start;
-}
+} */
 
 /* .logo_wrap{
 
 } */
 .logo_wrap img {
-    width: auto;
+    width: 50%;
 }
 
 .logo_title {
@@ -756,7 +756,7 @@ section.hero_section {
     background: #d12600;
   }
   .jobs_btn:not(:last-child){
-    margin-right: 10px;
+    margin-right: 6px;
   }
 .account-details {
     padding: 34px 24px 24px 24px;
@@ -1130,7 +1130,12 @@ h6 {
     position: relative;
     z-index: 1;
 }
-
+.footer_innersec .logo_wrap{
+    text-align: center;
+}
+.footer_innersec .logo_wrap img{
+    width: auto;
+}
 .footer_area .share_div h4 {
     text-transform: capitalize;
     color: #ff761e;
@@ -1594,9 +1599,9 @@ h6 {
 
 .logo_wrap {
     text-decoration: none;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     margin-top:0;
     margin-bottom: 20px;
 }

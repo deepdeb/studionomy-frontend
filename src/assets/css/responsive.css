@@ -147,12 +147,12 @@
         margin-right: 6px;
         font-size: 16px !important;
     }
-    .edit-btn{
+    /* .edit-btn{
       font-size: 13px;
-    }
-    .edit-btn img{
-        width: 14px !important;
-    }
+    } */
+    /* .edit-btn img{
+        width: 20px !important;
+    } */
    .in_touch{
         font-size: 13px !important;
     }
@@ -300,7 +300,7 @@
         font-size: 18px ;
     }
     .share_profile strong{
-        font-size: 11px;
+        font-size: 12px;
     }
     /* .details_left_area .contact_div{
         margin-bottom: 40px;
@@ -401,10 +401,9 @@
         width: 80%;
         margin: auto;
      } */
-    /* .account_action_div{
+    .account_action_div{
         display: block;
-        
-    } */
+    }
     .job_add{
         display: flex;
         align-items: center;
@@ -508,8 +507,21 @@
     .section_block_title{
         margin-bottom: 8px !important;
     }
+    .button-group{
+        flex-wrap: wrap;
+        justify-content: end;
+        margin: 10px 0;        
+    }
+    .edit-btn{
+        /* margin-left: 16px; */
+        margin-bottom: 6px;
+    }
     .edit-btn img{
-        width: 18px;
+        width: 20px;
+    }
+    .edit-btn span{
+        font-size: 12px;
+        margin-left: 4px;
     }
     .details_left_area .contact_div{
         height:100%;
