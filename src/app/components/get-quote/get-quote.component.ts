@@ -344,22 +344,31 @@ export class GetQuoteComponent {
         this.disabledSubmit = false;
         this.common.showAlertMessage(res.message, this.common.succContent);
         // this.router.navigate(['/user']);
-        this.jobDetails = "";
-        this.job_startdate = "";
-        this.job_enddate = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.phoneno = "";
-        this.altphoneno = "";
-        this.email = "";
-        this.eventLocation = "";
-        this.total_amt = "";
-        this.projectDesc = "";
-        this.quotethemeImg = "";
-        this.customName = "";
-        this.customValue = "";
-        this.deliverables = "";
-        this.termscondition = "";
+
+
+
+        // this.jobDetails = "";
+        // this.job_startdate = "";
+        // this.job_enddate = "";
+        // this.firstName = "";
+        // this.lastName = "";
+        // this.phoneno = "";
+        // this.altphoneno = "";
+        // this.email = "";
+        // this.eventLocation = "";
+        // this.total_amt = "";
+        // this.projectDesc = "";
+        // this.quotethemeImg = "";
+        // this.customName = "";
+        // this.customValue = "";
+        // this.deliverables = "";
+        // this.termscondition = "";
+
+
+
+
+
+
         //     // this.inv_id = "";
         //     // this.emp_id = "";
         //     // this.external_employee = "";

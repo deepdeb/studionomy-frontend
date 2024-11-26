@@ -10,7 +10,6 @@ export const environment = {
   ImagePath: 'https://studionomy.com/uploads/images/',
 
 
-
   // API_ROOT: "https://studio-lancer.onrender.com/v1/",
   // JOB_REPORT: "https://studio-lancer.onrender.com/v1/app/joblistExport",
   // INV_REPORT: "https://studio-lancer.onrender.com/v1/invlistExport",

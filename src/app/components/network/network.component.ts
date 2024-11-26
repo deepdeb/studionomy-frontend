@@ -53,6 +53,7 @@ export class NetworkComponent {
     this.getMyNetworkList();
     this.getStateList();
     // this.getAllJob();
+    this.getFreelancerPayment();
     
     this.route.queryParams.subscribe(params => {
       this.job_number = params['job_number'],
@@ -256,6 +257,20 @@ export class NetworkComponent {
   //     }
   //   })
   // }
+
+  getFreelancerPayment() {
+    const data = {
+      userId: localStorage.getItem('slUserId'),
+      userType: localStorage.getItem('slUserType'),
+    };
+    this.jobList = [];
+    this.rest.getAllFreelancerPayment(data).subscribe((res: any) => {
+      if(res.success) {
+        this.jobList = res.response;
+        console.log('jobList>>>', this.jobList);
+      }
+    })
+  }
 
   dateFormat(date: any) {
     var myDate = new Date(date);

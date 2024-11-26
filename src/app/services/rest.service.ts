@@ -276,6 +276,14 @@ export class RestService {
       httpOptions
     );
   }
+
+  getAllFreelancerPayment(data: any) {
+    return this.http.post(
+      this.API_ROOT + 'freelancer/freelancerPayment',
+      data,
+      httpOptions
+    )
+  }
   //------------------------------- Employee Attendance -------------------//
 
   employeeAttendance(data: any) {

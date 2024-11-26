@@ -471,8 +471,8 @@
                                         <th>events</th>
                                         <th>charges</th>
                                         <th>last paid</th>
-                                        <th>total paid</th>
-                                        <th>due</th>
+                                        <!-- <th>total paid</th>
+                                        <th>due</th> -->
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -483,7 +483,7 @@
                                             <a href="#">{{item.job_number}}</a>
                                         </td>
                                         <td>
-                                            {{item.cust_name}}
+                                            {{item.name}}
                                         </td>
                                         <td>
                                             <p>{{dateFormat(item.job_startDate)}}</p>
@@ -497,15 +497,16 @@
                                             <p>{{item.total_amount}}/-</p>
                                         </td>
                                         <td>
-                                            <p>{{item.last_paid_amount}}/-</p>
-                                            <p>{{item.last_payment_date}}</p>
+                                            <!-- <p>{{item.last_paid_amount}}/-</p> -->
+                                            <!-- <p>{{item.last_payment_date}}</p> -->
+                                            <p>{{item.payment}}/-</p>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <span>{{item.total_paid_amount}}/-</span>
                                         </td>
                                         <td>
                                             <span>{{item.due_amount}}/-</span>
-                                        </td>
+                                        </td> -->
                                         <td style="vertical-align: middle;">
                                             <a (click)="goToPaymentDetails(item.job_id)" class="pay" style="cursor: pointer;">pay
                                                 again</a>
