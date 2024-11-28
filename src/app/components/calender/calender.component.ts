@@ -169,7 +169,7 @@ export class CalenderComponent {
           const color = 'red';
           const background = "red"
           this.bookings.push({
-            title: item.orgName + "," + item.req_status + "," + item.update_date,
+            title: item.orgName + "," + (item.req_status ? item.req_status : 'NA') + "," + (item.update_date ? item.update_date : 'NA'),
             start: bookingDate,
             color: color,
             background: background,

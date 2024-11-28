@@ -471,9 +471,9 @@
                                         <th>events</th>
                                         <th>charges</th>
                                         <th>last paid</th>
-                                        <!-- <th>total paid</th>
-                                        <th>due</th> -->
-                                        <th></th>
+                                        <!-- <th>total paid</th> -->
+                                        <th>due</th>
+                                        <th>action</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="jobList.length != 0">
@@ -488,27 +488,26 @@
                                         <td>
                                             <p>{{dateFormat(item.job_startDate)}}</p>
                                             <p>To</p>
-                                            <p>{{item.job_endDate}} </p>
+                                            <p>{{dateFormat(item.job_endDate)}} </p>
                                         </td>
                                         <td>
                                             <p>{{item.job_details}}</p>
                                         </td>
                                         <td>
-                                            <p>{{item.total_amount}}/-</p>
+                                            <p>{{item.payment}}/-</p>
                                         </td>
                                         <td>
                                             <!-- <p>{{item.last_paid_amount}}/-</p> -->
                                             <!-- <p>{{item.last_payment_date}}</p> -->
-                                            <p>{{item.payment}}/-</p>
                                         </td>
                                         <!-- <td>
                                             <span>{{item.total_paid_amount}}/-</span>
-                                        </td>
-                                        <td>
-                                            <span>{{item.due_amount}}/-</span>
                                         </td> -->
+                                        <td>
+                                            <span>{{item.payment}}/-</span>
+                                        </td>
                                         <td style="vertical-align: middle;">
-                                            <a (click)="goToPaymentDetails(item.job_id)" class="pay" style="cursor: pointer;">pay
+                                            <a (click)="openPaymentModal(item.job_id)" class="pay" style="cursor: pointer;">pay
                                                 again</a>
                                         </td>
                                     </tr>
@@ -519,7 +518,27 @@
                 </div>
             </div>
         </div>
-
     </div>
+
 </section>
 <app-footer></app-footer>
+
+<ng-template #paymentRequest>
+    <div class="request_modal">
+        <h4>Payment Request</h4>
+        <div class="card">
+            <div class="request_body">
+                <h6>Payment to: </h6>
+                <h6>Payment to: </h6>
+                <h6>Payment to: </h6>
+                <h6>Payment to: </h6>
+                <h6>Payment to: </h6>
+            </div>
+        </div>
+        <div class="close" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="request_btn">
+            <button>Accept</button>
+            <button>Decline</button>
+        </div>
+    </div>
+</ng-template>

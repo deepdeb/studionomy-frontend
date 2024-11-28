@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RestService } from 'src/app/services/rest.service';
 import { CommonService } from 'src/app/services/common.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RequestForBookingComponent } from '../request-for-booking/request-for-booking.component';
 @Component({
   selector: 'app-network',
@@ -45,6 +45,9 @@ export class NetworkComponent {
   event_location: any;
   job_endDate: any;
   req_details = {} as any;
+
+  @ViewChild('paymentRequest') paymentRequestModal: any;
+
   constructor(private dialog: MatDialog, private router: Router, private rest: RestService, private common: CommonService, private route: ActivatedRoute) {
     this.userType = localStorage.getItem('slUserType');
 
@@ -188,9 +191,6 @@ export class NetworkComponent {
       this.getAllEquipmentCategory();
       this.getAllBrandList();
     }
-  }
-  goToPaymentDetails(job_id :any) {
-    this.router.navigate(['payment-details/' + job_id]);
   }
 
 
@@ -342,6 +342,17 @@ export class NetworkComponent {
     });
   }
 
-  
+  openPaymentModal(job_id: any) {
+
+    const dialogRef: MatDialogRef<any> = this.dialog.open(this.paymentRequestModal, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe({
+    });
+  }
+
+  closeModal() {
+    this.dialog.closeAll();
+  }
 
 }
