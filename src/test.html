@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Raleway', sans-serif;
+        background-image: url('assets/img/themes/frame/4.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #f0f0f0; /* Fallback color */
+      }
+      .section {
+        width: 80%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8); /* Light background for content visibility */
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+      .section h2, .section h1, .section h5, .section p {
+        margin: 10px 0;
+        text-align: center;
+      }
+      .section h1 {
+        font-size: 42px;
+        color: tomato;
+      }
+      .section h2 {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .section h4 {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .section table {
+        width: 100%;
+        border-spacing: 0;
+      }
+      .section table td {
+        padding: 10px;
+      }
+      .section ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .section ul li {
+        margin: 5px 0;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      <h2>${value.studioName}</h2>
+      <p><strong>Address:</strong><br />${value.address}</p>
+      <h2>${value.job_details}</h2>
+      <h1>${value.job_details} &</h1>
+      <h1>${value.job_details}</h1>
+      <h5>On</h5>
+      <h4>
+        <p>${value.job_startDate}</p> to <p>${value.job_endDate}</p>
+      </h4>
+      <h5>At</h5>
+      <h2>${value.eventLocation}</h2>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+      <h2>${value.cust_firstName}</h2>
+      <h2>${value.cust_phoneNo} / ${value.cust_altPhoneNo}</h2>
+      <h2>COST - ${value.total_amt}</h2>
+      <h2>Projects Description:</h2>
+      <p>${value.projectDesc}</p>
+      
+      <h2>Days - Crew Details(All Events in ${value.eventLocation})</h2>
+      <table>
+        ${value.bookingDates.map((date: any, index: any) => `
+          <tr>
+            <td><strong>${date}</strong></td>
+            <td>${value.specializations[index]}</td>
+            <td>${value.crews[index]}</td>
+          </tr>
+        `).join('')}
+      </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+      <h2>Deliverables</h2>
+      <ul>
+        <li><p>${value.deliverables}</p></li>
+      </ul>
+
+      <h2>Custom Field Name</h2>
+      <table border="1" cellpadding="4" cellspacing="0">
+        <tr>
+          <td>${value.customName}</td>
+          <td>${value.customValue}</td>
+        </tr>
+      </table>
+
+      <h2>Terms & Conditions</h2>
+      <ul>
+        <li><p>${value.termscondition}</p></li>
+      </ul>
+    </div>
+  </body>
+</html>
