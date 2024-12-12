@@ -390,6 +390,9 @@ export class RestService {
       httpOptions
     );
   }
+  getSelectedDatesForFLBook(data: any) {
+    return this.http.post(this.API_ROOT + 'network/selectedDatesForFLBook', data, httpOptions);
+  }
   //----------------------------------//
 
   //------------------------ Common -------------------//

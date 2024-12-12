@@ -35,7 +35,7 @@
         <div style="display: flex; gap:5px; justify-content:end;">
             <div class="request_whatsapp" (click)="whatsappReqBooking()"><i class="fa-brands fa-whatsapp fa-xl"></i></div>
             <div (click)="deleteReqBooking(dateFormat(reqDetails.req_date))" class="request_delete"><i class="fa-solid fa-trash"></i> Delete</div>
-            <div (click)="editReqBooking()" class="request_edit"><i class="fa-solid fa-pen-to-square"></i> Edit</div>
+            <div *ngIf="reqDetails.req_status != 'accepted'" (click)="editReqBooking()" class="request_edit"><i class="fa-solid fa-pen-to-square"></i> Edit</div>
         </div>
     </div>
 </ng-template>

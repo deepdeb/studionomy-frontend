@@ -494,6 +494,11 @@ export class JobComponent {
   }
 
   getEquipmentAndEmployee() {
+    if(!this.startDate || !this.endDate) {
+      this.common.showAlertMessage('Please select Job Start Date & Job End Date', this.common.errContent)
+      this.bookingDate = ''
+      return
+    }
     this.getInventoryList();
     this.getAllEmployee();
   }
@@ -668,6 +673,11 @@ export class JobComponent {
         this.common.errContent
       );
       return;
+    }
+
+    if(this.bookingDate > this.endDate || this.bookingDate < this.startDate) {
+      this.common.showAlertMessage('Booking date must be within Job Start Date & Job End Date', this.common.errContent);
+      return
     }
 
     if (

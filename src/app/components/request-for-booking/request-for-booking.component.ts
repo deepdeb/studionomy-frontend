@@ -47,16 +47,18 @@ export class RequestForBookingComponent {
   ) {
     this.job_number = this.data.content.job_number;
     this.job_number ? this.getJobDetails() : '';
+    this.req_to = this.data.content.req_to;
+    this.job_id = this.data.content.job_id;
+    if(this.job_number && this.req_to && this.job_id) {
+      this.getSelectedDatesForFLBook();
+    }
   }
 
   ngOnInit() {
-    console.log("data.content", this.data.content)
     this.selectedSkillItems = [];
     this.name = this.data.content.freelancerName ? this.data.content.freelancerName : this.data.content.req_to_name;
-    this.req_to = this.data.content.req_to;
     this.req_to_userType = Number(this.data.content.req_to_userType);
     this.req_to_mobile = this.data.content.req_to_mobile;
-    this.job_id = this.data.content.job_id;
     this.payment = this.data.content.payment;
     this.req_date = this.data.content.req_date;
     this.selectedSkillItems = this.data.content.skills
@@ -108,7 +110,6 @@ export class RequestForBookingComponent {
     this.rest.jobDetails(data).subscribe((res: any) => {
       if (res.success) {
         if (res.response) {
-          console.log(">>>>>>>>", res.response)
           this.job_description = res.response.job_details;
           this.event_location = res.response.event_location;
           let startDate = new Date(this.common.convertOnlyDate(res.response.job_startDate));
@@ -125,7 +126,6 @@ export class RequestForBookingComponent {
   }
  
   sendRequest() {
-    console.log(">>",this.selectedSkillItems)
     if (
       this.job_number == '' ||
       this.job_number == null ||
@@ -191,7 +191,6 @@ export class RequestForBookingComponent {
     };
     this.rest.sendRequest(data).subscribe((res: any) => {
       if (res.success) {
-        console.log("res>>>", res)
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.requestSent.emit();
         this.updateReqBookSent.emit();
@@ -257,4 +256,20 @@ export class RequestForBookingComponent {
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${this.req_to_mobile ? this.req_to_mobile : ''}&text=${text}`;
     window.open(whatsappUrl, '_blank');
   }
+
+  getSelectedDatesForFLBook() {
+    const data = {
+      job_id: this.job_id,
+      job_number: this.job_number,
+      req_to: this.req_to
+    }
+    this.rest.getSelectedDatesForFLBook(data).subscribe((res: any) => {
+      if(res.success) {
+        for(let i = 0; i< res.response.length; i++) {
+          this.selectedDates.push({"name": res.response[i].req_date, "value": res.response[i].req_date})
+        }
+      }
+    })
+  }
+  
 }

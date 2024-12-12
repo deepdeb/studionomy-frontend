@@ -77,7 +77,6 @@ export class BookingCalenderComponent {
       userId: this.userId,
       userType: this.userType
     }
-    console.log(data)
     this.rest.deleteRequest(data).subscribe((res: any) => {
       if(res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
@@ -90,7 +89,6 @@ export class BookingCalenderComponent {
   }
 
   editReqBooking() {
-    console.log("reqDetails>>>",this.reqDetails)
     this.closeModal();
     const dialogRef: MatDialogRef<any> = this.dialog.open(RequestForBookingComponent, {
       width: '700px',
@@ -114,7 +112,7 @@ export class BookingCalenderComponent {
     text += '%0A' + encodeURIComponent(`*Booking for: ${this.reqDetails.req_date}`);
     text += '%0A' + encodeURIComponent(`*Event location: ${this.reqDetails.event_location}`);
     text += '%0A'
-    text += '%0A' + encodeURIComponent('Courtest - @Studionomy.com');
+    text += '%0A' + encodeURIComponent('Courtesy - @Studionomy.com');
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${this.reqDetails.freelancerMobile}&text=${text}`;
     window.open(whatsappUrl, '_blank');
   }
@@ -123,7 +121,6 @@ export class BookingCalenderComponent {
     this.reqDetails = "";
     var req_id = args.event.id;
     this.reqDetails = this.getRequestDetailsById(req_id, this.bookingDetails);
-    console.log("req details by id >>>",this.reqDetails)
     if (this.reqDetails) {
       this.openRequestDetailsModal();
     }
@@ -140,7 +137,6 @@ export class BookingCalenderComponent {
   }
 
   customEventContentForRequestDetails(arg: any) {
-    console.log("arg events>>>", arg.event.title)
     const container = document.createElement('div');
     container.innerHTML = arg.event.title;
     container.style.whiteSpace = 'pre-wrap';
