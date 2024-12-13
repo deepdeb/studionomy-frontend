@@ -136,6 +136,10 @@ export class RequestForBookingComponent {
           this.event_location = res.response.event_location;
           let startDate = new Date(this.common.convertOnlyDate(res.response.job_startDate));
           let endDate = new Date(this.common.convertOnlyDate(res.response.job_endDate));
+          this.startDate = this.common.convertOnlyDate(res.response.job_startDate)
+          this.endDate = this.common.convertOnlyDate(res.response.job_endDate)
+          console.log('start date>>>', this.startDate)
+          console.log('end date>>>>', this.endDate)
           this.dateList = this.common.dateRange(startDate, endDate);
           this.job_id = res.response.job_id;
         }
@@ -234,15 +238,25 @@ export class RequestForBookingComponent {
   }
 
   sendRequestForEO() {
-
-    console.log('eq booking details>>>>', this.equipmentBookingDetails);
+    if(!this.job_number) {
+      this.common.showAlertMessage('Please enter job number', this.common.errContent);
+      return
+    }
+    if(!this.event_location) {
+      this.common.showAlertMessage('Please enter event location', this.common.errContent);
+      return
+    }
+    if(this.equipmentBookingDetails.length == 0) {
+      this.common.showAlertMessage('Please add equipment', this.common.errContent);
+      return
+    }
 
     const data = {
       req_id: Number(this.req_id),
       job_id: Number(this.job_id),
       job_number: this.job_number,
       event_location: this.event_location,
-      equipments: this.equipmentBookingDetails,
+      equipment_booking_details: this.equipmentBookingDetails,
       payment: this.payment || 0.0,
       message: this.message,
       req_from: Number(localStorage.getItem('slUserId')),
@@ -250,7 +264,17 @@ export class RequestForBookingComponent {
       req_to: Number(this.req_to),
       req_to_userType: Number(this.req_to_userType)
     }
-    
+    this.rest.sendRequestForEO(data).subscribe((res: any) => {
+      if (res.success) {
+        this.common.showAlertMessage(res.message, this.common.succContent);
+        this.requestSent.emit();
+        this.updateReqBookSent.emit();
+        this.getUserDetails(data)
+        this.onClose();
+      } else {
+        this.common.showAlertMessage(res.message, this.common.errContent);
+      }
+    })
   }
 
   onStaffDeselected(item: any) {
@@ -338,6 +362,11 @@ export class RequestForBookingComponent {
   }
 
   addEquipDetails() {
+    if(this.bookingDate < this.startDate || this.bookingDate > this.endDate) {
+      this.common.showAlertMessage("Selected date must be within job start date & job end date", this.common.errContent);
+      return
+    }
+    
     this.equipmentBookingDetails.push({booked_from: this.bookingDate, equipments: this.selectedEquipmentItems.map((eq: any) => eq.inv_code).join(','), equipments_id: this.selectedEquipmentItems.map((eq: any) => eq.inv_id).join(',')})
     this.selectedEquipmentItems = []
   }

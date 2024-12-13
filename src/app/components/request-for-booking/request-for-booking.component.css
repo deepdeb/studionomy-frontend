@@ -20,3 +20,7 @@
 .btn_group button {
     width: 100%;
 }
+
+.table-responsive.booking_table.equipment_select_table {
+    overflow-x: inherit;
+}

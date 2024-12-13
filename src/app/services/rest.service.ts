@@ -359,6 +359,9 @@ export class RestService {
       httpOptions
     );
   }
+  sendRequestForEO(data: any) {
+    return this.http.post(this.API_ROOT + 'network/sendRequestForEO', data, httpOptions);
+  }
   deleteRequest(data: any) {
     return this.http.post(
       this.API_ROOT + 'network/deleteRequest',
