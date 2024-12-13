@@ -202,7 +202,6 @@ export class NetworkComponent {
       req_to_userType: userType,
       job_number: this.job_number
     };
-    console.log("queryparams>>>",queryParams)
     if(!queryParams.job_number) {
       this.common.showAlertMessage("Booking FL/EO only possible from calendar by clicking on job", this.common.errContent)
       return
@@ -267,7 +266,6 @@ export class NetworkComponent {
     this.rest.getAllFreelancerPayment(data).subscribe((res: any) => {
       if(res.success) {
         this.jobList = res.response;
-        console.log('jobList>>>', this.jobList);
       }
     })
   }

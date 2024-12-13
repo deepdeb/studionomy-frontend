@@ -235,6 +235,10 @@ export class RestService {
     );
   }
 
+  getEquipmentListForBook(data: any) {
+    return this.http.post(this.API_ROOT + 'inventory/equipmentListForBook', data, httpOptions);
+  }
+
   getEquipmentPublicInfo(data: any) {
     return this.http.post(
       this.API_ROOT + 'inventory/equipmentPublicInfo',
@@ -348,7 +352,7 @@ export class RestService {
       httpOptions
     );
   }
-  sendRequest(data: any) {
+  sendRequestForFL(data: any) {
     return this.http.post(
       this.API_ROOT + 'network/sendRequest',
       data,

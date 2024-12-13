@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class RequestForBookingComponent {
   brandList = [] as any;
   selectedSkillItems: any = [];
+  selectedEquipmentItems: any = [];
   selectedDates: any = [];
   message = '';
   req_id = '' as any;
@@ -26,8 +27,10 @@ export class RequestForBookingComponent {
   job_number = '';
   event_location = '';
   skillList = this.common.skillList;
+  equipmentList = [] as any;
   dateList: any = [];
   dropdownSkillSettings: any = {};
+  dropdownEquipmentSettings: any = {};
   dropdownDateSettings: any = {};
   payment: any;
   @Output() requestSent: EventEmitter<void> = new EventEmitter<void>();
@@ -37,6 +40,13 @@ export class RequestForBookingComponent {
   studioMobile: any;
   address: any;
   req_to_mobile: any;
+
+  todatDate = new Date().toISOString().split('T')[0];
+  endDate = ''
+  startDate = ''
+  bookingDate = ''
+
+  equipmentBookingDetails = [] as any
 
   constructor(
     private router: Router,
@@ -58,6 +68,9 @@ export class RequestForBookingComponent {
     this.selectedSkillItems = [];
     this.name = this.data.content.freelancerName ? this.data.content.freelancerName : this.data.content.req_to_name;
     this.req_to_userType = Number(this.data.content.req_to_userType);
+    if(this.req_to_userType == 2) {
+      this.getEquipmentListForBook();
+    }
     this.req_to_mobile = this.data.content.req_to_mobile;
     this.payment = this.data.content.payment;
     this.req_date = this.data.content.req_date;
@@ -76,6 +89,15 @@ export class RequestForBookingComponent {
       itemsShowLimit: 5,
       allowSearchFilter: true,
     };
+    this.dropdownEquipmentSettings = {
+      singleSelection: false,
+      idField: 'inv_id',
+      textField: 'inv_code',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 5,
+      allowSearchFilter: true,
+    }
     this.dropdownDateSettings = {
       singleSelection: false,
       idField: 'value',
@@ -126,6 +148,15 @@ export class RequestForBookingComponent {
   }
  
   sendRequest() {
+    if(this.req_to_userType == 1) {
+      this.sendRequestForFL();
+    } else if (this.req_to_userType == 2) {
+      this.sendRequestForEO();
+    }
+  }
+
+  
+  sendRequestForFL() {
     if (
       this.job_number == '' ||
       this.job_number == null ||
@@ -189,7 +220,7 @@ export class RequestForBookingComponent {
       req_to_userType: Number(this.req_to_userType),
       selectedDates: datesToSend.length > 0 ? datesToSend : [this.req_date]
     };
-    this.rest.sendRequest(data).subscribe((res: any) => {
+    this.rest.sendRequestForFL(data).subscribe((res: any) => {
       if (res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.requestSent.emit();
@@ -202,6 +233,26 @@ export class RequestForBookingComponent {
     });
   }
 
+  sendRequestForEO() {
+
+    console.log('eq booking details>>>>', this.equipmentBookingDetails);
+
+    const data = {
+      req_id: Number(this.req_id),
+      job_id: Number(this.job_id),
+      job_number: this.job_number,
+      event_location: this.event_location,
+      equipments: this.equipmentBookingDetails,
+      payment: this.payment || 0.0,
+      message: this.message,
+      req_from: Number(localStorage.getItem('slUserId')),
+      req_from_userType: Number(localStorage.getItem('slUserType')),
+      req_to: Number(this.req_to),
+      req_to_userType: Number(this.req_to_userType)
+    }
+    
+  }
+
   onStaffDeselected(item: any) {
     const index = this.selectedSkillItems.findIndex(
       (selectedItem: any) => selectedItem.value === item.value
@@ -210,6 +261,7 @@ export class RequestForBookingComponent {
       this.selectedSkillItems.splice(index, 1);
     }
   }
+
   dateFormat(date: any) {
     let newdate = new Date(date);
     let day = newdate.getDate().toString().padStart(2, '0');
@@ -271,5 +323,39 @@ export class RequestForBookingComponent {
       }
     })
   }
+
+  getEquipmentListForBook() {
+    this.equipmentList = [];
+    const data = {
+      req_to : this.req_to,
+      req_to_userType: this.req_to_userType
+    }
+    this.rest.getEquipmentListForBook(data).subscribe((res: any) => {
+      if(res.success) {
+        this.equipmentList = res.response
+      } 
+    })
+  }
+
+  addEquipDetails() {
+    this.equipmentBookingDetails.push({booked_from: this.bookingDate, equipments: this.selectedEquipmentItems.map((eq: any) => eq.inv_code).join(','), equipments_id: this.selectedEquipmentItems.map((eq: any) => eq.inv_id).join(',')})
+    this.selectedEquipmentItems = []
+  }
   
+  equipmentTableEdit(index: any) {
+
+  }
+
+  equipmentTableRemove(index: any, item: any) {
+
+  }
+
+  equipTableEditNewJob(index: any) {
+
+  }
+
+  showSelectedEquipments() {
+
+  }
+
 }

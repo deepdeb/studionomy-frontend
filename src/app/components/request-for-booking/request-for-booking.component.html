@@ -1,5 +1,5 @@
 <!-- modal.component.html -->
-<h1 mat-dialog-title class="text-center event_heading"><strong>Freelance Hiring request for: {{name}}</strong></h1>
+<h1 mat-dialog-title class="text-center event_heading"><strong>{{req_to_userType == 1 ? 'Freelancer' : req_to_userType == 2 ? 'Equipment Owner' : ''}} Hiring request for: {{name}}</strong></h1>
 <div mat-dialog-content class="eventdetails">
     <div class="my-request-booking row g-3">
         <!-- <div class="text-center">
@@ -29,7 +29,7 @@
             <label for="inputReference23" class="form-label">Event Location: </label>
             <input type="text" class="form-control" [(ngModel)]="event_location">
         </div>
-        <ng-container *ngIf="req_id && selectedDates.length > 0">
+        <ng-container *ngIf="req_id && selectedDates.length > 0 && req_to_userType == 1">
             <div class="col-sm-12 col-md-12" *ngIf="dateList.length>0">
                 <label for="inputReference101" class="form-label">Job Dates:</label>
                 <ng-multiselect-dropdown [placeholder]="'Select Dates'" [settings]="dropdownDateSettings"
@@ -37,7 +37,7 @@
                 </ng-multiselect-dropdown>
             </div>
         </ng-container>
-        <ng-container *ngIf="!req_id">
+        <ng-container *ngIf="!req_id && req_to_userType == 1">
             <div class="col-sm-12 col-md-12" *ngIf="dateList.length>0">
                 <label for="inputReference101" class="form-label">Job Dates:</label>
                 <ng-multiselect-dropdown [placeholder]="'Select Dates'" [settings]="dropdownDateSettings"
@@ -51,12 +51,108 @@
                 [data]="dateList" [(ngModel)]="selectedDates" (onSelect)="showSelectedDates()">
             </ng-multiselect-dropdown>
         </div> -->
-        <div class="col-sm-12 col-md-6">
+        <div *ngIf="req_to_userType == 1" class="col-sm-12 col-md-6">
             <label for="inputReference14" class="form-label">Skills:</label>
             <ng-multiselect-dropdown [placeholder]="'Select Skill'" [settings]="dropdownSkillSettings"
                 [data]="skillList" [(ngModel)]="selectedSkillItems" (onDeSelect)="onStaffDeselected($event)">
             </ng-multiselect-dropdown>
         </div>
+
+
+
+
+        <div *ngIf="req_to_userType == 2" class="col-sm-12">
+            <div class="table-responsive booking_table">
+                <table class="table table-bordered table-striped add-flat-table">
+                    <caption style="caption-side: top;">
+                        Equipment & Employee Details (Click +Add after selection)
+                    </caption>
+                    <thead>
+                        <tr style="width: 100%;">
+                            <th style="width: 10%;">Job Date</th>
+                            <th style="width: 40%;">Equipment</th>
+                            <th style="width: 10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="custom-date-input">
+                                    <input type="date" name="" class="form-control datepicker"
+                                        [(ngModel)]="bookingDate" [min]="startDate ? startDate : todatDate" [max]="endDate">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="select_drop">
+                                        <ng-multiselect-dropdown [placeholder]="'Select equipment'"
+                                            [settings]="dropdownEquipmentSettings" [data]="equipmentList"
+                                            [(ngModel)]="selectedEquipmentItems" (onSelect)="showSelectedEquipments()">
+                                        </ng-multiselect-dropdown>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align:center;vertical-align: middle;">                                    
+                            <a style="font-size:16px;cursor: pointer;font-weight: 600;color: rgb(19, 19, 155);" (click)="addEquipDetails()" role="button">
+                                +Add
+                            </a>
+                               
+                            </td>
+                        </tr>
+
+                        <tr *ngFor="let item of equipmentBookingDetails;let i=index;">
+                            <td>
+                                {{item.booked_from}}
+                            </td>
+                            <td>
+                                {{item.equipments}}
+                            </td>
+                            <td>
+                                <ul class="action_btn">
+                                    <li>
+                                        <a style="cursor: pointer;" (click)="equipmentTableEdit(i)"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                    </li>
+                                    <li>
+                                        <a style="cursor: pointer;" (click)="equipmentTableRemove(i, null)"><i
+                                                class="fa-solid fa-trash"></i></a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                        <!-- <tr *ngFor="let item of equipmentBookingDetails;let i=index;">
+                            <td>
+                                {{item.bookingDate}}
+                            </td>
+                            <td>
+                                <span *ngFor="let eq of item.equipments;let last = last;">{{eq.inv_code}}{{!last ?
+                                    ', ' : ''}}</span>
+                            </td>
+                            <td>
+                                <span *ngFor="let eq of item.employee;let last = last;">{{eq.empName}}{{!last ?
+                                    ',':''}}</span>
+                            </td>
+                            <td>
+                                <ul class="action_btn">
+                                    <li>
+                                        <a style="cursor: pointer;"><i
+                                                class="fa-solid fa-pen-to-square" (click)="equipTableEditNewJob(i)"></i></a>
+                                    </li>
+                                    <li>
+                                        <a style="cursor: pointer;"><i
+                                                class="fa-solid fa-trash"></i></a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr> -->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         <div class="col-sm-12 col-md-6">
             <label for="inputReference23" class="form-label">Payment: </label>
             <input type="text" class="form-control" [(ngModel)]="payment" (keypress)="handleKeyPress($event)"
