@@ -269,7 +269,7 @@ export class RequestForBookingComponent {
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.requestSent.emit();
         this.updateReqBookSent.emit();
-        this.getUserDetails(data)
+        // this.getUserDetails(data)
         this.onClose();
       } else {
         this.common.showAlertMessage(res.message, this.common.errContent);
