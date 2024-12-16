@@ -87,7 +87,7 @@
                                     <div class="select_drop">
                                         <ng-multiselect-dropdown [placeholder]="'Select equipment'"
                                             [settings]="dropdownEquipmentSettings" [data]="equipmentList"
-                                            [(ngModel)]="selectedEquipmentItems" (onSelect)="showSelectedEquipments()">
+                                            [(ngModel)]="selectedEquipmentItems" (onSelect)="showSelectedEquipments()" (onDeSelect)="showSelectedEquipments()">
                                         </ng-multiselect-dropdown>
                                     </div>
                                 </div>

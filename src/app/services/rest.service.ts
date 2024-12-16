@@ -400,6 +400,9 @@ export class RestService {
   getSelectedDatesForFLBook(data: any) {
     return this.http.post(this.API_ROOT + 'network/selectedDatesForFLBook', data, httpOptions);
   }
+  getSelectedEquipmentsForEOBook(data: any) {
+    return this.http.post(this.API_ROOT + 'network/selectedEquipmentsForEOBook', data, httpOptions);
+  }
   //----------------------------------//
 
   //------------------------ Common -------------------//

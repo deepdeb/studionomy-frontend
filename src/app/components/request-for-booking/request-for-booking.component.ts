@@ -47,6 +47,9 @@ export class RequestForBookingComponent {
   bookingDate = ''
 
   equipmentBookingDetails = [] as any
+  equipmentBookingDetailsEditFlag = false as boolean
+  isJobEditForEOFlag = false as boolean
+  index: any
 
   constructor(
     private router: Router,
@@ -59,8 +62,14 @@ export class RequestForBookingComponent {
     this.job_number ? this.getJobDetails() : '';
     this.req_to = this.data.content.req_to;
     this.job_id = this.data.content.job_id;
-    if(this.job_number && this.req_to && this.job_id) {
+    this.req_date = this.data.content.req_date;
+    this.req_id = this.data.content.req_id;
+    this.req_to_userType = this.data.content.req_to_userType;
+    if (this.job_number && this.req_to && this.job_id && this.req_to_userType == '1') {
       this.getSelectedDatesForFLBook();
+    } else if (this.job_number && this.req_to && this.job_id && this.req_to_userType == '2' && this.req_date) {
+      this.isJobEditForEOFlag = true;
+      this.getSelectedEquipmentsForEOBook();
     }
   }
 
@@ -68,17 +77,15 @@ export class RequestForBookingComponent {
     this.selectedSkillItems = [];
     this.name = this.data.content.freelancerName ? this.data.content.freelancerName : this.data.content.req_to_name;
     this.req_to_userType = Number(this.data.content.req_to_userType);
-    if(this.req_to_userType == 2) {
+    if (this.req_to_userType == 2) {
       this.getEquipmentListForBook();
     }
     this.req_to_mobile = this.data.content.req_to_mobile;
     this.payment = this.data.content.payment;
-    this.req_date = this.data.content.req_date;
     this.selectedSkillItems = this.data.content.skills
-      ? this.data.content.skills.split(',').map((skill: any) => ({name: skill.trim(), value: skill.trim()}))
+      ? this.data.content.skills.split(',').map((skill: any) => ({ name: skill.trim(), value: skill.trim() }))
       : this.data.content.skills
     this.message = this.data.content.message;
-    this.req_id = this.data.content.req_id;
     this.getAllBrandList();
     this.dropdownSkillSettings = {
       singleSelection: false,
@@ -138,8 +145,6 @@ export class RequestForBookingComponent {
           let endDate = new Date(this.common.convertOnlyDate(res.response.job_endDate));
           this.startDate = this.common.convertOnlyDate(res.response.job_startDate)
           this.endDate = this.common.convertOnlyDate(res.response.job_endDate)
-          console.log('start date>>>', this.startDate)
-          console.log('end date>>>>', this.endDate)
           this.dateList = this.common.dateRange(startDate, endDate);
           this.job_id = res.response.job_id;
         }
@@ -150,16 +155,16 @@ export class RequestForBookingComponent {
   checkIsDateContains(dateArray: any, dateToFind: any): any {
     return dateArray.some((obj: any) => obj.name === dateToFind || obj.value === dateToFind)
   }
- 
+
   sendRequest() {
-    if(this.req_to_userType == 1) {
+    if (this.req_to_userType == 1) {
       this.sendRequestForFL();
     } else if (this.req_to_userType == 2) {
       this.sendRequestForEO();
     }
   }
 
-  
+
   sendRequestForFL() {
     if (
       this.job_number == '' ||
@@ -204,12 +209,12 @@ export class RequestForBookingComponent {
         this.common.errContent
       );
       return;
-  }
+    }
 
-  const datesToSend = [];
-  for(let i = 0; i< this.selectedDates.length; i++ ){
-    datesToSend.push( `20${this.selectedDates[i].value.substring(6)}-${this.selectedDates[i].value.substring(3,5)}-${this.selectedDates[i].value.substring(0,2)}`);
-  }
+    const datesToSend = [];
+    for (let i = 0; i < this.selectedDates.length; i++) {
+      datesToSend.push(`20${this.selectedDates[i].value.substring(6)}-${this.selectedDates[i].value.substring(3, 5)}-${this.selectedDates[i].value.substring(0, 2)}`);
+    }
     const data = {
       req_id: Number(this.req_id),
       job_id: Number(this.job_id),
@@ -238,19 +243,22 @@ export class RequestForBookingComponent {
   }
 
   sendRequestForEO() {
-    if(!this.job_number) {
+    // if(this.isJobEditForEOFlag && this.equipmentBookingDetails.length > 1) {
+    //   this.common.showAlertMessage('Cannot add job for new date from here', this.common.errContent);
+    //   return
+    // }
+    if (!this.job_number) {
       this.common.showAlertMessage('Please enter job number', this.common.errContent);
       return
     }
-    if(!this.event_location) {
+    if (!this.event_location) {
       this.common.showAlertMessage('Please enter event location', this.common.errContent);
       return
     }
-    if(this.equipmentBookingDetails.length == 0) {
+    if (this.equipmentBookingDetails.length == 0) {
       this.common.showAlertMessage('Please add equipment', this.common.errContent);
       return
     }
-
     const data = {
       req_id: Number(this.req_id),
       job_id: Number(this.job_id),
@@ -267,6 +275,7 @@ export class RequestForBookingComponent {
     this.rest.sendRequestForEO(data).subscribe((res: any) => {
       if (res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
+        this.isJobEditForEOFlag = false;
         this.requestSent.emit();
         this.updateReqBookSent.emit();
         // this.getUserDetails(data)
@@ -312,7 +321,7 @@ export class RequestForBookingComponent {
       userType: data.req_from_userType
     }
     this.rest.getUserDetials(sendUserdata).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.studioName = res.response[0].orgName;
         this.studioMobile = res.response[0].mobile;
         this.address = res.response[0].address + ', ' + res.response[0].location;
@@ -321,7 +330,7 @@ export class RequestForBookingComponent {
     })
   }
 
-  whatsappReqBooking(data : any) {
+  whatsappReqBooking(data: any) {
     let text = encodeURIComponent(`*Request from: ${this.studioName} Phone no: ${this.studioMobile}, Address: ${this.address}`);
     text += '%0A' + encodeURIComponent(`*Skill required: ${data.skills}`);
     data.message ? text += '%0A' + encodeURIComponent(`*Message: ${data.message}`) : '';
@@ -340,9 +349,26 @@ export class RequestForBookingComponent {
       req_to: this.req_to
     }
     this.rest.getSelectedDatesForFLBook(data).subscribe((res: any) => {
+      if (res.success) {
+        for (let i = 0; i < res.response.length; i++) {
+          this.selectedDates.push({ "name": res.response[i].req_date, "value": res.response[i].req_date })
+        }
+      }
+    })
+  }
+
+  getSelectedEquipmentsForEOBook() {
+    const data = {
+      req_id: this.req_id,
+      job_id: this.job_id,
+      job_number: this.job_number,
+      req_to: this.req_to,
+      req_date: this.req_date
+    }
+    this.rest.getSelectedEquipmentsForEOBook(data).subscribe((res: any) => {
       if(res.success) {
-        for(let i = 0; i< res.response.length; i++) {
-          this.selectedDates.push({"name": res.response[i].req_date, "value": res.response[i].req_date})
+        for (let i = 0; i< res.response.length; i++) {
+          this.equipmentBookingDetails.push({booked_from: res.response[i].req_date, equipments: res.response[i].inv_code, equipments_id: res.response[i].equipment_id})
         }
       }
     })
@@ -351,32 +377,60 @@ export class RequestForBookingComponent {
   getEquipmentListForBook() {
     this.equipmentList = [];
     const data = {
-      req_to : this.req_to,
+      req_to: this.req_to,
       req_to_userType: this.req_to_userType
     }
     this.rest.getEquipmentListForBook(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.equipmentList = res.response
-      } 
+      }
     })
   }
 
   addEquipDetails() {
-    if(this.bookingDate < this.startDate || this.bookingDate > this.endDate) {
-      this.common.showAlertMessage("Selected date must be within job start date & job end date", this.common.errContent);
+
+    if(!this.equipmentBookingDetailsEditFlag && this.equipmentBookingDetails.length >= 1) {
+      this.common.showAlertMessage('Cannot add job for new date from here', this.common.errContent);
       return
     }
-    
-    this.equipmentBookingDetails.push({booked_from: this.bookingDate, equipments: this.selectedEquipmentItems.map((eq: any) => eq.inv_code).join(','), equipments_id: this.selectedEquipmentItems.map((eq: any) => eq.inv_id).join(',')})
-    this.selectedEquipmentItems = []
-  }
-  
-  equipmentTableEdit(index: any) {
 
+    if (this.equipmentBookingDetailsEditFlag) {
+      
+      if(this.equipmentBookingDetails.length > 1) {
+        this.common.showAlertMessage('Cannot add job for new date from here', this.common.errContent);
+        return;
+      }
+      if (this.bookingDate < this.startDate || this.bookingDate > this.endDate) {
+        this.common.showAlertMessage("Selected date must be within job start date & job end date", this.common.errContent);
+        return;
+      }
+
+      this.equipmentBookingDetails[this.index] = { booked_from: this.bookingDate, equipments: this.selectedEquipmentItems.map((eq: any) => eq.inv_code).join(','), equipments_id: this.selectedEquipmentItems.map((eq: any) => eq.inv_id).join(',') }
+      this.selectedEquipmentItems = []
+      this.bookingDate = ''
+      this.index = ''
+      this.equipmentBookingDetailsEditFlag = false;
+    } else {
+      if (this.bookingDate < this.startDate || this.bookingDate > this.endDate) {
+        this.common.showAlertMessage("Selected date must be within job start date & job end date", this.common.errContent);
+        return
+      }
+
+      this.equipmentBookingDetails.push({ booked_from: this.bookingDate, equipments: this.selectedEquipmentItems.map((eq: any) => eq.inv_code).join(','), equipments_id: this.selectedEquipmentItems.map((eq: any) => eq.inv_id).join(',') })
+      this.selectedEquipmentItems = []
+      this.bookingDate = ''
+    }
+  }
+
+  equipmentTableEdit(index: any) {
+    this.equipmentBookingDetailsEditFlag = true
+    this.index = index
+    this.bookingDate = this.equipmentBookingDetails[index].booked_from
+    this.selectedEquipmentItems = [{ inv_id: this.equipmentBookingDetails[index].equipments_id, inv_code: this.equipmentBookingDetails[index].equipments }]
   }
 
   equipmentTableRemove(index: any, item: any) {
-
+    this.equipmentBookingDetails.splice(index, 1);
   }
 
   equipTableEditNewJob(index: any) {
@@ -384,7 +438,7 @@ export class RequestForBookingComponent {
   }
 
   showSelectedEquipments() {
-
+    console.log('selected eq items >>>>', this.selectedEquipmentItems);
   }
 
 }

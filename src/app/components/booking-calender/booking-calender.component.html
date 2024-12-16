@@ -25,7 +25,8 @@
                 <h6>Studio Phone No : <span>{{reqDetails.studioMobile}}</span></h6>
                 <h6>Phone No : <span>{{reqDetails.freelancerMobile}}</span></h6>
                 <!-- <h6>Alt Phone No : <span>{{reqDetails.alt_mobile ? reqDetails.alt_mobile : 'Not available'}}</span></h6> -->
-                <h6>Skills : <span>{{reqDetails.skills}}</span></h6>
+                <h6 *ngIf="reqDetails.skills">Skills : <span>{{reqDetails.skills}}</span></h6>
+                <h6 *ngIf="reqDetails.inv_code">Equipments: <span>{{reqDetails.inv_code}}</span></h6>
                 <h6>Message : <span>{{reqDetails.message}}</span></h6>
                 <h6>Booking Date : <span>{{dateFormat(reqDetails.req_date)}}</span></h6>
                 <h6>Event Location : <span>{{reqDetails.event_location}}</span></h6>
