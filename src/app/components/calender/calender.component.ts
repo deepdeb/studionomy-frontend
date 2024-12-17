@@ -30,12 +30,17 @@ export class CalenderComponent {
   mainPlanActiveStatus: any;
   //------------------- Request Booking -------------------------//
   bookings = [] as any;
+  paymentList: any = [];
+  req_id: string = '';
+  creditAmount: string = '';
   bookingDetails: any;
   foundBookingDetails: any;
   rejectCheckTime = this.common.rejectCheckTime;
   reqDetails: any;
   subscription_end_date: any;
   name = localStorage.getItem('name')
+  rejectionRemark = '' as string
+  fl_eo_payment_id = '' as string
 
   calendarOption: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
@@ -56,13 +61,14 @@ export class CalenderComponent {
   }
 
   @ViewChild('requestDetails') requestDetailsModal: any;
+  @ViewChild('rejectPaymentRemarks') rejectPaymentRemarksModal: any;
 
   constructor(private rest: RestService, private dialog: MatDialog, private router: Router, private common: CommonService) {
     this.userType = localStorage.getItem('slUserType');
   }
 
   ngOnInit(): void {
-    this.getAllBuySubscriptionList();
+    // this.getAllBuySubscriptionList();
     if (this.userType == 0) {
       this.getAllJob();
     } else {
@@ -122,6 +128,7 @@ export class CalenderComponent {
 
 
   openModal(): void {
+    console.log('>>>req', this.reqDetails)
     const dialogRef = this.dialog.open(CalendarContentComponent, {
       width: '750px',
       data: {
@@ -192,6 +199,11 @@ export class CalenderComponent {
   }
 
   openRequestDetailsModal() {
+    // console.log('>>>> req details', this.reqDetails);
+    this.req_id = this.reqDetails.req_id;
+    if(this.req_id) {
+      this.getFreelancerEOPaymentByJob();
+    }
     const dialogRef: MatDialogRef<any> = this.dialog.open(this.requestDetailsModal, {
       width: '550px',
     });
@@ -315,4 +327,59 @@ export class CalenderComponent {
     // }
 
   }
+
+  getFreelancerEOPaymentByJob() {
+    const data = {
+      userId: localStorage.getItem('slUserId'),
+      userType: localStorage.getItem('slUserType'),
+      req_id: this.req_id
+    };
+    this.paymentList = [];
+    this.rest.getFreelancerEOPaymentByJob(data).subscribe((res: any) => {
+      if(res.success) {
+        this.paymentList = res.response;
+      }
+    })
+  }
+
+  acceptPayment(item: any) {
+    const data = {
+      fl_eo_payment_id: item.fl_eo_payment_id,
+      req_id: item.req_id,
+      job_id: item.job_id,
+      job_number: item.job_number,
+      credit_amount: item.credit_amount
+    }
+    // console.log('data>>>>', data)
+    this.rest.acceptPayment(data).subscribe((res: any) => {
+      if(res.success) {
+        this.common.showAlertMessage(res.message, this.common.succContent);
+        this.closeModal();
+      }
+    })
+  }
+
+  enterRemarksForPaymentReject(item: any) {
+    this.fl_eo_payment_id = item.fl_eo_payment_id
+    const dialogRef: MatDialogRef<any> = this.dialog.open(this.rejectPaymentRemarksModal, {
+      width: '550px',
+    });
+
+    dialogRef.afterClosed().subscribe({
+    });
+  }
+
+  rejectPayment() {
+    const data = {
+      reject_remarks: this.rejectionRemark,
+      fl_eo_payment_id: this.fl_eo_payment_id
+    }
+    this.rest.rejectPayment(data).subscribe((res: any) => {
+      if(res.success) {
+        this.common.showAlertMessage(res.message, this.common.succContent);
+        this.closeModal();
+      }
+    })
+  }
+
 }

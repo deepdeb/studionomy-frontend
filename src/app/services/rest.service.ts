@@ -281,12 +281,28 @@ export class RestService {
     );
   }
 
-  getAllFreelancerPayment(data: any) {
+  getAllFreelancerRequest(data: any) {
     return this.http.post(
-      this.API_ROOT + 'freelancer/freelancerPayment',
+      this.API_ROOT + 'freelancer/freelancerRequest',
       data,
       httpOptions
     )
+  }
+
+  acceptPayment(data: any) {
+    return this.http.post(this.API_ROOT + 'freelancer/acceptPayment', data, httpOptions)
+  }
+
+  rejectPayment(data: any) {
+    return this.http.post(this.API_ROOT + 'freelancer/rejectPayment', data, httpOptions)
+  }
+
+  getFreelancerEOPaymentByJob(data: any) {
+    return this.http.post(this.API_ROOT + 'freelancer/freelancerEOPaymentByJob', data, httpOptions)
+  }
+
+  submitPayment(data: any) {
+    return this.http.post(this.API_ROOT + 'freelancer/submitPayment', data, httpOptions)
   }
   //------------------------------- Employee Attendance -------------------//
 

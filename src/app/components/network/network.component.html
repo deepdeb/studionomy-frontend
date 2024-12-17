@@ -458,7 +458,7 @@
                             <button type="submit" class="display_btn" (click)="searchJobs()">search</button>
                         </div>
                     </div>
-                    <h5 class="network_heading">payment details</h5>
+                    <h5 class="network_heading">booking request details</h5>
                     <div class="table-container">
                         <div class="table-responsive">
                             <table class="table custom-table border mt-1">
@@ -476,8 +476,8 @@
                                         <th>action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="jobList.length != 0">
-                                    <tr *ngFor="let item of jobList;let i=index;">
+                                <tbody *ngIf="requestList.length != 0">
+                                    <tr *ngFor="let item of requestList;let i=index;">
                                         <th scope="row" class="sl_no">{{i+1}}</th>
                                         <td>
                                             <a href="#">{{item.job_number}}</a>
@@ -497,17 +497,17 @@
                                             <p>{{item.payment}}/-</p>
                                         </td>
                                         <td>
-                                            <!-- <p>{{item.last_paid_amount}}/-</p> -->
+                                            <p *ngIf="item.last_paid_amount">{{item.last_paid_amount}}/-</p>
                                             <!-- <p>{{item.last_payment_date}}</p> -->
                                         </td>
                                         <!-- <td>
                                             <span>{{item.total_paid_amount}}/-</span>
                                         </td> -->
                                         <td>
-                                            <span>{{item.payment}}/-</span>
+                                            <span *ngIf="item.due_amount">{{item.due_amount}}/-</span>
                                         </td>
                                         <td style="vertical-align: middle;">
-                                            <a (click)="openPaymentModal(item.job_id)" class="pay" style="cursor: pointer;">pay
+                                            <a (click)="openPaymentModal(item)" class="pay" style="cursor: pointer;">pay
                                                 again</a>
                                         </td>
                                     </tr>
@@ -528,17 +528,19 @@
         <h4>Payment Request</h4>
         <div class="card">
             <div class="request_body">
-                <h6>Payment to: </h6>
-                <h6>Payment to: </h6>
-                <h6>Payment to: </h6>
-                <h6>Payment to: </h6>
-                <h6>Payment to: </h6>
+                <h6>Payment to: {{freelancer_eo_name}}</h6>
+                <h6>Job Number: {{job_number}}</h6>
+                <h6>Event: {{job_details}}</h6>
+                <h6>Charges: {{charges}}</h6>
+                <h6>Event Location: {{event_location}}</h6>
             </div>
         </div>
         <div class="close" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="col-md-6 container d-flex justify-content-center align-items-center mt-5">
+            <input type="text" class="form-control" placeholder='Enter amount' [(ngModel)]="amountToPay">
+        </div>
         <div class="request_btn">
-            <button>Accept</button>
-            <button>Decline</button>
+            <button (click)="submitPayment()">Pay</button>
         </div>
     </div>
 </ng-template>

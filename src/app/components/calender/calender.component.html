@@ -31,15 +31,57 @@
                 <h6>Job Number : <span>{{reqDetails.job_number}}</span></h6>
                 <h6>Event Location : <span>{{reqDetails.event_location}}</span></h6>
                 <h6>Skills : <span>{{reqDetails.skills}}</span></h6>
-                <h6>Payment : <span *ngIf="reqDetails.payment != 0">{{reqDetails.payment}}</span></h6>
+                <h6>Charges : <span *ngIf="reqDetails.payment != 0">{{reqDetails.payment}}</span></h6>
                 <h6>Message : <span>{{reqDetails.message}}</span></h6>
                 <h6>Booking Date : <span>{{dateFormat(reqDetails.req_date)}}</span></h6>
             </div>
         </div>
         <div class="close" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table custom-table border mt-1">
+                    <thead>
+                        <tr style="width: 100%;">
+                            <th scope="col" class="sl_no" style="width: 4%;">sl no.</th>
+                            <th>payment date</th>
+                            <th>payment amount</th>
+                            <th>credit amount</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of paymentList;let i=index;">
+                            <td scope="row" class="sl_no">{{i+1}}</td>
+                            <td>{{item.payment_date}}</td>
+                            <td>{{item.payment_amount}}</td>
+                            <td>
+                                <input type="text" [(ngModel)]="item.credit_amount">
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn-success" (click)="acceptPayment(item)">Accept</button>
+                                    <button class="btn-danger" (click)="enterRemarksForPaymentReject(item)">Reject</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="request_btn">
-            <button (click)="acceptRequest()">Accept</button>
+            <button [disabled]="reqDetails.req_status == 'accepted'" [ngStyle]="{'background-color': reqDetails.req_status == 'accepted' ? 'lightgrey' : ''}" (click)="acceptRequest()">Accept</button>
             <button (click)="declineRequest()">Decline</button>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #rejectPaymentRemarks>
+    <div class="request_modal">
+        <h4>Request Details</h4>
+        <label class="form-label">Enter reason for payment rejection</label>
+        <input type="text" class="form-control" [(ngModel)]="rejectionRemark">
+    </div>
+    <div class="request_btn mb-5">
+        <button (click)="rejectPayment()">Reject payment</button>
     </div>
 </ng-template>

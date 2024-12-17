@@ -36,6 +36,15 @@ export class NetworkComponent {
   registerType = "" as any;
   search_name = "" as any;
   jobList: any = [];
+  requestList: any = [];
+  amountToPay = '' as string
+  charges : string = ''
+  freelancer_eo_name : string = ''
+  payment_to: string = ''
+  payment_to_userType: string = ''
+  payment_from: string = ''
+  payment_from_userType: string = ''
+  req_id : any;
   job_id : any;
   datesToCheck: any = [];
   job_number = '';
@@ -45,6 +54,7 @@ export class NetworkComponent {
   event_location: any;
   job_endDate: any;
   req_details = {} as any;
+  due_amount: any = ''
 
   @ViewChild('paymentRequest') paymentRequestModal: any;
 
@@ -56,7 +66,7 @@ export class NetworkComponent {
     this.getMyNetworkList();
     this.getStateList();
     // this.getAllJob();
-    this.getFreelancerPayment();
+    this.getFreelancerRequest();
     
     this.route.queryParams.subscribe(params => {
       this.job_number = params['job_number'],
@@ -82,7 +92,6 @@ export class NetworkComponent {
       date: this.date,
       userType: Number(type)
     };
-    console.log("data>>>",data)
     this.datesToCheck = [];
     this.rest.searchForNetwork(data).subscribe((res: any) => {
       if (res.success) {
@@ -257,15 +266,15 @@ export class NetworkComponent {
   //   })
   // }
 
-  getFreelancerPayment() {
+  getFreelancerRequest() {
     const data = {
       userId: localStorage.getItem('slUserId'),
       userType: localStorage.getItem('slUserType'),
     };
-    this.jobList = [];
-    this.rest.getAllFreelancerPayment(data).subscribe((res: any) => {
+    this.requestList = [];
+    this.rest.getAllFreelancerRequest(data).subscribe((res: any) => {
       if(res.success) {
-        this.jobList = res.response;
+        this.requestList = res.response;
       }
     })
   }
@@ -319,7 +328,6 @@ export class NetworkComponent {
       this.userList = [];
       if (res.success) {
         this.userList = res.response;
-      
       }
     })
   }
@@ -340,7 +348,20 @@ export class NetworkComponent {
     });
   }
 
-  openPaymentModal(job_id: any) {
+  openPaymentModal(item: any) {
+    // console.log('item>>>', item)
+    this.req_id = item.req_id
+    this.job_id = item.job_id
+    this.job_number = item.job_number
+    this.freelancer_eo_name = item.name
+    this.job_details = item.job_details
+    this.charges = item.payment
+    this.event_location = item.event_location
+    this.payment_to = item.req_to
+    this.payment_to_userType = item.req_to_userType
+    this.payment_from = item.req_from
+    this.payment_from_userType = item.req_from_userType
+    this.due_amount = item.due_amount
 
     const dialogRef: MatDialogRef<any> = this.dialog.open(this.paymentRequestModal, {
       width: '550px',
@@ -351,6 +372,32 @@ export class NetworkComponent {
 
   closeModal() {
     this.dialog.closeAll();
+    this.amountToPay = ''
+  }
+
+  submitPayment() {
+    if(this.amountToPay > this.due_amount) {
+      this.common.showAlertMessage('Payment amount cannot be more than due amount', this.common.errContent)
+      return
+    }
+    const data = {
+      req_id: this.req_id,
+      job_id : this.job_id,
+      job_number: this.job_number,
+      payment_to: this.payment_to,
+      payment_to_userType: this.payment_to_userType,
+      payment_from: this.payment_from,
+      payment_from_userType: this.payment_from_userType,
+      payment_amount: this.amountToPay
+    }
+    this.rest.submitPayment(data).subscribe((res: any) => {
+      if(res.success) {
+        this.common.showAlertMessage(res.message, this.common.succContent);
+        this.closeModal()
+        this.amountToPay = ''
+        this.getFreelancerRequest()
+      }
+    })
   }
 
 }
