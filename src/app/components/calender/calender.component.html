@@ -59,8 +59,8 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-center" style="gap:10px;">
-                                    <button style="border-radius: 3px;" class="btn-success" (click)="acceptPayment(item)">Accept</button>
-                                    <button style="border-radius: 3px;" class="btn-danger" (click)="enterRemarksForPaymentReject(item)">Reject</button>
+                                    <button style="border-radius: 3px;" class="btn-success" (click)="acceptPayment(item)" [disabled]="item.payment_status == 1 || item.reject_remarks">Accept</button>
+                                    <button style="border-radius: 3px;" class="btn-danger" (click)="enterRemarksForPaymentReject(item)" [disabled]="item.payment_status == 1 || item.reject_remarks">Reject</button>
                                 </div>
                             </td>
                         </tr>
