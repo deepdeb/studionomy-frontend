@@ -510,7 +510,7 @@
                                         <td style="vertical-align: middle;">
                                             <a *ngIf="+item.total_paid_amount < +item.payment" (click)="openPaymentModal(item)" class="pay" style="cursor: pointer;">pay
                                                 again</a>
-                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center">Amount fully paid. Wait for confirmation from EO/FL</p>
+                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center">Amount fully paid. Wait for confirmation from {{item.name}}</p>
                                         </td>
                                     </tr>
                                 </tbody>
