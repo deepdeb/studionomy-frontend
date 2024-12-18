@@ -133,7 +133,7 @@
                 <div class="choose_file">
                     <label for="formFile1" class="form-label">upload logo</label>
                     <div class="upload_area">
-                        <input class="form-control" type="file" id="formFile1" (change)="uploadImage('logo')">
+                        <input accept=".png,.jpg,.jpeg,.xls,.xlsx,.pdf" class="form-control" type="file" id="formFile1" (change)="uploadImage('logo')">
                         <img [src]="workImg1 ? imagePath + workImg1 : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('logo')">
                         <!-- <textarea type="text" class="form-control about_img" id="inputAbout-img1"
                             placeholder="About yourself" [(ngModel)]="aboutYouself"></textarea> -->
@@ -144,7 +144,7 @@
                 <div class="choose_file">
                     <label for="formFile2" class="form-label">upload your photo</label>
                     <div class="upload_area">
-                        <input class="form-control" type="file" id="formFile2" (change)="uploadImage('profilePhoto')">
+                        <input accept=".png,.jpg,.jpeg,.xls,.xlsx,.pdf" class="form-control" type="file" id="formFile2" (change)="uploadImage('profilePhoto')">
                         <img [src]="profileImg ? imagePath + profileImg : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage('profilePhoto')">
                     </div>
                 </div>
