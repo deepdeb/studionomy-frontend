@@ -376,7 +376,9 @@ export class NetworkComponent {
   }
 
   submitPayment() {
-    if(this.amountToPay > this.due_amount) {
+    if(Number(this.amountToPay) > this.due_amount) {
+      console.log('due', this.due_amount)
+      console.log('amount to pay', this.amountToPay)
       this.common.showAlertMessage('Payment amount cannot be more than due amount', this.common.errContent)
       return
     }
