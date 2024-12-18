@@ -343,6 +343,10 @@ export class CalenderComponent {
   }
 
   acceptPayment(item: any) {
+    if(!item.credit_amount) {
+      this.common.showAlertMessage('Enter credit amount', this.common.errContent)
+      return
+    }
     const data = {
       fl_eo_payment_id: item.fl_eo_payment_id,
       req_id: item.req_id,
@@ -350,7 +354,6 @@ export class CalenderComponent {
       job_number: item.job_number,
       credit_amount: item.credit_amount
     }
-    // console.log('data>>>>', data)
     this.rest.acceptPayment(data).subscribe((res: any) => {
       if(res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
