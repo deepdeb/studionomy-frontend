@@ -58,9 +58,9 @@
                                 <input type="text" [(ngModel)]="item.credit_amount">
                             </td>
                             <td>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn-success" (click)="acceptPayment(item)">Accept</button>
-                                    <button class="btn-danger" (click)="enterRemarksForPaymentReject(item)">Reject</button>
+                                <div class="d-flex justify-content-center" style="gap:10px;">
+                                    <button style="border-radius: 3px;" class="btn-success" (click)="acceptPayment(item)">Accept</button>
+                                    <button style="border-radius: 3px;" class="btn-danger" (click)="enterRemarksForPaymentReject(item)">Reject</button>
                                 </div>
                             </td>
                         </tr>
