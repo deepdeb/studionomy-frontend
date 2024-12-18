@@ -55,6 +55,7 @@ export class NetworkComponent {
   job_endDate: any;
   req_details = {} as any;
   due_amount: any = ''
+  total_paid_amount: any = ''
 
   @ViewChild('paymentRequest') paymentRequestModal: any;
 
@@ -362,6 +363,7 @@ export class NetworkComponent {
     this.payment_from = item.req_from
     this.payment_from_userType = item.req_from_userType
     this.due_amount = item.due_amount
+    this.total_paid_amount = item.total_paid_amount
 
     const dialogRef: MatDialogRef<any> = this.dialog.open(this.paymentRequestModal, {
       width: '550px',
@@ -376,9 +378,7 @@ export class NetworkComponent {
   }
 
   submitPayment() {
-    if(Number(this.amountToPay) > this.due_amount) {
-      console.log('due', this.due_amount)
-      console.log('amount to pay', this.amountToPay)
+    if(Number(this.amountToPay) > Number(this.due_amount) || Number(this.amountToPay) > (Number(this.charges) - Number(this.total_paid_amount))) {
       this.common.showAlertMessage('Payment amount cannot be more than due amount', this.common.errContent)
       return
     }
