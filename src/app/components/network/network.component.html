@@ -497,7 +497,8 @@
                                             <p>{{item.payment}}/-</p>
                                         </td>
                                         <td>
-                                            <p *ngIf="item.last_paid_amount">{{item.last_paid_amount}}/-</p>
+                                            <p *ngIf="item.last_paid_amount">Last paid: {{item.last_paid_amount}}/-</p>
+                                            <p *ngIf="item.total_paid_amount">Total paid: {{item.total_paid_amount}}/-</p>
                                             <!-- <p>{{item.last_payment_date}}</p> -->
                                         </td>
                                         <!-- <td>
@@ -507,8 +508,9 @@
                                             <span *ngIf="item.due_amount">{{item.due_amount}}/-</span>
                                         </td>
                                         <td style="vertical-align: middle;">
-                                            <a (click)="openPaymentModal(item)" class="pay" style="cursor: pointer;">pay
+                                            <a *ngIf="+item.total_paid_amount < +item.payment" (click)="openPaymentModal(item)" class="pay" style="cursor: pointer;">pay
                                                 again</a>
+                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center">Amount fully paid. Wait for confirmation from EO/FL</p>
                                         </td>
                                     </tr>
                                 </tbody>
