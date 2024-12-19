@@ -48,6 +48,13 @@ export class CommonService {
     { name: 'Cine Camera Operater', value: 'Cine Camera Operater' },
   ]
 
+  specializationList: any = [
+    { name: 'Photographer, Videographer', value: 'Photographer, Videographer'},
+    { name: 'Photographer, Videographer, Candidographer, Cinematographer', value: 'Photographer, Videographer, Candidographer, Cinematographer'},
+    { name: 'Photographer, Videographer, Candidographer, Cinematographer, Dronographer', value: 'Photographer, Videographer, Candidographer, Cinematographer, Dronographer'},
+    { name: 'Photographer, Videographer, Candidographer, Cinematographer, Dronographer, LED operator', value: 'Photographer, Videographer, Candidographer, Cinematographer, Dronographer, LED operator'}
+  ]
+
   rejectCheckTime = 4;
 
   constructor(private snackBar: MatSnackBar) { }

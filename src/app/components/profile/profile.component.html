@@ -111,13 +111,13 @@
                     <!-- <label for="inputLocation4" class="form-label">Job Details</label> -->
                     <input type="text" class="form-control" id="inputLocation7" [(ngModel)]="job_search_criteria"
                         (keyup.enter)="searchJob()" placeholder="Search Job">
-                        <!-- <div class="profile_job_search_btn">
+                    <!-- <div class="profile_job_search_btn">
                             <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()">
                                 <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
                             </button>
                         </div> -->
                 </div>
-                <div class="col-3 col-md-2 profile_job_search_btn">                    
+                <div class="col-3 col-md-2 profile_job_search_btn">
                     <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()">
                         <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
                     </button>
@@ -427,6 +427,8 @@
                                         <li><a (click)="quotation_number = item.quotation_number"><i
                                                     class="fa-solid fa-check-circle fa-lg" data-bs-toggle="modal"
                                                     data-bs-target="#jobConvertModal" style="color:#05bbaa;"></i></a>
+                                        </li>
+                                        <li><a (click)="getQuote(item)"><i class="fa-solid fa-file-pdf fa-lg" style="color: red;"></i></a>
                                         </li>
                                     </ul>
                                 </td>

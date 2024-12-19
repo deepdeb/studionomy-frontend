@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-profile',
@@ -88,6 +91,7 @@ export class ProfileComponent {
   emailSentMsg: any;
   toRegisteredMail: any;
   generatedOTP: any;
+  htmlContent: any = ''
 
   //**************************************** For Job report ************************************//
   startDate = "";
@@ -626,5 +630,180 @@ export class ProfileComponent {
       return
     }
   }
+
+  getQuote(item: any) {
+    const bookingDate = item.bookingDate.split(',');
+    const specialization = item.specialization.split(',');
+    const crew = item.crew.split(',')
+    this.setHtmlContent(item, bookingDate, specialization, crew);
+  }
+
+
+  setHtmlContent(value: any, bookingDate: any, specialization: any, crew: any) {
+    this.htmlContent = `
+<html>
+<head>
+</head>
+<body>
+
+  <div class="section_theme clearfix">
+    <div class="header-section"></div>
+    <div class="title-section">
+      <h2>Studio Name</h2>
+    </div>
+    <div class="address-section">
+      <strong>Address:</strong>
+      <p>123 Studio Address</p>
+    </div>
+    <div class="job-details">
+      <h2>Job Details</h2>
+    </div>
+    <div class="job-summary">
+      <h1>
+        <span>Job Details</span>
+        <span>&</span>
+        <span>Job Details</span>
+      </h1>
+    </div>
+    <div class="date-section">
+      <h5>On</h5>
+      <h4>
+        <span>2024-01-01</span> to <span>2024-01-10</span>
+      </h4>
+    </div>
+    <div class="event-location">
+      <h5>At</h5>
+      <h2>Event Location</h2>
+    </div>
+  </div>
+
+  <div class="section_theme clearfix">
+    <div class="customer-info">
+      <h2>Customer Name</h2>
+      <h2>+1234567890 / +0987654321</h2>
+      <h2>COST - $5000</h2>
+      <h2>Projects Description:</h2>
+      <p>Project description goes here.</p>
+    </div>
+    <div class="crew-details">
+      <h2>Days - Crew Details (All Events in Event Location)</h2>
+      <div class="crew-details-table">
+        <div>
+          <strong>2024-01-01</strong>
+          <p>Specialization 1</p>
+          <p>Crew 1 Name</p>
+        </div>
+        <div>
+          <strong>2024-01-02</strong>
+          <p>Specialization 2</p>
+          <p>Crew 2 Name</p>
+        </div>
+        <div>
+          <strong>2024-01-03</strong>
+          <p>Specialization 3</p>
+          <p>Crew 3 Name</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section_theme clearfix">
+    <div class="deliverables-section">
+      <h2>Deliverables</h2>
+      <div class="deliverables-list">
+        <ul>
+          <li><p>Deliverable description goes here.</p></li>
+        </ul>
+      </div>
+      <h2>Custom Field Name</h2>
+      <div class="custom-field-table">
+        <div>
+          <div>Custom Field Name</div>
+          <div>Custom Field Value</div>
+        </div>
+      </div>
+      <h2>Terms & Conditions</h2>
+      <div class="terms-list">
+        <ul>
+          <li><p>Terms and conditions text goes here.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+`;
+
+    // Create a temporary div element to hold the HTML content
+    const contentContainer = document.createElement('div');
+    contentContainer.innerHTML = this.htmlContent;
+
+    // Append this container to the DOM (but not visible to the user)
+    document.body.appendChild(contentContainer);
+
+    console.log('html content >>>>>', this.htmlContent)
+    // Call the function to generate PDF
+    this.generatePDF(contentContainer);
+    
+
+    // Optionally, remove the temporary container from the DOM after the PDF generation
+    document.body.removeChild(contentContainer);
+  }
+
+  generatePDF(contentContainer: HTMLElement) {
+    const sections = contentContainer.querySelectorAll('.section_theme');
+  
+    // Initialize jsPDF instance
+    const pdf = new jsPDF('p', 'mm', 'a4');
+  
+    sections.forEach((section: any, index) => {
+      const textElements = section.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span');
+      
+      // Apply styling for text elements, adjust font size to ensure readability
+      textElements.forEach((element: HTMLElement) => {
+        element.style.fontSize = '40px'; // Change to a reasonable font size for printing
+      });
+  
+      // Render the section into a canvas using html2canvas
+      html2canvas(section, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+  
+        // Get the canvas dimensions (width and height)
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+  
+        // Calculate aspect ratio
+        const aspectRatio = canvasWidth / canvasHeight;
+  
+        // Set the max width and height for an A4 page
+        const pageWidth = 210; // A4 width in mm
+        const pageHeight = 297; // A4 height in mm
+  
+        // Calculate image dimensions to fit within A4 page
+        let imgWidth = pageWidth;
+        let imgHeight = pageWidth / aspectRatio;
+  
+        // Adjust if the height exceeds A4 page height
+        if (imgHeight > pageHeight) {
+          imgHeight = pageHeight;
+          imgWidth = pageHeight * aspectRatio;
+        }
+  
+        // If not the first section, add a new page
+        if (index > 0) {
+          pdf.addPage();
+        }
+  
+        // Add the rendered image to the PDF
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+  
+        // Once all sections are processed, save the PDF
+        if (index == sections.length - 1) {
+          pdf.save('quotePDF.pdf');
+        }
+      });
+    });
+  }  
 
 }

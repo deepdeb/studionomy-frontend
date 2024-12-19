@@ -37,7 +37,8 @@
             </div>
             <div class="col-sm-6 col-md-3">
                 <label for="inputEnd_Date4" class="form-label">Job end Date</label>
-                <input type="date" class="form-control" id="inputEnd_Date4" [(ngModel)]="job_enddate">
+                <input type="date" class="form-control" id="inputEnd_Date4" [(ngModel)]="job_enddate"
+                    [min]="job_startdate">
             </div>
             <div class="col-sm-6 col-md-6">
                 <label for="inputEquipments5" class="form-label">Event Location</label>
@@ -67,7 +68,8 @@
                 <label for="quotationTheme" class="form-label">Upload quotation theme</label>
                 <div class="upload_area">
                     <input class="form-control" type="file" id="quotationTheme" (change)="uploadImage()">
-                    <img [src]="quotethemeImg ? imagePath + quotethemeImg : 'assets/img/background/no-photo.png'" alt="logo" loading="lazy" class="no_img" (click)="openImage()">
+                    <img [src]="quotethemeImg ? imagePath + quotethemeImg : 'assets/img/background/no-photo.png'"
+                        alt="logo" loading="lazy" class="no_img" (click)="openImage()">
                 </div>
             </div>
             <div class="col-sm-12 col-md-12">
@@ -85,29 +87,34 @@
                             <tr>
                                 <td>
                                     <!-- <input type="text" class="form-control datepicker" [(ngModel)]="bookingDate" (change)="getEquipmentAndEmployee()"> -->
-                                    <input type="date" class="form-control datepicker" [(ngModel)]="bookingDate">
+                                    <input type="date" class="form-control datepicker" [(ngModel)]="bookingDate"
+                                        [min]="job_startdate" [max]="job_enddate">
                                 </td>
                                 <td>
                                     <!-- <div class="form-group" [(ngModel)]="specializations"> -->
-                                        <!-- <ng-multiselect-dropdown [placeholder]="'Select equipment'"
+                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select equipment'"
                                             [settings]="dropdownEquipmentSettings" [data]="allInventoryList"
                                             [(ngModel)]="selectedEquipmentItems" (onSelect)="onItemSelected()">
                                         </ng-multiselect-dropdown> -->
-                                        <input type="text" class="form-control" id="" [(ngModel)]="specializations">
                                     <!-- </div> -->
+                                    <!-- <input type="text" class="form-control" id="" [(ngModel)]="specializations"> -->
+                                    <select class="form-select" id="" [(ngModel)]="specializations">
+                                        <option *ngFor="let item of specializationList" [value]="item.value">{{item.name}}
+                                        </option>
+                                    </select>
                                 </td>
                                 <td>
                                     <!-- <div class="form-group" [(ngModel)]="crews"> -->
-                                        <!-- <ng-multiselect-dropdown [placeholder]="'Select employee'"
+                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select employee'"
                                         [settings]="dropdownStaffsSettings" [data]="allEmployeeList"
                                         [(ngModel)]="selectedStaffItems" (onSelect)="onStaffSelected()"
                                         (onDeSelect)="onStaffDeselected($event)">
                                         </ng-multiselect-dropdown> -->
-                                        <input type="text" class="form-control" id="" [(ngModel)]="crews">
+                                    <input type="text" class="form-control" id="" [(ngModel)]="crews">
                                     <!-- </div> -->
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary" (click)="addEqupEmpDetails()" >+</button>
+                                    <button class="btn btn-primary" (click)="addEqupEmpDetails()">+</button>
                                 </td>
                             </tr>
                             <tr *ngFor="let item of equipmemtBookingDetails;let i=index;">

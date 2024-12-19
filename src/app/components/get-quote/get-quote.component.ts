@@ -55,6 +55,7 @@ export class GetQuoteComponent {
   imagePath = this.rest.imagePath;
   isLoading: boolean = false;
   htmlContent: any = '';
+  specializationList = this.common.specializationList as any;
 
   constructor(private common: CommonService, private router: Router, private rest: RestService) {
     this.userType = localStorage.getItem('slUserType');
@@ -488,10 +489,10 @@ export class GetQuoteComponent {
         }
         .section_theme {
           width: 800px;
-          min-height: 100%; /* Ensure enough space for background */
+          min-height: 100%;
           display: table;
           margin: auto;
-          background-size: cover; /* Maintain cover scaling */
+          background-size: cover;
           background-position: top center;
           background-repeat: no-repeat;
         }
@@ -588,10 +589,8 @@ export class GetQuoteComponent {
         </table>
       </div>
 
-      <div class="page-break"></div>
-
       <div class="section_theme" style="background-image: url(assets/img/themes/frame/3.jpg); background-size: cover;">
-        <table cellpadding="0" cellspacing="0" width="100%" align="center" style="text-align: center; margin: 0 auto;">
+        <table cellpadding="0" cellspacing="0" width="100%" align="center" style="text-align: center;">
           <tr>
             <td>
               <div style="padding: 100px 40px 100px 65px; text-align: left;">
@@ -627,8 +626,6 @@ export class GetQuoteComponent {
           </tr>
         </table>
       </div>
-
-      <div class="page-break"></div>
 
       <div class="section_theme" style="background-image: url(assets/img/themes/frame/3.jpg); background-size: cover;">
         <table cellpadding="0" cellspacing="0" width="100%" align="center" style="text-align: center;">
