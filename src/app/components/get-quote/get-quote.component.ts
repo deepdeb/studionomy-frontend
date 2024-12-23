@@ -4,7 +4,6 @@ import { RestService } from '../../services/rest.service';
 import { CommonService } from '../../services/common.service';
 import { HttpHeaders } from '@angular/common/http';
 import { jsPDF } from 'jspdf';
-import html2pdf from 'html2pdf.js';
 import html2canvas from 'html2canvas';
 
 
@@ -671,8 +670,6 @@ export class GetQuoteComponent {
 
 
 
-
-
   generatePDF(contentContainer: HTMLElement) {
     const sections = contentContainer.querySelectorAll('.section_theme');
 
@@ -687,21 +684,17 @@ export class GetQuoteComponent {
       html2canvas(section, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
 
-        // Get the canvas dimensions (width and height)
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
 
-        // Calculate aspect ratio
         const aspectRatio = canvasWidth / canvasHeight;
 
-        // Set the max width and height for the A4 page
-        const pageWidth = 210; // A4 width in mm
-        const pageHeight = 297; // A4 height in mm
+        const pageWidth = 210; 
+        const pageHeight = 297;
 
         let imgWidth = pageWidth;
         let imgHeight = pageWidth / aspectRatio;
 
-        // If the height exceeds the page height, adjust the dimensions
         if (imgHeight > pageHeight) {
           imgHeight = pageHeight;
           imgWidth = pageHeight * aspectRatio;
@@ -711,7 +704,6 @@ export class GetQuoteComponent {
           pdf.addPage();
         }
 
-        // Add the image with the calculated width and height
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
         if (index == sections.length - 1) {
@@ -720,5 +712,5 @@ export class GetQuoteComponent {
       });
     });
   }
-  
+
 }

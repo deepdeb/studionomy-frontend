@@ -22,8 +22,8 @@
     <li *ngIf="studioRole != 'employee' && userType ==0" class="personal-bookkeeping account-property-details"
         (click)="goTojobBookkeeping()" [ngStyle]="{ 'color': activeMenu == 'job-book-keeping' ? '#6610f2' : '' }">Job
         Ledger</li>
-    <li class="personal-bookkeeping account-property-details" (click)="goToQuote()"
-        [ngStyle]="{ 'color': activeMenu == 'quote' ? '#6610f2' : '' }" *ngIf="userType ==0">Get-Quote</li>
+    <!-- <li class="personal-bookkeeping account-property-details" (click)="goToQuote()"
+        [ngStyle]="{ 'color': activeMenu == 'quote' ? '#6610f2' : '' }" *ngIf="userType ==0">Get-Quote</li> -->
     <li class="personal-bookkeeping account-property-details" (click)="goToCalender()"
         [ngStyle]="{ 'color': activeMenu == 'calender' ? '#6610f2' : '' }">
         <i class="fa-solid fa-calendar-days"></i>&nbsp;

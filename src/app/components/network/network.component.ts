@@ -38,14 +38,14 @@ export class NetworkComponent {
   jobList: any = [];
   requestList: any = [];
   amountToPay = '' as string
-  charges : string = ''
-  freelancer_eo_name : string = ''
+  charges: string = ''
+  freelancer_eo_name: string = ''
   payment_to: string = ''
   payment_to_userType: string = ''
   payment_from: string = ''
   payment_from_userType: string = ''
-  req_id : any;
-  job_id : any;
+  req_id: any;
+  job_id: any;
   datesToCheck: any = [];
   job_number = '';
   isLoading: boolean = false;
@@ -68,13 +68,13 @@ export class NetworkComponent {
     this.getStateList();
     // this.getAllJob();
     this.getFreelancerRequest();
-    
+
     this.route.queryParams.subscribe(params => {
       this.job_number = params['job_number'],
-      this.job_startDate = params['job_startDate'],
-      this.job_endDate = params['job_endDate'],
-      this.job_details = params['job_details'],
-      this.event_location = params['event_location'] 
+        this.job_startDate = params['job_startDate'],
+        this.job_endDate = params['job_endDate'],
+        this.job_details = params['job_details'],
+        this.event_location = params['event_location']
     })
   }
   search(type: any) {
@@ -100,23 +100,25 @@ export class NetworkComponent {
         this.searchData = [];
         this.searchData = res.response;
         this.datesToCheck.push(this.date)
-        for(let i = 1; i<=3; i++) {
-          this.datesToCheck.push(this.date.split("-")[0] + "-" + this.date.split("-")[1] + "-" + (Number(this.date.split("-")[2]) + i).toString());
-        }
-        for(let i = 0; i <= res.response.length-1; i++){
-          const data = {
-            datesToCheck: this.datesToCheck,
-            userId: res.response[i].userId,
-            userType: res.response[i].userType
+        if (this.date) {
+          for (let i = 1; i <= 3; i++) {
+            this.datesToCheck.push(this.date.split("-")[0] + "-" + this.date.split("-")[1] + "-" + (Number(this.date.split("-")[2]) + i).toString());
           }
-          this.rest.getBookingStatusByDates(data).subscribe((res: any) => {
-            let bookingStatus = []
-            for(let j = 0; j<res.response.length; j++){
-              bookingStatus.push(res.response[j].req_status)
+          for (let i = 0; i <= res.response.length - 1; i++) {
+            const data = {
+              datesToCheck: this.datesToCheck,
+              userId: res.response[i].userId,
+              userType: res.response[i].userType
             }
-            this.searchData[i].bookingStatus = res.response;
-            bookingStatus = [];
-          });
+            this.rest.getBookingStatusByDates(data).subscribe((res: any) => {
+              let bookingStatus = []
+              for (let j = 0; j < res.response.length; j++) {
+                bookingStatus.push(res.response[j].req_status)
+              }
+              this.searchData[i].bookingStatus = res.response;
+              bookingStatus = [];
+            });
+          }
         }
         //this.clearForm();
       }
@@ -124,8 +126,8 @@ export class NetworkComponent {
   }
 
   getClassForDate(date: any, statuses: any) {
-    if(statuses) {
-    for (let status of statuses) {
+    if (statuses) {
+      for (let status of statuses) {
         if (status.req_date === date && status.req_status === 'accepted') {
           return 'purple_date';
         }
@@ -212,7 +214,7 @@ export class NetworkComponent {
       req_to_userType: userType,
       job_number: this.job_number
     };
-    if(!queryParams.job_number) {
+    if (!queryParams.job_number) {
       this.common.showAlertMessage("Booking FL/EO only possible from calendar by clicking on job", this.common.errContent)
       return
     }
@@ -225,7 +227,7 @@ export class NetworkComponent {
       const data = {
         country: "India",
         state: stateName
-    };
+      };
       this.rest.getCityList(data).subscribe((res: any) => {
         if (res.error == false) {
           this.cityList = res.data;
@@ -242,12 +244,12 @@ export class NetworkComponent {
   get_register_type() {
     const data = {
       userType: this.userType,
-      limit : 100,
-      offset : 0,
+      limit: 100,
+      offset: 0,
     };
-   
+
     this.rest.searchUser(data).subscribe((res: any) => {
-       this.userList = [];
+      this.userList = [];
       if (res.success) {
         this.userList = res.response;
       }
@@ -274,7 +276,7 @@ export class NetworkComponent {
     };
     this.requestList = [];
     this.rest.getAllFreelancerRequest(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.requestList = res.response;
       }
     })
@@ -294,22 +296,22 @@ export class NetworkComponent {
   }
 
   searchJobs() {
-  
-    if (this.search_start_date == "" ) {
+
+    if (this.search_start_date == "") {
       this.common.showAlertMessage("Please select from date", this.common.errContent);
       return;
     }
 
-    if (this.search_end_date == "" ) {
+    if (this.search_end_date == "") {
       this.common.showAlertMessage("Please select to date", this.common.errContent);
       return;
     }
-    if (this.registerType == "" ) {
+    if (this.registerType == "") {
       this.common.showAlertMessage("Please select user type", this.common.errContent);
       return;
     }
 
-    if (this.search_name == "" ) {
+    if (this.search_name == "") {
       this.common.showAlertMessage("Please select name", this.common.errContent);
       return;
     }
@@ -378,13 +380,13 @@ export class NetworkComponent {
   }
 
   submitPayment() {
-    if(Number(this.amountToPay) > Number(this.due_amount) || Number(this.amountToPay) > (Number(this.charges) - Number(this.total_paid_amount))) {
+    if (Number(this.amountToPay) > Number(this.due_amount) || Number(this.amountToPay) > (Number(this.charges) - Number(this.total_paid_amount))) {
       this.common.showAlertMessage('Payment amount cannot be more than due amount', this.common.errContent)
       return
     }
     const data = {
       req_id: this.req_id,
-      job_id : this.job_id,
+      job_id: this.job_id,
       job_number: this.job_number,
       payment_to: this.payment_to,
       payment_to_userType: this.payment_to_userType,
@@ -393,7 +395,7 @@ export class NetworkComponent {
       payment_amount: this.amountToPay
     }
     this.rest.submitPayment(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.closeModal()
         this.amountToPay = ''

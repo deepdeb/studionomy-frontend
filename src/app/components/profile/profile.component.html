@@ -303,7 +303,7 @@
             </div>
         </div>
 
-        <div class="account-details" *ngIf="studioRole != 'employee' && userType == 0">
+        <div hidden class="account-details" *ngIf="studioRole != 'employee' && userType == 0">
             <h6 class="personal-heading">My Quotations</h6>
             <div class="jobs_btn_div">
                 <button type="button" class="btn-primary jobs_btn"
@@ -324,14 +324,6 @@
                     <input type="text" class="form-control" id="inputLocation7" [(ngModel)]="quote_search_criteria"
                         (keyup.enter)="searchQuotation()" placeholder="Search Quotation">
                 </div>
-                <!-- <div class="col-12 col-md-3">
-                    <input type="text" class="form-control" id="inputLocation4" [(ngModel)]="cust_name"
-                        placeholder="Enter Customer Name">
-                </div>
-                <div class="col-12 col-md-3">
-                    <input type="text" class="form-control" id="inputCity5" [(ngModel)]="cust_phoneNo"
-                        placeholder="Enter Phone No">
-                </div> -->
                 <div class="col-3 col-md-2 profile_job_search_btn">
                     <button type="button" class="jobs_btn delivered_btn " (click)="searchQuotation()"><i
                             class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
@@ -347,9 +339,6 @@
                     </select>
                 </div>
                 <div class="job_add" style="text-align: center;">
-                    <!-- <p style="font-size: smaller;margin-bottom: 8px; white-space: nowrap;">Total : <span>{{quotationCount}}</span></p> -->
-                    <!-- <button class="btn-success report_btn" (click)="quoteReport()"
-                        *ngIf="quotationList.length > 0 && studioRole != 'employee'">Report</button> -->
                 </div>
                 <div class="emp_total">
                     <label style="font-size: smaller;margin-bottom:0;">Total: <span>{{quotationCount}}</span></label>

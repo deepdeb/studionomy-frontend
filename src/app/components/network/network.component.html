@@ -242,9 +242,9 @@
                                                 <li style="padding-left: 8px;border-left: 2px solid black;"><span
                                                         class="pay" (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
                                                         style="cursor: pointer;">book</span></li>
-                                                <li style="padding-left: 8px;"><span class="pay renew"
-                                                        style="cursor: pointer;"
-                                                        (click)="addToMyNetwork(item.userId)">add</span></li>
+                                                <li style="padding-left: 8px;"><button class="pay renew"
+                                                        [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
+                                                        (click)="addToMyNetwork(item.userId)" [disabled]="item.isDisabled == '1'">add</button></li>
                                             </ul>
 
 
@@ -395,9 +395,9 @@
                                                 <li style="padding-left: 8px;border-left: 2px solid black;"><span
                                                         class="pay" (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
                                                         style="cursor: pointer;">book</span></li>
-                                                <li style="padding-left: 8px;"><span class="pay renew"
-                                                        style="cursor: pointer;"
-                                                        (click)="addToMyNetwork(item.userId)">add</span></li>
+                                                <li style="padding-left: 8px;"><button class="pay renew"
+                                                        [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
+                                                        (click)="addToMyNetwork(item.userId)" [disabled]="item.isDisabled == 1">add</button></li>
                                             </ul>
 
                                             <!-- <input type="date" class="form-control" width="100%">
@@ -470,7 +470,7 @@
                                         <th>event date</th>
                                         <th>events</th>
                                         <th>charges</th>
-                                        <th>amount paid</th>
+                                        <th>payment details</th>
                                         <!-- <th>total paid</th> -->
                                         <th>due</th>
                                         <th>action</th>
@@ -497,7 +497,7 @@
                                             <p>{{item.payment}}/-</p>
                                         </td>
                                         <td>
-                                            <p *ngIf="item.last_paid_amount">Last paid: {{item.last_paid_amount}}/-</p>
+                                            <p *ngIf="item.payment_details">Amount paid: {{item.payment_details}}</p>
                                             <p *ngIf="item.total_paid_amount">Total paid: {{item.total_paid_amount}}/-</p>
                                             <!-- <p>{{item.last_payment_date}}</p> -->
                                         </td>
@@ -510,7 +510,7 @@
                                         <td style="vertical-align: middle;">
                                             <a *ngIf="+item.total_paid_amount < +item.payment" (click)="openPaymentModal(item)" class="pay" style="cursor: pointer;">pay
                                                 again</a>
-                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center">Amount fully paid. Wait for confirmation from {{item.name}}</p>
+                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center"><strong style="color: green;">Amount fully paid. Wait for confirmation from {{item.name}}</strong></p>
                                         </td>
                                     </tr>
                                 </tbody>

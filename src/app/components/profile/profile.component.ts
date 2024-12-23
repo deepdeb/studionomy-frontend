@@ -4,7 +4,7 @@ import { CommonService } from '../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -118,8 +118,8 @@ export class ProfileComponent {
   }
 
   setSubscriptionActiveStatus() {
-    this.rest.setSubscriptionActiveStatus().subscribe((res:any) => {
-      
+    this.rest.setSubscriptionActiveStatus().subscribe((res: any) => {
+
     })
   }
 
@@ -385,11 +385,11 @@ export class ProfileComponent {
     return date1;
   }
   jobReport() {
-    if(!this.startDate) {
+    if (!this.startDate) {
       this.common.showAlertMessage('Select start date', this.common.errContent);
       return
     }
-    if(!this.endDate) {
+    if (!this.endDate) {
       this.common.showAlertMessage('Select end date,', this.common.errContent);
       return
     }
@@ -488,7 +488,7 @@ export class ProfileComponent {
       userType: this.userType
     }
     this.rest.getQuoteByQuoteNum(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         console.log("res>>", res.response)
         let queryParams = {
           job_details: res.response[0].job_details,
@@ -503,7 +503,7 @@ export class ProfileComponent {
           event_location: res.response[0].event_location,
           total_amount: res.response[0].total_amount,
         }
-        this.router.navigate(['job'], {queryParams})
+        this.router.navigate(['job'], { queryParams })
       }
     })
   }
@@ -529,7 +529,7 @@ export class ProfileComponent {
     //   this.router.navigate(['subscription']);
     //   return
     // }
-    if (this.totalInventary > 0 && this.userType == "0") { 
+    if (this.totalInventary > 0 && this.userType == "0") {
       this.router.navigate(['job']);
     } else {
       this.common.showAlertMessage("First add your inventary then add the job", this.common.errContent);
@@ -538,7 +538,7 @@ export class ProfileComponent {
   }
 
   changePassword() {
-    if(this.userId == 5) {
+    if (this.userId == 5) {
       this.common.showAlertMessage('Action denied for this account', this.common.errContent);
       return
     } else {
@@ -567,11 +567,11 @@ export class ProfileComponent {
       userId: this.userId
     }
     this.rest.checkAndChangePassword(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.changePasswordOTP = '';
         this.oldPassword = '';
-        this.newPassword= '';
+        this.newPassword = '';
         this.closeModal();
       } else {
         this.common.showAlertMessage(res.message, this.common.errContent);
@@ -588,7 +588,7 @@ export class ProfileComponent {
       toRegisteredMail: this.toRegisteredMail
     }
     this.rest.getUserDetailsByEmail(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.generatedOTP = this.common.generateOTP();
         this.sendMail();
         // this.openOTPEnterModal();
@@ -612,7 +612,7 @@ export class ProfileComponent {
   }
 
   updateOTPinDB() {
-    const data  = {
+    const data = {
       userId: this.userId,
       generatedOTP: this.generatedOTP
     }
@@ -621,7 +621,7 @@ export class ProfileComponent {
   }
 
   showWarning() {
-    if(this.endDate < this.startDate) {
+    if (this.endDate < this.startDate) {
       this.endDate = ''
       this.common.showAlertMessage(
         'End date must be greater than start date',
@@ -647,7 +647,6 @@ export class ProfileComponent {
 <body>
 
   <div class="section_theme clearfix">
-    <div class="header-section"></div>
     <div class="title-section">
       <h2>Studio Name</h2>
     </div>
@@ -659,21 +658,21 @@ export class ProfileComponent {
       <h2>Job Details</h2>
     </div>
     <div class="job-summary">
-      <h1>
+      <div>
         <span>Job Details</span>
         <span>&</span>
         <span>Job Details</span>
-      </h1>
+      </div>
     </div>
     <div class="date-section">
       <h5>On</h5>
-      <h4>
+      <div>
         <span>2024-01-01</span> to <span>2024-01-10</span>
-      </h4>
+      </div>
     </div>
     <div class="event-location">
       <h5>At</h5>
-      <h2>Event Location</h2>
+      <h2>Kolkata</h2>
     </div>
   </div>
 
@@ -745,7 +744,8 @@ export class ProfileComponent {
     console.log('html content >>>>>', this.htmlContent)
     // Call the function to generate PDF
     this.generatePDF(contentContainer);
-    
+    // this.generatePdf();
+
 
     // Optionally, remove the temporary container from the DOM after the PDF generation
     document.body.removeChild(contentContainer);
@@ -753,57 +753,63 @@ export class ProfileComponent {
 
   generatePDF(contentContainer: HTMLElement) {
     const sections = contentContainer.querySelectorAll('.section_theme');
-  
+
     // Initialize jsPDF instance
     const pdf = new jsPDF('p', 'mm', 'a4');
-  
+
     sections.forEach((section: any, index) => {
       const textElements = section.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span');
-      
+
       // Apply styling for text elements, adjust font size to ensure readability
       textElements.forEach((element: HTMLElement) => {
         element.style.fontSize = '40px'; // Change to a reasonable font size for printing
       });
-  
+
       // Render the section into a canvas using html2canvas
       html2canvas(section, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-  
+
         // Get the canvas dimensions (width and height)
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
-  
+
         // Calculate aspect ratio
         const aspectRatio = canvasWidth / canvasHeight;
-  
+
         // Set the max width and height for an A4 page
         const pageWidth = 210; // A4 width in mm
         const pageHeight = 297; // A4 height in mm
-  
+
         // Calculate image dimensions to fit within A4 page
         let imgWidth = pageWidth;
         let imgHeight = pageWidth / aspectRatio;
-  
+
         // Adjust if the height exceeds A4 page height
         if (imgHeight > pageHeight) {
           imgHeight = pageHeight;
           imgWidth = pageHeight * aspectRatio;
         }
-  
+
         // If not the first section, add a new page
         if (index > 0) {
           pdf.addPage();
         }
-  
+
         // Add the rendered image to the PDF
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-  
+
         // Once all sections are processed, save the PDF
         if (index == sections.length - 1) {
           pdf.save('quotePDF.pdf');
         }
       });
     });
-  }  
+  }
+
+  generatePdf() {
+    const pdf = new jsPDF();
+    pdf.text("Hello world!", 10, 10);
+    pdf.save("a4.pdf");
+  }
 
 }

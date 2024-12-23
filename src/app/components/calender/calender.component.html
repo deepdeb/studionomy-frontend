@@ -69,8 +69,8 @@
             </div>
         </div>
         <div class="request_btn">
-            <button [disabled]="reqDetails.req_status == 'accepted'" [ngStyle]="{'background-color': reqDetails.req_status == 'accepted' ? 'lightgrey' : ''}" (click)="acceptRequest()">Accept</button>
-            <button (click)="declineRequest()">Decline</button>
+            <button [disabled]="reqDetails.req_status == 'accepted' || reqDetails.req_status == 'declined'" [ngStyle]="{'background-color': reqDetails.req_status == 'accepted' || reqDetails.req_status == 'declined' ? 'lightgrey' : ''}" (click)="acceptRequest()">Accept</button>
+            <button [disabled]="reqDetails.req_status == 'accepted' || reqDetails.req_status == 'declined'" [ngStyle]="{'background-color': reqDetails.req_status == 'accepted' || reqDetails.req_status == 'declined' ? 'lightgrey' : ''}" (click)="declineRequest()">Decline</button>
         </div>
     </div>
 </ng-template>
