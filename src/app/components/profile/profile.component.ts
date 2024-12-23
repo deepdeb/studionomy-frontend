@@ -640,95 +640,157 @@ export class ProfileComponent {
 
 
   setHtmlContent(value: any, bookingDate: any, specialization: any, crew: any) {
+    console.log('value>>>>', value);
     this.htmlContent = `
-<html>
+<html lang="en">
 <head>
+  <style>
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+
+    .section_theme {
+      width: 80%;
+      max-width: 800px;
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .title-section, .address-section, .job-details, .job-summary, .date-section, .event-location, 
+    .customer-info, .crew-details, .deliverables-section {
+      text-align: left;
+    }
+
+    h2, h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .crew-details-table div {
+      margin-bottom: 10px;
+    }
+
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="section_theme clearfix">
+  <section class="section_theme clearfix">
     <div class="title-section">
-      <h2>Studio Name</h2>
+      <h2>${value.studio_name}</h2>
     </div>
     <div class="address-section">
       <strong>Address:</strong>
-      <p>123 Studio Address</p>
+      <p>${value.address}</p>
     </div>
     <div class="job-details">
       <h2>Job Details</h2>
     </div>
     <div class="job-summary">
       <div>
-        <span>Job Details</span>
-        <span>&</span>
-        <span>Job Details</span>
+        <p>${value.job_details}</p>
       </div>
     </div>
     <div class="date-section">
-      <h5>On</h5>
+      <h3>On</h3>
       <div>
-        <span>2024-01-01</span> to <span>2024-01-10</span>
+        <span>${value.job_startDate}</span> to <span>${value.job_endDate}</span>
       </div>
     </div>
     <div class="event-location">
-      <h5>At</h5>
-      <h2>Kolkata</h2>
+      <h3>At</h3>
+      <h2>${value.event_location}</h2>
     </div>
-  </div>
+  </section>
 
-  <div class="section_theme clearfix">
+  <section class="section_theme clearfix">
     <div class="customer-info">
-      <h2>Customer Name</h2>
-      <h2>+1234567890 / +0987654321</h2>
-      <h2>COST - $5000</h2>
+      <h2>${value.cust_firstName}</h2>
+      <h2>${value.cust_phoneNo} / ${value.cust_altPhoneNo}</h2>
+      <h2>COST - ${value.total_amount}</h2>
       <h2>Projects Description:</h2>
-      <p>Project description goes here.</p>
+      <p>${value.project_desc}</p>
     </div>
-    <div class="crew-details">
-      <h2>Days - Crew Details (All Events in Event Location)</h2>
-      <div class="crew-details-table">
-        <div>
-          <strong>2024-01-01</strong>
-          <p>Specialization 1</p>
-          <p>Crew 1 Name</p>
-        </div>
-        <div>
-          <strong>2024-01-02</strong>
-          <p>Specialization 2</p>
-          <p>Crew 2 Name</p>
-        </div>
-        <div>
-          <strong>2024-01-03</strong>
-          <p>Specialization 3</p>
-          <p>Crew 3 Name</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    // <div class="crew-details">
+    //   <h2>Days - Crew Details (All Events in ${value.event_location})</h2>
+      // <section class="crew-details-table">
+      // ${value.bookingDate?.split(',').map((date: any, index: any) => `
+      //   <div>
+      //     <strong>${date}</strong>
+      //     <p>${value.specialization.split(',')[index]}</p>
+      //     <p>${value.crew.split(',')[index]}</p>
+      //   </div>
+      //   <div>
+      //     <strong>${date}</strong>
+      //     <p>${value.specialization.split(',')[index]}</p>
+      //     <p>${value.crew.split(',')[index]}</p>
+      //   </div>
+      //   <div>
+      //     <strong>${date}</strong>
+      //     <p>${value.specialization.split(',')[index]}</p>
+      //     <p>${value.crew.split(',')[index]}</p>
+      //   </div>
+      //   `)}
+      // </section>
+    // </div>
+  </section>
 
-  <div class="section_theme clearfix">
+  <section class="section_theme clearfix">
     <div class="deliverables-section">
-      <h2>Deliverables</h2>
+      <h2>Deliverables:</h2>
       <div class="deliverables-list">
         <ul>
-          <li><p>Deliverable description goes here.</p></li>
+          <li>${value.deliverables}</li>
         </ul>
       </div>
-      <h2>Custom Field Name</h2>
       <div class="custom-field-table">
         <div>
-          <div>Custom Field Name</div>
-          <div>Custom Field Value</div>
+          <div>${value.customName}</div>
+          <div>${value.customValue}</div>
         </div>
       </div>
-      <h2>Terms & Conditions</h2>
+      <h2>Terms & Conditions: </h2>
       <div class="terms-list">
         <ul>
-          <li><p>Terms and conditions text goes here.</p></li>
+          <li>${value.termscondition}</li>
         </ul>
       </div>
     </div>
-  </div>
+  </section>
 
 </body>
 </html>
@@ -741,7 +803,6 @@ export class ProfileComponent {
     // Append this container to the DOM (but not visible to the user)
     document.body.appendChild(contentContainer);
 
-    console.log('html content >>>>>', this.htmlContent)
     // Call the function to generate PDF
     this.generatePDF(contentContainer);
     // this.generatePdf();
@@ -766,7 +827,7 @@ export class ProfileComponent {
       });
 
       // Render the section into a canvas using html2canvas
-      html2canvas(section, { scale: 2 }).then((canvas) => {
+      html2canvas(section, { scale: 2, logging: true }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
 
         // Get the canvas dimensions (width and height)
