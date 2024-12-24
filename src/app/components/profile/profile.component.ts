@@ -376,7 +376,6 @@ export class ProfileComponent {
   }
 
   goToPaymentDetails(job_id: any) {
-    console.log(job_id);
     this.router.navigate(['payment-details/' + job_id]);
   }
   //------------------Date Compare -----------/
@@ -489,7 +488,6 @@ export class ProfileComponent {
     }
     this.rest.getQuoteByQuoteNum(data).subscribe((res: any) => {
       if (res.success) {
-        console.log("res>>", res.response)
         let queryParams = {
           job_details: res.response[0].job_details,
           job_startDate: this.common.convertOnlyDate(res.response[0].job_startDate),
@@ -632,6 +630,7 @@ export class ProfileComponent {
   }
 
   getQuote(item: any) {
+    console.log('item>>>', item)
     const bookingDate = item.bookingDate.split(',');
     const specialization = item.specialization.split(',');
     const crew = item.crew.split(',')
@@ -640,160 +639,173 @@ export class ProfileComponent {
 
 
   setHtmlContent(value: any, bookingDate: any, specialization: any, crew: any) {
-    console.log('value>>>>', value);
     this.htmlContent = `
-<html lang="en">
-<head>
-  <style>
+      <html lang="en">
+      <head>
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
+          body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+          }
 
-    .main-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
-    }
+          .section_theme {
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 auto;
+            text-align: center;
+          }
 
+          .title-section h2 {
+            display: inline-block;
+            position: relative;
+            font-size: 35px;
+            text-transform: capitalize;
+            margin-bottom: 20px;
+            color: #2c3e50;
+          }
 
-    .section_theme {
-      width: 80%;
-      max-width: 800px;
-      margin: 20px 0;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
+          .title-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #007BFF;
+            border-radius: 2px;
+          }
 
-    .title-section, .address-section, .job-details, .job-summary, .date-section, .event-location, 
-    .customer-info, .crew-details, .deliverables-section {
-      text-align: left;
-    }
+          .address-section {
+            margin-bottom: 15px;
+          }
 
-    h2, h3 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+          .address-section strong {
+            font-weight: bold;
+            text-transform: capitalize;
+            color: #34495e;
+            font-size: 30px;
+          }
 
-    h2 {
-      font-weight: bold;
-    }
+          .address-section p {
+            font-size: 25px;
+            margin-top: 5px;
+            text-transform: capitalize;
+          }
 
-    p {
-      font-size: 16px;
-    }
+          .address-section span {
+            font-size: 20px;
+          }
 
-    .crew-details-table div {
-      margin-bottom: 10px;
-    }
+          .deliverables-list ul {
+            list-style-type: none;
+            padding-left: 0;
+          }
 
+          .deliverables-list li {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+          }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
+          .custom-field-table div {
+            margin-bottom: 10px;
+          }
 
-    li {
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
+          .custom-field-table div > div:first-child {
+            font-weight: bold;
+          }
 
-  <section class="section_theme clearfix">
-    <div class="title-section">
-      <h2>${value.studio_name}</h2>
-    </div>
-    <div class="address-section">
-      <strong>Address:</strong>
-      <p>${value.address}</p>
-    </div>
-    <div class="job-details">
-      <h2>Job Details</h2>
-    </div>
-    <div class="job-summary">
-      <div>
-        <p>${value.job_details}</p>
-      </div>
-    </div>
-    <div class="date-section">
-      <h3>On</h3>
-      <div>
-        <span>${value.job_startDate}</span> to <span>${value.job_endDate}</span>
-      </div>
-    </div>
-    <div class="event-location">
-      <h3>At</h3>
-      <h2>${value.event_location}</h2>
-    </div>
-  </section>
+          .terms-list ul {
+            list-style-type: none;
+            padding-left: 0;
+          }
 
-  <section class="section_theme clearfix">
-    <div class="customer-info">
-      <h2>${value.cust_firstName}</h2>
-      <h2>${value.cust_phoneNo} / ${value.cust_altPhoneNo}</h2>
-      <h2>COST - ${value.total_amount}</h2>
-      <h2>Projects Description:</h2>
-      <p>${value.project_desc}</p>
-    </div>
-    // <div class="crew-details">
-    //   <h2>Days - Crew Details (All Events in ${value.event_location})</h2>
-      // <section class="crew-details-table">
-      // ${value.bookingDate?.split(',').map((date: any, index: any) => `
-      //   <div>
-      //     <strong>${date}</strong>
-      //     <p>${value.specialization.split(',')[index]}</p>
-      //     <p>${value.crew.split(',')[index]}</p>
-      //   </div>
-      //   <div>
-      //     <strong>${date}</strong>
-      //     <p>${value.specialization.split(',')[index]}</p>
-      //     <p>${value.crew.split(',')[index]}</p>
-      //   </div>
-      //   <div>
-      //     <strong>${date}</strong>
-      //     <p>${value.specialization.split(',')[index]}</p>
-      //     <p>${value.crew.split(',')[index]}</p>
-      //   </div>
-      //   `)}
-      // </section>
-    // </div>
-  </section>
+          .terms-list li {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+          }
 
-  <section class="section_theme clearfix">
-    <div class="deliverables-section">
-      <h2>Deliverables:</h2>
-      <div class="deliverables-list">
-        <ul>
-          <li>${value.deliverables}</li>
-        </ul>
-      </div>
-      <div class="custom-field-table">
-        <div>
-          <div>${value.customName}</div>
-          <div>${value.customValue}</div>
-        </div>
-      </div>
-      <h2>Terms & Conditions: </h2>
-      <div class="terms-list">
-        <ul>
-          <li>${value.termscondition}</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+        </style>
+      </head>
+      <body>
+        <section class="section_theme">
+          <div class="title-section">
+            <h2>${value.studio_name}</h2>
+          </div>
+          
+          <div class="address-section">
+            <strong>Address:</strong>
+            <p>${value.address}</p>
+          </div>
+          
+          <div class="address-section">
+            <strong>Job Details:</strong>
+            <p>${value.job_details}</p>
+          </div>
+          
+          <div class="address-section">
+            <strong>On:</strong>
+            <p>${value.job_startDate} <span>to</span> ${value.job_endDate}</p>
+          </div>
+          
+          <div class="address-section">
+            <strong>Event location:</strong>
+            <p>${value.event_location}</p>
+          </div>
 
-</body>
-</html>
+          <div class="address-section">
+            <strong>Customer Info:</strong>
+            <p>${value.cust_firstName} ${value.cust_lastName}</p>
+            <p>${value.cust_phoneNo} / ${value.cust_altPhoneNo}</p>
+          
+          <div class="address-section">
+            <strong>Cost:</strong>
+            <p>${value.total_amount}</p>
+          </div>
+
+          <div class="address-section">
+            <strong>Project Description:</strong>
+            <p>${value.project_desc}</p>
+          </div>
+
+          <div class="address-section">
+            <strong>Days - Crew Details (All Events in ${value.event_location}):</strong>
+            ${bookingDate.map((date: any, index: any) => `
+              <div>
+                <p>${date}</p>
+                <p>${specialization[index]} - ${crew[index]}</p>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="address-section">
+            <strong>Deliverables:</strong>
+            <p>${value.deliverables}</p>
+          </div>
+            
+          <div class="address-section">
+            <strong>${value.customName}:</strong>
+            <p>${value.customValue}</p>
+          </div>
+
+          <div class="address-section">
+            <strong>Terms & Conditions:</strong>
+            <p>${value.termscondition}</p>
+          </div>
+
+        </section>
+      </body>
+      </html>
 `;
 
     // Create a temporary div element to hold the HTML content
@@ -819,12 +831,11 @@ export class ProfileComponent {
     const pdf = new jsPDF('p', 'mm', 'a4');
 
     sections.forEach((section: any, index) => {
-      const textElements = section.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span');
+      // const textElements = section.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span');
 
-      // Apply styling for text elements, adjust font size to ensure readability
-      textElements.forEach((element: HTMLElement) => {
-        element.style.fontSize = '40px'; // Change to a reasonable font size for printing
-      });
+      // textElements.forEach((element: HTMLElement) => {
+      //   element.style.fontSize = '18px';
+      // });
 
       // Render the section into a canvas using html2canvas
       html2canvas(section, { scale: 2, logging: true }).then((canvas) => {
@@ -867,10 +878,5 @@ export class ProfileComponent {
     });
   }
 
-  generatePdf() {
-    const pdf = new jsPDF();
-    pdf.text("Hello world!", 10, 10);
-    pdf.save("a4.pdf");
-  }
 
 }
