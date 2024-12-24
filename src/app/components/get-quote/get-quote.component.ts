@@ -345,30 +345,31 @@ export class GetQuoteComponent {
     this.disabledSubmit = true;
     this.rest.createQuote(data).subscribe((res: any) => {
       if (res.success && res.response.insertId) {
-        // this.generatePdfFrontend('download');
-        this.setHtmlContent(data);
+
+        // this.setHtmlContent(data);
+
         this.disabledSubmit = false;
         this.common.showAlertMessage(res.message, this.common.succContent);
         // this.router.navigate(['/user']);
 
 
-
-        // this.jobDetails = "";
-        // this.job_startdate = "";
-        // this.job_enddate = "";
-        // this.firstName = "";
-        // this.lastName = "";
-        // this.phoneno = "";
-        // this.altphoneno = "";
-        // this.email = "";
-        // this.eventLocation = "";
-        // this.total_amt = "";
-        // this.projectDesc = "";
-        // this.quotethemeImg = "";
-        // this.customName = "";
-        // this.customValue = "";
-        // this.deliverables = "";
-        // this.termscondition = "";
+        this.equipmemtBookingDetails = []
+        this.jobDetails = "";
+        this.job_startdate = "";
+        this.job_enddate = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.phoneno = "";
+        this.altphoneno = "";
+        this.email = "";
+        this.eventLocation = "";
+        this.total_amt = "";
+        this.projectDesc = "";
+        this.quotethemeImg = "";
+        this.customName = "";
+        this.customValue = "";
+        this.deliverables = "";
+        this.termscondition = "";
 
 
 
@@ -704,7 +705,7 @@ export class GetQuoteComponent {
           pdf.addPage();
         }
 
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
 
         if (index == sections.length - 1) {
           pdf.save('quotePDF.pdf');
