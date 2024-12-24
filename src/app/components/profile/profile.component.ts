@@ -868,7 +868,7 @@ export class ProfileComponent {
         }
 
         // Add the rendered image to the PDF
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, '', 'FAST', 0.5);
 
         // Once all sections are processed, save the PDF
         if (index == sections.length - 1) {
