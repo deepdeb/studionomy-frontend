@@ -630,7 +630,6 @@ export class ProfileComponent {
   }
 
   getQuote(item: any) {
-    console.log('item>>>', item)
     const bookingDate = item.bookingDate.split(',');
     const specialization = item.specialization.split(',');
     const crew = item.crew.split(',')
@@ -667,6 +666,7 @@ export class ProfileComponent {
           .title-section h2 {
             display: inline-block;
             position: relative;
+            padding-top: 200px;
             font-size: 35px;
             text-transform: capitalize;
             margin-bottom: 20px;
@@ -685,7 +685,7 @@ export class ProfileComponent {
           }
 
           .address-section {
-            margin-bottom: 15px;
+            margin-bottom: 40px;
           }
 
           .address-section strong {
@@ -703,36 +703,6 @@ export class ProfileComponent {
 
           .address-section span {
             font-size: 20px;
-          }
-
-          .deliverables-list ul {
-            list-style-type: none;
-            padding-left: 0;
-          }
-
-          .deliverables-list li {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-bottom: 5px;
-          }
-
-          .custom-field-table div {
-            margin-bottom: 10px;
-          }
-
-          .custom-field-table div > div:first-child {
-            font-weight: bold;
-          }
-
-          .terms-list ul {
-            list-style-type: none;
-            padding-left: 0;
-          }
-
-          .terms-list li {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-bottom: 5px;
           }
 
         </style>
@@ -767,7 +737,8 @@ export class ProfileComponent {
             <strong>Customer Info:</strong>
             <p>${value.cust_firstName} ${value.cust_lastName}</p>
             <p>${value.cust_phoneNo} / ${value.cust_altPhoneNo}</p>
-          
+          </div>
+
           <div class="address-section">
             <strong>Cost:</strong>
             <p>${value.total_amount}</p>
@@ -782,8 +753,7 @@ export class ProfileComponent {
             <strong>Days - Crew Details (All Events in ${value.event_location}):</strong>
             ${bookingDate.map((date: any, index: any) => `
               <div>
-                <p>${date}</p>
-                <p>${specialization[index]} - ${crew[index]}</p>
+                <p><i class="fas fa-arrow-right"></i> ${date} | ${specialization[index]} | ${crew[index]}</p>
               </div>
             `).join('')}
           </div>
@@ -808,27 +778,24 @@ export class ProfileComponent {
       </html>
 `;
 
-    // Create a temporary div element to hold the HTML content
     const contentContainer = document.createElement('div');
     contentContainer.innerHTML = this.htmlContent;
 
-    // Append this container to the DOM (but not visible to the user)
     document.body.appendChild(contentContainer);
 
-    // Call the function to generate PDF
     this.generatePDF(contentContainer);
-    // this.generatePdf();
 
-
-    // Optionally, remove the temporary container from the DOM after the PDF generation
     document.body.removeChild(contentContainer);
   }
 
   generatePDF(contentContainer: HTMLElement) {
     const sections = contentContainer.querySelectorAll('.section_theme');
 
-    // Initialize jsPDF instance
     const pdf = new jsPDF('p', 'mm', 'a4');
+
+    const frameImage = '../../assets/img/themes/frame/3.png';
+
+    const logoImage = '../../assets/img/logo/SL-Logo.png';
 
     sections.forEach((section: any, index) => {
       // const textElements = section.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span');
@@ -837,40 +804,42 @@ export class ProfileComponent {
       //   element.style.fontSize = '18px';
       // });
 
-      // Render the section into a canvas using html2canvas
-      html2canvas(section, { scale: 2, logging: true }).then((canvas) => {
+      html2canvas(section, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
 
-        // Get the canvas dimensions (width and height)
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
 
-        // Calculate aspect ratio
         const aspectRatio = canvasWidth / canvasHeight;
 
-        // Set the max width and height for an A4 page
-        const pageWidth = 210; // A4 width in mm
-        const pageHeight = 297; // A4 height in mm
+        const pageWidth = 210;
+        const pageHeight = 297;
 
-        // Calculate image dimensions to fit within A4 page
+        const logoWidth = 50;
+        const logoHeight = 50;
+
         let imgWidth = pageWidth;
         let imgHeight = pageWidth / aspectRatio;
 
-        // Adjust if the height exceeds A4 page height
         if (imgHeight > pageHeight) {
           imgHeight = pageHeight;
           imgWidth = pageHeight * aspectRatio;
         }
 
-        // If not the first section, add a new page
         if (index > 0) {
           pdf.addPage();
         }
 
-        // Add the rendered image to the PDF
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, '', 'FAST', 0.5);
+        pdf.addImage(frameImage, 'JPEG', 0, 0, pageWidth, pageHeight, '', 'FAST', 0.5);
 
-        // Once all sections are processed, save the PDF
+        const padding = 20;
+        const frameWidth = pageWidth - (2 * padding);
+        const frameHeight = pageHeight - (2 * padding);
+
+        pdf.addImage(imgData, 'JPEG', padding, padding, frameWidth, frameHeight, '', 'FAST', 0.5);
+
+        pdf.addImage(logoImage, 'JPEG', 25, 25, logoWidth, logoHeight, '', 'FAST', 0.5);
+
         if (index == sections.length - 1) {
           pdf.save('quotePDF.pdf');
         }
