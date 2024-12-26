@@ -666,7 +666,7 @@ export class ProfileComponent {
           .title-section h2 {
             display: inline-block;
             position: relative;
-            padding-top: 200px;
+            padding-top: 100px;
             font-size: 35px;
             text-transform: capitalize;
             margin-bottom: 20px;
@@ -804,7 +804,7 @@ export class ProfileComponent {
       //   element.style.fontSize = '18px';
       // });
 
-      html2canvas(section, { scale: 2 }).then((canvas) => {
+      html2canvas(section, { scale: 3 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
 
         const canvasWidth = canvas.width;
@@ -815,8 +815,8 @@ export class ProfileComponent {
         const pageWidth = 210;
         const pageHeight = 297;
 
-        const logoWidth = 50;
-        const logoHeight = 50;
+        const logoWidth = 35;
+        const logoHeight = 35;
 
         let imgWidth = pageWidth;
         let imgHeight = pageWidth / aspectRatio;
