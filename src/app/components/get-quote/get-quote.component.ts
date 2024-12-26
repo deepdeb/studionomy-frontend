@@ -294,7 +294,7 @@ export class GetQuoteComponent {
     this.rest.createQuote(data).subscribe((res: any) => {
       if (res.success && res.response.insertId) {
 
-        this.setHtmlContent(data);
+        // this.setHtmlContent(data);
 
         this.disabledSubmit = false;
         this.common.showAlertMessage(res.message, this.common.succContent);
@@ -615,7 +615,7 @@ export class GetQuoteComponent {
     document.body.appendChild(contentContainer);
 
     this.generatePDF(contentContainer);
-    console.log('>>>>', this.htmlContent);
+
     document.body.removeChild(contentContainer);
   }
 
