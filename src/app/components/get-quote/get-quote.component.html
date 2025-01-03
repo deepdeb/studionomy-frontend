@@ -20,7 +20,7 @@
                 <textarea id="address" class="form-control" rows="10" [(ngModel)]="address" readonly></textarea>
             </div>
             <div class="col-sm-6 col-md-6">
-                <label for="evemt_purpose" class="form-label">Job Description</label>
+                <label for="evemt_purpose" class="form-label">Project Description</label>
                 <input type="text" id="jobDetails" class="form-control" [(ngModel)]="jobDetails">
             </div>
             <div class="col-sm-6 col-md-6">
@@ -61,8 +61,18 @@
                 <input type="number" class="form-control" id="inputEmail10" [(ngModel)]="total_amt">
             </div>
             <div class="col-sm-6 col-md-6">
-                <label for="inputAddress11" class="form-label">Project Description</label>
-                <textarea class="form-control" id="inputAddress11" rows="4" [(ngModel)]="projectDesc"></textarea>
+                <label for="inputJob_details2" class="form-label">Job Type</label>
+                <select class="form-select" id="inputJob_details2" [(ngModel)]="jobType">
+                    <option value="">Select an option</option>
+                    <option value="Pre-wedding">Pre-wedding</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Maternity">Maternity</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Baby-shoot">Baby-shoot</option>
+                    <option value="Photoshoot">Photoshoot</option>
+                    <option value="Videoshoot">Videoshoot</option>
+                    <option value="Pic-vid shoot">Pic-vid shoot</option>
+                </select>
             </div>
             <!-- <div class="col-sm-6 col-md-6">
                 <label for="quotationTheme" class="form-label">Upload quotation theme</label>

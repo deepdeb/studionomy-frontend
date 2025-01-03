@@ -62,6 +62,7 @@ export class ProfileComponent {
   job_number = "" as any;
   job_details = "";
   quotation_number = "";
+  quotation_id = "";
   event_location = "";
   job_startDate = "";
   job_endDate = "";
@@ -470,8 +471,8 @@ export class ProfileComponent {
     this.getAllQuotes();
   }
 
-  convertToJob(quotation_number: any) {
-    this.getQuoteByQuoteNum(quotation_number);
+  convertToJob(quotation_id: any) {
+    this.getQuoteByQuoteNum(quotation_id);
   }
 
   shareProfileToWhatsapp() {
@@ -480,9 +481,9 @@ export class ProfileComponent {
     window.open(whatsappUrl, '_blank');
   }
 
-  getQuoteByQuoteNum(quotation_number: any) {
+  getQuoteByQuoteNum(quotation_id: any) {
     const data = {
-      quotation_number,
+      quotation_id: quotation_id,
       userId: this.userId,
       userType: this.userType
     }
@@ -500,6 +501,7 @@ export class ProfileComponent {
           cust_email: res.response[0].cust_email,
           event_location: res.response[0].event_location,
           total_amount: res.response[0].total_amount,
+          job_type: res.response[0].job_type
         }
         this.router.navigate(['job'], { queryParams })
       }

@@ -413,7 +413,7 @@
                                                 (click)="removeJob(item.job_id)"><i class="fa-solid fa-trash"
                                                     data-bs-toggle="modal" data-bs-target="#jobDeleteModal"></i></a>
                                         </li>
-                                        <li><a (click)="quotation_number = item.quotation_number"><i
+                                        <li><a (click)="quotation_id = item.quotation_id"><i
                                                     class="fa-solid fa-check-circle fa-lg" data-bs-toggle="modal"
                                                     data-bs-target="#jobConvertModal" style="color:#05bbaa;"></i></a>
                                         </li>
@@ -650,7 +650,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="convertToJob(quotation_number)">Yes</button>
+                    (click)="convertToJob(quotation_id)">Yes</button>
             </div>
         </div>
     </div>

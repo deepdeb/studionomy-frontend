@@ -31,6 +31,7 @@ export class GetQuoteComponent {
   altphoneno = "" as any;
   total_amt = "" as any;
   projectDesc = "" as any;
+  jobType = "" as any;
   customField: boolean = false;
   bookingDate = "" as any;
   allInventoryList: any = [];
@@ -259,8 +260,13 @@ export class GetQuoteComponent {
       return;
     }
 
-    if (this.projectDesc == "" || this.projectDesc == null || this.projectDesc == undefined) {
-      this.common.showAlertMessage("Please enter project description", this.common.errContent);
+    // if (this.projectDesc == "" || this.projectDesc == null || this.projectDesc == undefined) {
+    //   this.common.showAlertMessage("Please enter project description", this.common.errContent);
+    //   return;
+    // }
+
+    if (this.jobType == "" || this.jobType == null || this.jobType == undefined) {
+      this.common.showAlertMessage("Please enter job type", this.common.errContent);
       return;
     }
 
@@ -284,6 +290,7 @@ export class GetQuoteComponent {
       eventLocation: this.eventLocation,
       total_amt: this.total_amt,
       projectDesc: this.projectDesc,
+      jobType: this.jobType,
       quotethemeImg: this.quotethemeImg ? this.quotethemeImg : null,
       customName: this.customName,
       customValue: this.customValue,
@@ -312,6 +319,7 @@ export class GetQuoteComponent {
         this.eventLocation = "";
         this.total_amt = "";
         this.projectDesc = "";
+        this.jobType = "";
         this.quotethemeImg = "";
         this.customName = "";
         this.customValue = "";

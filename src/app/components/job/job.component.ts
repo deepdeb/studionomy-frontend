@@ -89,7 +89,8 @@ export class JobComponent {
           this.altPhoneNo = params['cust_altPhoneNo'] ? params['cust_altPhoneNo'] : '',
           this.email = params['cust_email'] ? params['cust_email'] : '',
           this.eventLocation = params['event_location'] ? params['event_location'] : '',
-          this.totalAmount = params['total_amount'] ? params['total_amount'] : ''
+          this.totalAmount = params['total_amount'] ? params['total_amount'] : '',
+          this.jobType = params['job_type'] ? params['job_type'] : ''
       })
     }
 
