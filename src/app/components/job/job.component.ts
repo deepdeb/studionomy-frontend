@@ -14,6 +14,7 @@ export class JobComponent {
   job_id = '' as any;
   job_number = '' as any;
   userType = '' as any;
+  quotationId = '' as any;
   jobDetails = '';
   jobType = '';
   startDate = '';
@@ -79,6 +80,7 @@ export class JobComponent {
 
       // for converting quote to job
       this.activateRoute.queryParams.subscribe(params => {
+          this.quotationId = params['quotation_id'] ? params['quotation_id'] : '',
           this.jobDetails = params['job_details'] ? params['job_details'] : '',
           this.startDate = params['job_startDate'] ? params['job_startDate'] : '',
           this.endDate = params['job_endDate'] ? params['job_endDate'] : '',
@@ -425,6 +427,7 @@ export class JobComponent {
     // );
 
     const data = {
+      quotation_id: this.quotationId,
       job_id: this.job_id,
       userId: localStorage.getItem('slUserId'),
       userType: localStorage.getItem('slUserType'),

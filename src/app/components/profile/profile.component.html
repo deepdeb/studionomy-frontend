@@ -268,6 +268,8 @@
                                         data-bs-toggle="modal" data-bs-target="#jobpayment">pay</a></td> -->
                                 <td>
                                     <ul class="action_btn">
+                                        <li><a (click)="goToJobDetails(item)"><i
+                                                    class="fa-regular fa-dollar"></i></a></li>
                                         <li><a (click)="goToPaymentDetails(item.job_id)"><i
                                                     class="fa-regular fa-eye"></i></a></li>
                                         <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
@@ -417,7 +419,8 @@
                                                     class="fa-solid fa-check-circle fa-lg" data-bs-toggle="modal"
                                                     data-bs-target="#jobConvertModal" style="color:#05bbaa;"></i></a>
                                         </li>
-                                        <li><a (click)="getQuote(item)"><i class="fa-solid fa-file-pdf fa-lg" style="color: maroon;"></i></a>
+                                        <li><a (click)="getQuote(item)"><i class="fa-solid fa-file-pdf fa-lg"
+                                                    style="color: maroon;"></i></a>
                                         </li>
                                     </ul>
                                 </td>

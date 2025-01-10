@@ -7,80 +7,79 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
-
+import { CalendarContentComponent } from '../calendar-content/calendar-content.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
-
-  userId = "" as any;
-  profile_share = "" as any;
-  userType = "" as any;
-  name = "";
-  studioName = "";
-  email = "";
-  mobile = "";
-  alt_mobile = "";
-  address1 = "";
-  address2 = "";
-  aboutYouself = "";
-  aboutReference = "";
-  aboutWork = "";
-  FBLink = "";
-  InstaLink = "";
-  YoutubeLink = "";
-  jdLink = "";
-  websiteLink = "";
-  linkedInLink = "";
-  workImg1 = "";
-  profileImg = "";
-  workImg3 = "";
-  aboutusImg = "";
-  reffeedbackImg = "";
-  country = "1" as any;
+  userId = '' as any;
+  profile_share = '' as any;
+  userType = '' as any;
+  name = '';
+  studioName = '';
+  email = '';
+  mobile = '';
+  alt_mobile = '';
+  address1 = '';
+  address2 = '';
+  aboutYouself = '';
+  aboutReference = '';
+  aboutWork = '';
+  FBLink = '';
+  InstaLink = '';
+  YoutubeLink = '';
+  jdLink = '';
+  websiteLink = '';
+  linkedInLink = '';
+  workImg1 = '';
+  profileImg = '';
+  workImg3 = '';
+  aboutusImg = '';
+  reffeedbackImg = '';
+  country = '1' as any;
   jobList: any = [];
   quotationList: any = [];
   buysubscriptionList: any = [];
   joblimit: number = 10;
   joboffset: number = 0;
-  jobType = "upcoming"
+  jobType = 'upcoming';
   subscriptionlimit: number = 10;
   subscriptionoffset: number = 0;
-  job_id = "" as any;
-  stateList: any = []
-  state_id = "" as any;
-  country_id = "" as any;
-  pin = "";
-  address = "";
-  city = "";
-  userLocation = "";
-  reference = "" as any;
+  job_id = '' as any;
+  stateList: any = [];
+  state_id = '' as any;
+  country_id = '' as any;
+  pin = '';
+  address = '';
+  city = '';
+  userLocation = '';
+  reference = '' as any;
   //------------------------------ For Job----------------------------//
-  job_number = "" as any;
-  job_details = "";
-  quotation_number = "";
-  quotation_id = "";
-  event_location = "";
-  job_startDate = "";
-  job_endDate = "";
-  cust_name = "";
-  cust_phoneNo = "";
-  total_amount: any = 0.00;
-  due_amount: any = 0.00;
-  total_paid_amount: any = 0.00;
-  last_paid_amount: any = 0.00;
+  job_number = '' as any;
+  job_details = '';
+  quotation_number = '';
+  quotation_id = '';
+  event_location = '';
+  job_startDate = '';
+  job_endDate = '';
+  cust_name = '';
+  cust_phoneNo = '';
+  total_amount: any = 0.0;
+  due_amount: any = 0.0;
+  total_paid_amount: any = 0.0;
+  last_paid_amount: any = 0.0;
   payAmount: any;
   jobCount = 0;
   quotationCount = 0;
   pageList = this.common.pageList;
   totalInventary = 0;
-  forJobEditDeletePermission: any
+  forJobEditDeletePermission: any;
   todatDate = new Date().toISOString().split('T')[0];
-  quotationType = "upcoming";
-  studioRole: any
+  quotationType = 'upcoming';
+  studioRole: any;
   imagePath = this.rest.imagePath;
   job_search_criteria = '' as any;
   quote_search_criteria = '' as any;
@@ -92,18 +91,27 @@ export class ProfileComponent {
   emailSentMsg: any;
   toRegisteredMail: any;
   generatedOTP: any;
-  htmlContent: any = ''
+  htmlContent: any = '';
 
   //**************************************** For Job report ************************************//
-  startDate = "";
-  endDate = "";
+  startDate = '';
+  endDate = '';
   todayDate = new Date().toISOString().split('T')[0];
-
 
   @ViewChild('PasswordChange') changePasswordModal: any;
 
-  constructor(private rest: RestService, private snackBar: MatSnackBar, private router: Router, private location: Location, private common: CommonService, private route: ActivatedRoute, private dialog: MatDialog) {
-    this.forJobEditDeletePermission = this.common.convertOnlyDate(this.todatDate);
+  constructor(
+    private rest: RestService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private location: Location,
+    private common: CommonService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
+  ) {
+    this.forJobEditDeletePermission = this.common.convertOnlyDate(
+      this.todatDate
+    );
     this.userId = localStorage.getItem('slUserId');
     this.userType = localStorage.getItem('slUserType');
   }
@@ -119,15 +127,13 @@ export class ProfileComponent {
   }
 
   setSubscriptionActiveStatus() {
-    this.rest.setSubscriptionActiveStatus().subscribe((res: any) => {
-
-    })
+    this.rest.setSubscriptionActiveStatus().subscribe((res: any) => {});
   }
 
   getUserDetails() {
     const data = {
       userId: localStorage.getItem('slUserId'),
-      userType: localStorage.getItem('slUserType')
+      userType: localStorage.getItem('slUserType'),
     };
     this.rest.getUserDetials(data).subscribe((res: any) => {
       if (res.success) {
@@ -145,7 +151,7 @@ export class ProfileComponent {
           this.country_id = res.response[0].country_id;
           this.workImg3 = res.response[0].workImg3;
           this.aboutusImg = res.response[0].aboutusImg;
-          this.reffeedbackImg = res.response[0].reffeedbackImg
+          this.reffeedbackImg = res.response[0].reffeedbackImg;
           this.YoutubeLink = res.response[0].YoutubeLink;
           this.FBLink = res.response[0].FBLink;
           this.websiteLink = res.response[0].websiteLink;
@@ -162,20 +168,26 @@ export class ProfileComponent {
           this.city = res.response[0].city;
           this.reference = res.response[0].reference;
           if (this.country == 1) {
-            this.country = "India";
+            this.country = 'India';
           }
-          this.address1 = res.response[0].address + ", " + res.response[0].location;
-          this.address2 = res.response[0].city + ", " + res.response[0].pin + ", " + res.response[0].state_name;
+          this.address1 =
+            res.response[0].address + ', ' + res.response[0].location;
+          this.address2 =
+            res.response[0].city +
+            ', ' +
+            res.response[0].pin +
+            ', ' +
+            res.response[0].state_name;
         }
       }
-    })
+    });
   }
   getStateList() {
     this.rest.getStateList().subscribe((res: any) => {
       if (res.success) {
         this.stateList = res.response;
       }
-    })
+    });
   }
 
   getAllJob() {
@@ -188,7 +200,7 @@ export class ProfileComponent {
       job_details: this.job_details,
       cust_name: this.cust_name,
       cust_phoneNo: this.cust_phoneNo,
-      job_search_criteria: this.job_search_criteria
+      job_search_criteria: this.job_search_criteria,
     };
     this.jobList = [];
     this.rest.getAllJobList(data).subscribe((res: any) => {
@@ -196,7 +208,7 @@ export class ProfileComponent {
         this.jobList = res.response;
         this.jobCount = res.totalCount;
       }
-    })
+    });
   }
 
   getAllQuotes() {
@@ -209,7 +221,7 @@ export class ProfileComponent {
       quotation_number: this.quotation_number,
       cust_name: this.cust_name,
       cust_phoneNo: this.cust_phoneNo,
-      quote_search_criteria: this.quote_search_criteria
+      quote_search_criteria: this.quote_search_criteria,
     };
     this.quotationList = [];
     this.rest.getAllQuoteList(data).subscribe((res: any) => {
@@ -217,7 +229,7 @@ export class ProfileComponent {
         this.quotationList = res.response;
         this.quotationCount = res.totalCount;
       }
-    })
+    });
   }
 
   gotoLink(url: any) {
@@ -228,20 +240,27 @@ export class ProfileComponent {
     this.profile_share = event.target.value;
   }
   shareProfile() {
-    if (this.profile_share == "" || this.profile_share == null || this.profile_share == undefined) {
-      this.common.showAlertMessage("Please choose any one", this.common.errContent);
+    if (
+      this.profile_share == '' ||
+      this.profile_share == null ||
+      this.profile_share == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Please choose any one',
+        this.common.errContent
+      );
       return;
     }
     const data = {
       userId: localStorage.getItem('slUserId'),
-      profile_share: this.profile_share
+      profile_share: this.profile_share,
     };
     this.rest.shareProfile(data).subscribe((res: any) => {
       if (res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.getUserDetails();
       }
-    })
+    });
   }
 
   removeJob(job_id: any) {
@@ -250,19 +269,19 @@ export class ProfileComponent {
   deleteJob() {
     const data = {
       id: this.job_id,
-      table_name: "jobs",
-      table_pId: "job_id",
-      userId: localStorage.getItem('slUserId')
+      table_name: 'jobs',
+      table_pId: 'job_id',
+      userId: localStorage.getItem('slUserId'),
     };
     this.rest.delete(data).subscribe((res: any) => {
       if (res.success) {
-        this.job_id = "";
+        this.job_id = '';
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.getAllJob();
       } else {
         this.common.showAlertMessage(res.message, this.common.errContent);
       }
-    })
+    });
   }
 
   editJob(job_id: any) {
@@ -289,47 +308,112 @@ export class ProfileComponent {
   // }
 
   payJobAmount() {
-    if (this.job_id <= 0 || this.job_id == "" || this.job_id == null || this.job_id == undefined) {
-      this.common.showAlertMessage("You can not pay for this job", this.common.errContent);
+    if (
+      this.job_id <= 0 ||
+      this.job_id == '' ||
+      this.job_id == null ||
+      this.job_id == undefined
+    ) {
+      this.common.showAlertMessage(
+        'You can not pay for this job',
+        this.common.errContent
+      );
       return;
     }
-    if (this.job_number == "" || this.job_number == null || this.job_number == undefined) {
-      this.common.showAlertMessage("Job number must be required", this.common.errContent);
+    if (
+      this.job_number == '' ||
+      this.job_number == null ||
+      this.job_number == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Job number must be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.job_details == "" || this.job_details == null || this.job_details == undefined) {
-      this.common.showAlertMessage("Job details must be required", this.common.errContent);
+    if (
+      this.job_details == '' ||
+      this.job_details == null ||
+      this.job_details == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Job details must be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.event_location == "" || this.event_location == null || this.event_location == undefined) {
-      this.common.showAlertMessage("Event location must be required", this.common.errContent);
+    if (
+      this.event_location == '' ||
+      this.event_location == null ||
+      this.event_location == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Event location must be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.job_startDate == "" || this.job_startDate == null || this.job_startDate == undefined) {
-      this.common.showAlertMessage("Job start date must be required", this.common.errContent);
+    if (
+      this.job_startDate == '' ||
+      this.job_startDate == null ||
+      this.job_startDate == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Job start date must be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.cust_name == "" || this.cust_name == null || this.cust_name == undefined) {
-      this.common.showAlertMessage("Customer name must be required", this.common.errContent);
+    if (
+      this.cust_name == '' ||
+      this.cust_name == null ||
+      this.cust_name == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Customer name must be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.cust_phoneNo == "" || this.cust_phoneNo == null || this.cust_phoneNo == undefined) {
-      this.common.showAlertMessage("phone no must be required", this.common.errContent);
+    if (
+      this.cust_phoneNo == '' ||
+      this.cust_phoneNo == null ||
+      this.cust_phoneNo == undefined
+    ) {
+      this.common.showAlertMessage(
+        'phone no must be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.total_amount == "" || this.total_amount == null || this.total_amount == undefined) {
-      this.common.showAlertMessage("Total amount be required", this.common.errContent);
+    if (
+      this.total_amount == '' ||
+      this.total_amount == null ||
+      this.total_amount == undefined
+    ) {
+      this.common.showAlertMessage(
+        'Total amount be required',
+        this.common.errContent
+      );
       return;
     }
-    if (this.payAmount == "" || this.payAmount == null || this.payAmount == undefined || this.payAmount == 0) {
-      this.common.showAlertMessage("Payment amount must be required", this.common.errContent);
+    if (
+      this.payAmount == '' ||
+      this.payAmount == null ||
+      this.payAmount == undefined ||
+      this.payAmount == 0
+    ) {
+      this.common.showAlertMessage(
+        'Payment amount must be required',
+        this.common.errContent
+      );
       return;
     }
     const data = {
       userId: localStorage.getItem('slUserId'),
       userType: localStorage.getItem('slUserType'),
       job_id: this.job_id,
-      payment_amount: this.payAmount
+      payment_amount: this.payAmount,
     };
 
     this.rest.paymentForJob(data).subscribe((res: any) => {
@@ -337,7 +421,7 @@ export class ProfileComponent {
         this.getAllJob();
         this.common.showAlertMessage(res.message, this.common.succContent);
       }
-    })
+    });
   }
 
   changePageLimitJob(event: any) {
@@ -345,15 +429,13 @@ export class ProfileComponent {
     this.getAllJob();
   }
 
-
   dateFormat(date: any) {
     var myDate = new Date(date);
-    var finalDate = myDate.toISOString().split("T")[0]
+    var finalDate = myDate.toISOString().split('T')[0];
     const [year, month, day] = finalDate.split('-');
     const result = [year, month, day].join('-');
     return result;
   }
-
 
   next() {
     var middleX = window.innerWidth / 2;
@@ -373,7 +455,10 @@ export class ProfileComponent {
     return genDate;
   }
   calculateDueAmount() {
-    this.due_amount = Number(this.total_amount) - Number(this.total_paid_amount) - Number(this.payAmount);
+    this.due_amount =
+      Number(this.total_amount) -
+      Number(this.total_paid_amount) -
+      Number(this.payAmount);
   }
 
   goToPaymentDetails(job_id: any) {
@@ -387,11 +472,11 @@ export class ProfileComponent {
   jobReport() {
     if (!this.startDate) {
       this.common.showAlertMessage('Select start date', this.common.errContent);
-      return
+      return;
     }
     if (!this.endDate) {
       this.common.showAlertMessage('Select end date,', this.common.errContent);
-      return
+      return;
     }
     const data = {
       userId: localStorage.getItem('slUserId'),
@@ -403,21 +488,24 @@ export class ProfileComponent {
       cust_name: this.cust_name,
       cust_phoneNo: this.cust_phoneNo,
       start_date: this.startDate,
-      end_date: this.endDate
+      end_date: this.endDate,
     };
-    this.rest.getAllJobListReport(data).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'jobreport.xlsx';
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    }, error => {
-      // Handle error
-      console.error('Error:', error);
-    });
+    this.rest.getAllJobListReport(data).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'jobreport.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      },
+      (error) => {
+        // Handle error
+        console.error('Error:', error);
+      }
+    );
   }
 
   searchJob() {
@@ -429,45 +517,45 @@ export class ProfileComponent {
   }
 
   clearSearchJob() {
-    this.job_details = "";
-    this.cust_name = "";
-    this.cust_phoneNo = "";
+    this.job_details = '';
+    this.cust_name = '';
+    this.cust_phoneNo = '';
     this.getAllJob();
   }
   allJob() {
-    this.jobType = "all";
+    this.jobType = 'all';
     this.getAllJob();
   }
   upcomingJob() {
-    this.jobType = "upcoming";
+    this.jobType = 'upcoming';
     this.getAllJob();
   }
   pastJob() {
-    this.jobType = "past";
+    this.jobType = 'past';
     this.getAllJob();
   }
 
   closedJob() {
-    this.jobType = "closed";
+    this.jobType = 'closed';
     this.getAllJob();
   }
 
   allQuotation() {
-    this.quotationType = "all"
+    this.quotationType = 'all';
     this.getAllQuotes();
   }
   upcomingQuotation() {
-    this.quotationType = "upcoming"
+    this.quotationType = 'upcoming';
     this.getAllQuotes();
   }
 
   pastQuotation() {
-    this.quotationType = "past"
+    this.quotationType = 'past';
     this.getAllQuotes();
   }
 
   closedQuotation() {
-    this.quotationType = "closed"
+    this.quotationType = 'closed';
     this.getAllQuotes();
   }
 
@@ -476,7 +564,9 @@ export class ProfileComponent {
   }
 
   shareProfileToWhatsapp() {
-    const text = encodeURIComponent(`*Visit my profile:*\n\nhttps://studionomy.com/#/user-detail/${this.userId}`);
+    const text = encodeURIComponent(
+      `*Visit my profile:*\n\nhttps://studionomy.com/#/user-detail/${this.userId}`
+    );
     const whatsappUrl = `https://api.whatsapp.com/send?phone=&text=${text}`;
     window.open(whatsappUrl, '_blank');
   }
@@ -485,13 +575,16 @@ export class ProfileComponent {
     const data = {
       quotation_id: quotation_id,
       userId: this.userId,
-      userType: this.userType
-    }
+      userType: this.userType,
+    };
     this.rest.getQuoteByQuoteNum(data).subscribe((res: any) => {
       if (res.success) {
         let queryParams = {
+          quotation_id: quotation_id,
           job_details: res.response[0].job_details,
-          job_startDate: this.common.convertOnlyDate(res.response[0].job_startDate),
+          job_startDate: this.common.convertOnlyDate(
+            res.response[0].job_startDate
+          ),
           job_endDate: this.common.convertOnlyDate(res.response[0].job_endDate),
           deliverables: res.response[0].deliverables,
           cust_firstName: res.response[0].cust_firstName,
@@ -501,11 +594,11 @@ export class ProfileComponent {
           cust_email: res.response[0].cust_email,
           event_location: res.response[0].event_location,
           total_amount: res.response[0].total_amount,
-          job_type: res.response[0].job_type
-        }
-        this.router.navigate(['job'], { queryParams })
+          job_type: res.response[0].job_type,
+        };
+        this.router.navigate(['job'], { queryParams });
       }
-    })
+    });
   }
 
   getAllBuySubscriptionList() {
@@ -513,14 +606,14 @@ export class ProfileComponent {
       userId: localStorage.getItem('slUserId'),
       userType: this.userType,
       limit: this.subscriptionlimit,
-      offset: this.subscriptionoffset
+      offset: this.subscriptionoffset,
     };
     this.rest.getAllBuySubscriptionList(data).subscribe((res: any) => {
       if (res.success) {
         this.buysubscriptionList = res.response;
         this.mainJobsRemaining = res.main_jobs_remaining;
       }
-    })
+    });
   }
 
   goToJob() {
@@ -529,18 +622,24 @@ export class ProfileComponent {
     //   this.router.navigate(['subscription']);
     //   return
     // }
-    if (this.totalInventary > 0 && this.userType == "0") {
+    if (this.totalInventary > 0 && this.userType == '0') {
       this.router.navigate(['job']);
     } else {
-      this.common.showAlertMessage("First add your inventary then add the job", this.common.errContent);
+      this.common.showAlertMessage(
+        'First add your inventary then add the job',
+        this.common.errContent
+      );
       return;
     }
   }
 
   changePassword() {
     if (this.userId == 5) {
-      this.common.showAlertMessage('Action denied for this account', this.common.errContent);
-      return
+      this.common.showAlertMessage(
+        'Action denied for this account',
+        this.common.errContent
+      );
+      return;
     } else {
       this.openChangePasswordModal();
     }
@@ -548,11 +647,10 @@ export class ProfileComponent {
 
   openChangePasswordModal(): void {
     const dialogRef = this.dialog.open(this.changePasswordModal, {
-      width: '550px'
+      width: '550px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   closeModal() {
@@ -564,8 +662,8 @@ export class ProfileComponent {
       changePasswordOTP: this.changePasswordOTP,
       oldPassword: this.oldPassword,
       newPassword: this.newPassword,
-      userId: this.userId
-    }
+      userId: this.userId,
+    };
     this.rest.checkAndChangePassword(data).subscribe((res: any) => {
       if (res.success) {
         this.common.showAlertMessage(res.message, this.common.succContent);
@@ -576,7 +674,7 @@ export class ProfileComponent {
       } else {
         this.common.showAlertMessage(res.message, this.common.errContent);
       }
-    })
+    });
   }
 
   sendOTPMail() {
@@ -585,59 +683,60 @@ export class ProfileComponent {
 
   getDetailsByEmail() {
     const data = {
-      toRegisteredMail: this.toRegisteredMail
-    }
+      toRegisteredMail: this.toRegisteredMail,
+    };
     this.rest.getUserDetailsByEmail(data).subscribe((res: any) => {
       if (res.success) {
         this.generatedOTP = this.common.generateOTP();
         this.sendMail();
         // this.openOTPEnterModal();
       } else {
-        this.common.showAlertMessage('Email not registered', this.common.errContent)
+        this.common.showAlertMessage(
+          'Email not registered',
+          this.common.errContent
+        );
       }
-    })
+    });
   }
 
   sendMail() {
     const data = {
       toRegisteredMail: this.toRegisteredMail,
-      sentOTP: this.generatedOTP
-    }
+      sentOTP: this.generatedOTP,
+    };
     this.rest.sendMail(data).subscribe((res: any) => {
       if (res.success) {
         this.emailSentMsg = res.message;
         this.updateOTPinDB();
       }
-    })
+    });
   }
 
   updateOTPinDB() {
     const data = {
       userId: this.userId,
-      generatedOTP: this.generatedOTP
-    }
-    this.rest.updateOTPinDB(data).subscribe((res: any) => {
-    })
+      generatedOTP: this.generatedOTP,
+    };
+    this.rest.updateOTPinDB(data).subscribe((res: any) => {});
   }
 
   showWarning() {
     if (this.endDate < this.startDate) {
-      this.endDate = ''
+      this.endDate = '';
       this.common.showAlertMessage(
         'End date must be greater than start date',
         this.common.errContent
       );
-      return
+      return;
     }
   }
 
   getQuote(item: any) {
     const bookingDate = item.bookingDate.split(',');
     const specialization = item.specialization.split(',');
-    const crew = item.crew.split(',')
+    const crew = item.crew.split(',');
     this.setHtmlContent(item, bookingDate, specialization, crew);
   }
-
 
   setHtmlContent(value: any, bookingDate: any, specialization: any, crew: any) {
     this.htmlContent = `
@@ -752,12 +851,18 @@ export class ProfileComponent {
           </div>
 
           <div class="address-section">
-            <strong>Days - Crew Details (All Events in ${value.event_location}):</strong>
-            ${bookingDate.map((date: any, index: any) => `
+            <strong>Days - Crew Details (All Events in ${
+              value.event_location
+            }):</strong>
+            ${bookingDate
+              .map(
+                (date: any, index: any) => `
               <div>
                 <p><i class="fas fa-arrow-right"></i> ${date} | ${specialization[index]} | ${crew[index]}</p>
               </div>
-            `).join('')}
+            `
+              )
+              .join('')}
           </div>
 
           <div class="address-section">
@@ -832,15 +937,45 @@ export class ProfileComponent {
           pdf.addPage();
         }
 
-        pdf.addImage(frameImage, 'JPEG', 0, 0, pageWidth, pageHeight, '', 'FAST', 0.5);
+        pdf.addImage(
+          frameImage,
+          'JPEG',
+          0,
+          0,
+          pageWidth,
+          pageHeight,
+          '',
+          'FAST',
+          0.5
+        );
 
         const padding = 20;
-        const frameWidth = pageWidth - (2 * padding);
-        const frameHeight = pageHeight - (2 * padding);
+        const frameWidth = pageWidth - 2 * padding;
+        const frameHeight = pageHeight - 2 * padding;
 
-        pdf.addImage(imgData, 'JPEG', padding, padding, frameWidth, frameHeight, '', 'FAST', 0.5);
+        pdf.addImage(
+          imgData,
+          'JPEG',
+          padding,
+          padding,
+          frameWidth,
+          frameHeight,
+          '',
+          'FAST',
+          0.5
+        );
 
-        pdf.addImage(logoImage, 'JPEG', 25, 25, logoWidth, logoHeight, '', 'FAST', 0.5);
+        pdf.addImage(
+          logoImage,
+          'JPEG',
+          25,
+          25,
+          logoWidth,
+          logoHeight,
+          '',
+          'FAST',
+          0.5
+        );
 
         if (index == sections.length - 1) {
           pdf.save('quotePDF.pdf');
@@ -849,5 +984,17 @@ export class ProfileComponent {
     });
   }
 
+  goToJobDetails(data: any) {
+    this.openModal(data);
+  }
 
+  openModal(foundJobDetails: any): void {
+    const dialogRef = this.dialog.open(CalendarContentComponent, {
+      width: '750px',
+      data: {
+        title: 'Job Details',
+        content: foundJobDetails,
+      },
+    });
+  }
 }
