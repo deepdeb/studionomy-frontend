@@ -158,16 +158,15 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="sl_no">#</th>
-                                <th>job id, job type & job description</th>
-                                <th>job duration & event location</th>
-                                <th>equipments</th>
+                                <th>job id, type, descrip</th>
+                                <th>dates, location</th>
                                 <th>staffs</th>
                                 <th>freelancer</th>
                                 <th>products of event</th>
                                 <th>customer name, address</th>
                                 <th>phone no</th>
                                 <!-- <th>event location</th> -->
-                                <th>job amount & paid amount</th>
+                                <th>job amt, paid amt</th>
                                 <!-- <th>paid amount</th> -->
                                 <!-- <th>last paid amount</th> -->
                                 <!-- <th>last paid amount & date</th> -->
@@ -175,6 +174,7 @@
                                 <!-- <th>due amount</th> -->
                                 <!-- <th>next payment</th> -->
                                 <th>action</th>
+                                <th>equipments</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="jobList.length > 0">
@@ -191,16 +191,6 @@
                                     <p style="font-size: 11px;"> {{item.job_endDate}} </p><br>
                                     <p>{{item.event_location}}</p>
                                 </td>
-                                <td style="font-size: 10px;">
-                                    <ng-container *ngIf="item.equipments && item.equipments.length">
-                                        <p
-                                            *ngFor="let equipment of item.equipments.split(','); let i = index; let last = last">
-                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
-                                            equipment }}{{ last ? '' : '' }}<br />
-                                        </p>
-                                    </ng-container>
-                                </td>
-
                                 <td>
                                     <ng-container *ngIf="item.empName && item.empName.length">
                                         <p *ngFor="let emp of item.empName.split(','); let i = index; let last = last">
@@ -269,9 +259,9 @@
                                 <td>
                                     <ul class="action_btn">
                                         <li><a (click)="goToJobDetails(item)"><i
-                                                    class="fa-regular fa-dollar"></i></a></li>
-                                        <li><a (click)="goToPaymentDetails(item.job_id)"><i
                                                     class="fa-regular fa-eye"></i></a></li>
+                                        <li><a (click)="goToPaymentDetails(item.job_id)"><i
+                                                    class="fa-regular fa-dollar"></i></a></li>
                                         <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
                                                 (click)="removeJob(item.job_id)"><i class="fa-solid fa-trash"
                                                     data-bs-toggle="modal" data-bs-target="#jobDeleteModal"></i></a>
@@ -285,6 +275,15 @@
                                                 class="fa-solid fa-pen-to-square"></i></a>
                                         </li> -->
                                     </ul>
+                                </td>
+                                <td style="font-size: 10px;">
+                                    <ng-container *ngIf="item.equipments && item.equipments.length">
+                                        <p
+                                            *ngFor="let equipment of item.equipments.split(','); let i = index; let last = last">
+                                            <span style="color: #0b4ba3;font-weight: 600;">{{i+1}}.</span>{{
+                                            equipment }}{{ last ? '' : '' }}<br />
+                                        </p>
+                                    </ng-container>
                                 </td>
                             </tr>
                         </tbody>
