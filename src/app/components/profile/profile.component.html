@@ -165,14 +165,7 @@
                                 <th>products of event</th>
                                 <th>customer name, address</th>
                                 <th>phone no</th>
-                                <!-- <th>event location</th> -->
                                 <th>job amt, paid amt</th>
-                                <!-- <th>paid amount</th> -->
-                                <!-- <th>last paid amount</th> -->
-                                <!-- <th>last paid amount & date</th> -->
-                                <!-- <th>total paid amount</th> -->
-                                <!-- <th>due amount</th> -->
-                                <!-- <th>next payment</th> -->
                                 <th>action</th>
                                 <th>equipments</th>
                             </tr>
@@ -224,38 +217,10 @@
                                     <p>{{item.cust_phoneNo}} </p>
                                     <p>{{item.cust_altPhoneNo}}</p>
                                 </td>
-                                <!-- <td>
-                                    <p>{{item.event_location}}</p>
-                                </td> -->
                                 <td>
                                     <p>{{item.total_amount}}/-</p>
-                                    <!-- <p>{{item.due_amount}}/-</p> -->
-                                    <p>{{item.total_paid_amount}}/-</p>
+                                    <p>{{(+item.booking_amount) + (+item.total_paid_amount)}}/-</p>
                                 </td>
-                                <!-- <td>
-                                    <p>{{item.booking_amount}}/-</p>
-                                    <p>{{item.total_paid_amount}}/-</p>
-                                </td> -->
-
-                                <!-- <td>
-                                    <p>{{item.last_paid_amount}}/-</p>
-                                </td> -->
-
-                                <!-- <td>
-                                    <p>{{item.last_paid_amount}}/-</p>
-
-                                    <p>{{item.last_payment_date}}</p>
-                                </td> -->
-
-                                <!-- <td>
-                                    <p>{{item.total_paid_amount}}/-</p>
-                                </td> -->
-                                <!-- <td>
-                                    <p>{{item.due_amount}}/-</p>
-                                </td> -->
-                                <!-- <td><a class="pay" style="cursor: pointer;"
-                                        (click)="payForJob(item.job_id,item.job_number,item.job_details,item.event_location,item.job_startDate,item.job_endDate,item.cust_name,item.cust_phoneNo,item.total_amount,item.total_paid_amount,item.last_paid_amount,item.due_amount)"
-                                        data-bs-toggle="modal" data-bs-target="#jobpayment">pay</a></td> -->
                                 <td>
                                     <ul class="action_btn">
                                         <li><a (click)="goToJobDetails(item)"><i
@@ -270,10 +235,6 @@
                                                 (click)="editJob(item.job_id)"><i
                                                     class="fa-solid fa-pen-to-square"></i></a>
                                         </li>
-                                        <!-- <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
-                                            (click)="editJob(item.job_id, item.job_startDate)"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                        </li> -->
                                     </ul>
                                 </td>
                                 <td style="font-size: 10px;">

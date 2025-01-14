@@ -284,12 +284,8 @@
 
             <div class="col-12">
                 <div class="sign_in">
-                    <button type="submit" class="menu_links login_btn submit_btn" (click)="createJob()"
-                        *ngIf="!job_id">create
-                        job</button>
-                    <button type="submit" class="menu_links login_btn submit_btn" (click)="createJob()"
-                        *ngIf="job_id">update
-                        job</button>
+                    <button type="submit" class="menu_links login_btn submit_btn" (click)="createJob()" *ngIf="!job_id" [disabled]="disabledSubmit">create job</button>
+                    <button type="submit" class="menu_links login_btn submit_btn" (click)="createJob()" *ngIf="job_id">update job</button>
                 </div>
             </div>
         </div>
