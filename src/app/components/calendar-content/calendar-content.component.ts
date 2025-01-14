@@ -22,6 +22,7 @@ export class CalendarContentComponent {
   cust_address = "";
   total_amount = "";
   booking_amount = "";
+  expense = "";
   total_paid_amount = "";
   due_amount = "";
   empName = "";
@@ -51,6 +52,7 @@ export class CalendarContentComponent {
     this.booking_amount = data.content.booking_amount;
     this.total_paid_amount = data.content.total_paid_amount;
     this.due_amount = data.content.due_amount;
+    this.expense = data.content.expenses;
   }
 
   ngOnInit() {
