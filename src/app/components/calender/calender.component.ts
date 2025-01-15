@@ -85,8 +85,8 @@ export class CalenderComponent {
         this.events = [];
         this.eventDetails = res.response;
         res.response.forEach((item: any) => {
-          const eventStartDate = new Date(item.job_startDate).toISOString();
-          const eventEndDate = new Date(item.job_endDate).toISOString();
+          const eventStartDate = new Date(item.job_startDate_calendar)
+          const eventEndDate = new Date(item.job_endDate_calendar)
           const color = this.randomColor(eventStartDate, eventEndDate);
           this.events.push({
             // title: item.job_details + " " + "#" + item.job_number,
