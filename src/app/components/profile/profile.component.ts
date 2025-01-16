@@ -127,7 +127,7 @@ export class ProfileComponent {
   }
 
   setSubscriptionActiveStatus() {
-    this.rest.setSubscriptionActiveStatus().subscribe((res: any) => {});
+    this.rest.setSubscriptionActiveStatus().subscribe((res: any) => { });
   }
 
   getUserDetails() {
@@ -654,7 +654,7 @@ export class ProfileComponent {
       width: '550px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   closeModal() {
@@ -721,7 +721,7 @@ export class ProfileComponent {
       userId: this.userId,
       generatedOTP: this.generatedOTP,
     };
-    this.rest.updateOTPinDB(data).subscribe((res: any) => {});
+    this.rest.updateOTPinDB(data).subscribe((res: any) => { });
   }
 
   showWarning() {
@@ -765,7 +765,6 @@ export class ProfileComponent {
             background-color: #fff;
             padding: 20px;
             margin: 0 auto;
-            text-align: center;
           }
 
           .title-section h2 {
@@ -855,18 +854,17 @@ export class ProfileComponent {
           </div>
 
           <div class="address-section">
-            <strong>Days - Crew Details (All Events in ${
-              value.event_location
-            }):</strong>
+            <strong>Days - Crew Details (All Events in ${value.event_location
+      }):</strong>
             ${bookingDate
-              .map(
-                (date: any, index: any) => `
+        .map(
+          (date: any, index: any) => `
               <div>
                 <p><i class="fas fa-arrow-right"></i> ${date} | ${specialization[index]} | ${crew[index]}</p>
               </div>
             `
-              )
-              .join('')}
+        )
+        .join('')}
           </div>
 
           <div class="address-section">
@@ -954,7 +952,7 @@ export class ProfileComponent {
           0.5
         );
 
-        const padding = 20;
+        const padding = 25;
         const frameWidth = pageWidth - 2 * padding;
         const frameHeight = pageHeight - 2 * padding;
 
