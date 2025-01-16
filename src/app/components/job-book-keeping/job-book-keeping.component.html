@@ -12,8 +12,9 @@
                             <!-- <input type="text" class="select_list" [(ngModel)]="job_number"
                                 style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;"> -->
                                 <input type="text" class="select_list" [(ngModel)]="payment_criteria"
-                                style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;" (keyup.enter)="searchPayments(payment_criteria)">
-                            <button type="submit" class="pay" (click)="searchPayments(payment_criteria)">Search</button>
+                                style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;" (keyup.enter)="searchPayments()">
+                            <button type="button" class="jobs_btn delivered_btn" (click)="searchPayments()">Search</button>
+                            <button type="button" class="jobs_btn delivered_btn" (click)="clearSearchPayments()">Reset</button>
                         </div>
                     </div>
                 </div>

@@ -80,9 +80,15 @@ export class JobBookKeepingComponent {
     this.getAllJobBookKeeping();
   }
 
-  searchPayments(payment_criteria: any) {
+  searchPayments() {
     this.getAllJobBookKeeping();
   }
+
+  clearSearchPayments() {
+    this.payment_criteria = ''
+    this.getAllJobBookKeeping();
+  }
+
   removeBookkeeping(jb_id: any, index: any) {
     this.jb_id = jb_id;
     this.index = index;

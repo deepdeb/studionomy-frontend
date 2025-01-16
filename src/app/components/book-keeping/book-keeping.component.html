@@ -25,7 +25,7 @@
                     <div style="position: relative;display: inline-block;">
                             <input type="text" class="select_list" [(ngModel)]="entryCriteria"
                             style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;" (input)="getAllBookKeeping()">
-                        <!-- <button type="submit" class="pay">Search</button> -->
+                        <button type="submit" class="pay" (click)="clearSearchBookKeeping()">Reset</button>
                     </div>
                 </div>
             </div>

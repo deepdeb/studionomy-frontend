@@ -512,16 +512,20 @@ export class ProfileComponent {
     this.getAllJob();
   }
 
+  clearSearchJob() {
+    this.job_search_criteria = ''
+    this.getAllJob();
+  }
+
   searchQuotation() {
     this.getAllQuotes();
   }
 
-  clearSearchJob() {
-    this.job_details = '';
-    this.cust_name = '';
-    this.cust_phoneNo = '';
-    this.getAllJob();
+  clearSearchQuotation() {
+    this.quote_search_criteria = ''
+    this.getAllQuotes();
   }
+
   allJob() {
     this.jobType = 'all';
     this.getAllJob();

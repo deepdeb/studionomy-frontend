@@ -72,6 +72,11 @@ export class BookKeepingComponent {
     })
   }
 
+  clearSearchBookKeeping() {
+    this.entryCriteria = ''
+    this.getAllBookKeeping();
+  }
+
   recordSubmit() {
     if (this.actual_opening_balance <= 0) {
       this.common.showAlertMessage("Please enter first opening balance", this.common.errContent);

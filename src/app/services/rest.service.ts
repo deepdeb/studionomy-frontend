@@ -330,11 +330,11 @@ export class RestService {
   //------------------------ Book Keeping---------------------//
 
   getAllBookKeeping(data: any) {
-    return this.http.post(
-      this.API_ROOT + 'bookkeeping/bookkeepingList',
-      data,
-      httpOptions
-    );
+    // if(data.searchCriteria) {
+    //   return this.http.post(this.API_ROOT + 'bookkeeping/bookkeepingSearch', data, httpOptions);
+    // } else {
+      return this.http.post( this.API_ROOT + 'bookkeeping/bookkeepingList', data, httpOptions );
+    // }
   }
 
   bookKeeping(data: any) {
