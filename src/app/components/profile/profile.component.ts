@@ -906,7 +906,8 @@ export class ProfileComponent {
 
     const frameImage = '../../assets/img/themes/frame/3.png';
 
-    const logoImage = '../../assets/img/logo/SL-Logo.png';
+    // const logoImage = '../../assets/img/logo/SL-Logo.png';
+    const logoImage = '../../assets/img/logo/NOMY2.png'
 
     sections.forEach((section: any, index) => {
       // const textElements = section.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span');
@@ -927,7 +928,7 @@ export class ProfileComponent {
         const pageHeight = 297;
 
         const logoWidth = 35;
-        const logoHeight = 35;
+        const logoHeight = 10;
 
         let imgWidth = pageWidth;
         let imgHeight = pageWidth / aspectRatio;
