@@ -373,9 +373,9 @@
                                 </td>
                                 <td>
                                     <ul class="action_btn">
-                                        <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
-                                                (click)="removeJob(item.job_id)"><i class="fa-solid fa-trash"
-                                                    data-bs-toggle="modal" data-bs-target="#jobDeleteModal"></i></a>
+                                        <li><a
+                                                (click)="getQuotationIdForDeleteQuote(item.quotation_id)"><i class="fa-solid fa-trash"
+                                                    data-bs-toggle="modal" data-bs-target="#quotationDeleteModal"></i></a>
                                         </li>
                                         <li><a (click)="quotation_id = item.quotation_id"><i
                                                     class="fa-solid fa-check-circle fa-lg" data-bs-toggle="modal"
@@ -580,7 +580,7 @@
 </a>
 
 
-<!-- -------------------- Job cancel Modal --------------- -->
+<!-- -------------------- Job delete Modal --------------- -->
 
 <div class="modal fade" id="jobDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 325px;">
@@ -594,6 +594,27 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteJob()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- -------------------- Quotation delete Modal --------------- -->
+
+<div class="modal fade" id="quotationDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 325px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 style="text-transform:none" class="text-center">Confirm Quote Deletion?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteQuotation()">Yes</button>
             </div>
         </div>
     </div>

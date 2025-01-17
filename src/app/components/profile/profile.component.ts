@@ -264,6 +264,7 @@ export class ProfileComponent {
   }
 
   removeJob(job_id: any) {
+    console.log('enter')
     this.job_id = job_id;
   }
   deleteJob() {
@@ -282,6 +283,27 @@ export class ProfileComponent {
         this.common.showAlertMessage(res.message, this.common.errContent);
       }
     });
+  }
+
+  getQuotationIdForDeleteQuote(quotation_id: any) {
+    this.quotation_id = quotation_id
+  }
+  deleteQuotation() {
+    const data = {
+      id: this.quotation_id,
+      table_name: 'quotations',
+      table_pId: 'quotation_id',
+      userId: localStorage.getItem('slUserId'),
+    };
+    this.rest.delete(data).subscribe((res: any) => {
+      if(res.success) {
+        this.quotation_id = ''
+        this.common.showAlertMessage(res.message, this.common.succContent);
+        this.getAllQuotes();
+      } else {
+        this.common.showAlertMessage(res.message, this.common.errContent);
+      }
+    })
   }
 
   editJob(job_id: any) {
