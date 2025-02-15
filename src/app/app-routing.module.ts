@@ -34,6 +34,7 @@ import { RefundPolicyComponent } from './components/refund-policy/refund-policy.
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './components/payment-failure/payment-failure.component';
+import { WebsiteTourComponent } from './components/website-tour/website-tour.component';
 // import { ReportsComponent } from './components/reports/reports.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -70,7 +71,8 @@ const routes: Routes = [
   { path: 'public-calender', component: PublicCalenderComponent, canActivate: [AuthGuard] },
   { path: 'booking-calender', component: BookingCalenderComponent, canActivate: [AuthGuard, StudioAuthGuard] },
   { path: 'payment-success', component: PaymentSuccessComponent},
-  { path: 'payment-failure', component: PaymentFailureComponent }
+  { path: 'payment-failure', component: PaymentFailureComponent },
+  { path: 'website-tour', component: WebsiteTourComponent}
 ];
 
 @NgModule({

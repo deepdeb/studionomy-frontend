@@ -149,21 +149,26 @@ export class HeaderComponent {
   goToHome() {
     this.router.navigate(['/']);
   }
+
   goToAbout() {
     this.router.navigate(['/about-us']);
   }
+
   goToProfile(id: any) {
     this.router.navigate(['/user']);
   }
   goToSubscription() {
     this.router.navigate(['/subscription']);
   }
+
   goToFeedback() {
     this.router.navigate(['/feedback']);
   }
+
   goToQuery() {
     this.router.navigate(['/query']);
   }
+
   goToContactus() {
     this.router.navigate(['/contact-us'])
   }
@@ -176,15 +181,19 @@ export class HeaderComponent {
       return;
     }
   }
+
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
   logout() {
-    // localStorage.removeItem('slUserId');
-    // localStorage.removeItem('slUserType');
-    // localStorage.removeItem('studioRole')
     localStorage.clear();
     this.common.logoutSubject.next(1);
     this.router.navigate(['/']);
   }
+
+  goToWebsiteTour() {
+    this.router.navigate(['/website-tour']);
+  }
+
 }

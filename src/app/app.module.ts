@@ -50,6 +50,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './components/payment-failure/payment-failure.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { WebsiteTourComponent } from './components/website-tour/website-tour.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { ReportsComponent } from './components/reports/reports.component';
     SpinnerComponent,
     PaymentSuccessComponent,
     PaymentFailureComponent,
-    ReportsComponent
+    ReportsComponent,
+    WebsiteTourComponent
   ],
   imports: [
     BrowserModule,
