@@ -43,10 +43,12 @@ body {
   box-shadow: 0px 2px 6px #0000005c;
   color: #c46c02;
   cursor: pointer;
+  transition: background 0.5s;
 }
 
-.account-property-details h6 {
-  cursor: pointer;
+.account-property-details:hover {
+  background: #ff761e;
+  color: white;
 }
 
 .profile_menu li:not(:last-child) {
