@@ -8,25 +8,26 @@
         </div>
         <div class="packages_area">
             <nav class="packages_tab">
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                            type="button" role="tab" aria-controls="nav-home" aria-selected="true"
-                            (click)="getMyNetworkList()">my networks</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                            type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
-                            (click)="searchTab(1)">freelancers</button>
-                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
-                            type="button" role="tab" aria-controls="nav-contact" aria-selected="false"
-                            (click)="searchTab(2)">equipment
-                            owners</button>
-                        <button class="nav-link" id="nav-payment-tab" data-bs-toggle="tab" data-bs-target="#nav-payment"
-                            type="button" role="tab" aria-controls="nav-payment" aria-selected="false">payment</button>
-                    </div>
-                    <div style="display: flex;" class="job_details_network" style="font-size:18px;">
-                        <!-- <p *ngIf="job_details"><strong>Job description: </strong>{{job_details}}</p> -->
-                        <p *ngIf="job_startDate && job_endDate"><span style="color: #183153;" style="font-weight:500;">Job date: </span> {{job_startDate}} to {{job_endDate}}</p>
-                        <!-- <p *ngIf="event_location"><strong>Event location: </strong> {{event_location}}</p> -->
-                    </div>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                        (click)="getMyNetworkList()">my networks</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+                        (click)="searchTab(1)">freelancers</button>
+                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                        type="button" role="tab" aria-controls="nav-contact" aria-selected="false"
+                        (click)="searchTab(2)">equipment
+                        owners</button>
+                    <button class="nav-link" id="nav-payment-tab" data-bs-toggle="tab" data-bs-target="#nav-payment"
+                        type="button" role="tab" aria-controls="nav-payment" aria-selected="false">payment</button>
+                </div>
+                <div style="display: flex;" class="job_details_network" style="font-size:18px;">
+                    <!-- <p *ngIf="job_details"><strong>Job description: </strong>{{job_details}}</p> -->
+                    <p *ngIf="job_startDate && job_endDate"><span style="color: #183153;" style="font-weight:500;">Job
+                            date: </span> {{job_startDate}} to {{job_endDate}}</p>
+                    <!-- <p *ngIf="event_location"><strong>Event location: </strong> {{event_location}}</p> -->
+                </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane  fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -99,7 +100,8 @@
                                                 <!-- <li style="padding-left: 8px;border-left: 2px solid black;"><span class="pay"
                                                         (click)="goToCalender(item.userId,item.userType)" style="cursor: pointer;">book</span></li> -->
                                                 <li style="padding-left: 8px;"><span class="pay"
-                                                            (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)" style="cursor: pointer;">book</span></li>
+                                                        (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                        style="cursor: pointer;">book</span></li>
                                             </ul>
                                         </td>
                                         <td style="text-align: center;">
@@ -189,7 +191,8 @@
                                         <th>phone no / Alt ph no</th>
                                         <th>equipments</th>
                                         <th>my rating</th>
-                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date: 'MMMM' }}
+                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date:
+                                            'MMMM' }}
                                         </th>
                                     </tr>
                                 </thead>
@@ -232,19 +235,32 @@
                                         </td>
                                         <td style=" text-transform: capitalize">
                                             <ul class="cal_dates_ul">
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{ datesToCheck[0] | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{ datesToCheck[1] | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{ datesToCheck[2] | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{ datesToCheck[3] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 *
+                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 *
+                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 *
+                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{
+                                                        datesToCheck[0] | date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{
+                                                        datesToCheck[1] | date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{
+                                                        datesToCheck[2] | date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{
+                                                        datesToCheck[3] | date: 'dd' }}</span></li>
                                                 <li style="padding-left: 8px;border-left: 2px solid black;"><span
-                                                        class="pay" (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                        class="pay"
+                                                        (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
                                                         style="cursor: pointer;">book</span></li>
                                                 <li style="padding-left: 8px;"><button class="pay renew"
                                                         [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
-                                                        (click)="addToMyNetwork(item.userId)" [disabled]="item.isDisabled == '1'">add</button></li>
+                                                        (click)="addToMyNetwork(item.userId)"
+                                                        [disabled]="item.isDisabled == '1'">add</button></li>
                                             </ul>
 
 
@@ -339,7 +355,8 @@
                                         <th>phone no/alt ph no</th>
                                         <th>equipments</th>
                                         <th>my rating</th>
-                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date: 'MMMM' }}
+                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date:
+                                            'MMMM' }}
                                         </th>
                                     </tr>
                                 </thead>
@@ -385,19 +402,32 @@
                                         </td>
                                         <td style=" text-transform: capitalize">
                                             <ul class="cal_dates_ul">
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 * 24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{ datesToCheck[0] | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{ datesToCheck[1] | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{ datesToCheck[2] | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{ datesToCheck[3] | date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 *
+                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 *
+                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 *
+                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{
+                                                        datesToCheck[0] | date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{
+                                                        datesToCheck[1] | date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{
+                                                        datesToCheck[2] | date: 'dd' }}</span></li>
+                                                <li><span
+                                                        class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{
+                                                        datesToCheck[3] | date: 'dd' }}</span></li>
                                                 <li style="padding-left: 8px;border-left: 2px solid black;"><span
-                                                        class="pay" (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                        class="pay"
+                                                        (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
                                                         style="cursor: pointer;">book</span></li>
                                                 <li style="padding-left: 8px;"><button class="pay renew"
                                                         [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
-                                                        (click)="addToMyNetwork(item.userId)" [disabled]="item.isDisabled == 1">add</button></li>
+                                                        (click)="addToMyNetwork(item.userId)"
+                                                        [disabled]="item.isDisabled == 1">add</button></li>
                                             </ul>
 
                                             <!-- <input type="date" class="form-control" width="100%">
@@ -413,7 +443,7 @@
                     </div>
                 </div>
 
-               
+
 
                 <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
                     <div class="network_form my-form">
@@ -426,21 +456,24 @@
                                     <div class="col-6 ">
                                         <div class="date_range mb-3">
                                             <p class="mb-0 me-1" style="font-size: 14px;">From:</p>
-                                            <input type="date" class="form-control mb-0" style="padding: 4px;" [(ngModel)]="search_start_date">
+                                            <input type="date" class="form-control mb-0" style="padding: 4px;"
+                                                [(ngModel)]="search_start_date">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-6 ">
                                         <div class="date_range mb-3">
                                             <p class="mb-0 me-1" style="font-size: 14px;">To:</p>
-                                            <input type="date" class="form-control mb-0" style="padding: 4px;" [(ngModel)]="search_end_date">
+                                            <input type="date" class="form-control mb-0" style="padding: 4px;"
+                                                [(ngModel)]="search_end_date">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCountry12" class="form-label">Select Type</label>
-                                <select id="userType" class="form-control" style="appearance: auto;" [(ngModel)]="registerType" (change)="get_register_type()">
+                                <select id="userType" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="registerType" (change)="get_register_type()">
                                     <option value="">Select</option>
                                     <option value="1">Freelancers</option>
                                     <option value="2">Equipment Owners</option>
@@ -448,7 +481,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCountry12" class="form-label">Select Name</label>
-                                <select id="skills" class="form-control" style="appearance: auto;" [(ngModel)]="search_name">
+                                <select id="skills" class="form-control" style="appearance: auto;"
+                                    [(ngModel)]="search_name">
                                     <option value="">Select</option>
                                     <option *ngFor="let item of userList" [value]="item.userId">{{item.name}}</option>
                                 </select>
@@ -498,7 +532,8 @@
                                         </td>
                                         <td>
                                             <p *ngIf="item.payment_details">Amount paid: {{item.payment_details}}</p>
-                                            <p *ngIf="item.total_paid_amount">Total paid: {{item.total_paid_amount}}/-</p>
+                                            <p *ngIf="item.total_paid_amount">Total paid: {{item.total_paid_amount}}/-
+                                            </p>
                                             <!-- <p>{{item.last_payment_date}}</p> -->
                                         </td>
                                         <!-- <td>
@@ -508,9 +543,13 @@
                                             <span *ngIf="item.due_amount">{{item.due_amount}}/-</span>
                                         </td>
                                         <td style="vertical-align: middle;">
-                                            <a *ngIf="+item.total_paid_amount < +item.payment" (click)="openPaymentModal(item)" class="pay" style="cursor: pointer;">pay
+                                            <a *ngIf="+item.total_paid_amount < +item.payment"
+                                                (click)="openPaymentModal(item)" class="pay"
+                                                style="cursor: pointer;">pay
                                                 again</a>
-                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center"><strong style="color: green;">Amount fully paid. Wait for confirmation from {{item.name}}</strong></p>
+                                            <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center">
+                                                <strong style="color: green;">Amount fully paid. Wait for confirmation
+                                                    from {{item.name}}</strong></p>
                                         </td>
                                     </tr>
                                 </tbody>

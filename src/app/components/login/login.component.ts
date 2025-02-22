@@ -31,11 +31,11 @@ export class LoginComponent {
   }
 
   login() {
-    if (this.userName == "" || this.userName == null || this.userName == undefined) {
+    if (!this.userName) {
       this.common.showAlertMessage("Please enter username", this.common.errContent);
       return;
     }
-    if (this.password == "" || this.password == null || this.password == undefined) {
+    if (!this.password) {
       this.common.showAlertMessage("Please enter password", this.common.errContent);
       return;
     }
@@ -49,8 +49,7 @@ export class LoginComponent {
         this.userType = res.response[0].userType;
         this.access_token = res.access_token;
         this.passcode = res.response[0].passcode;
-        this.common.showAlertMessage(res.message, this.common.succContent);
-        if(res.response[0].userType == 0) {
+        if (res.response[0].userType == 0) {
           this.openModal();
         } else {
           this.setLocalStorageItems();
@@ -85,7 +84,7 @@ export class LoginComponent {
   };
 
   nextStep() {
-    if(this.studioRole === 'employee' && this.dialogRef) {
+    if (this.studioRole === 'employee' && this.dialogRef) {
       this.closeModal();
     } else {
       if (this.dialogRef) {
@@ -99,10 +98,10 @@ export class LoginComponent {
   }
 
   closeModal() {
-    if(this.dialogRef) {
+    if (this.dialogRef) {
       this.dialogRef.close();
     }
-    this.setLocalStorageItems();  
+    this.setLocalStorageItems();
     this.router.navigate(['/user']);
   }
 

@@ -1,9 +1,7 @@
 <div class="log_in_area">
     <div class="my-form">
         <a href="index.html" class="logo_forgot_login">
-            <!-- <img src="assets/img/logo/SL-Logo.png" alt="logo"> -->
-            <img src="assets/img/logo/NOMY2.png" alt="logo" loading="lazy" style="width: 100%;" >
-            <!-- <span class="logo_title">Studio Lancers</span> -->
+            <img src="assets/img/logo/NOMY2.png" alt="logo" loading="lazy" style="width: 100%;">
         </a>
         <h6 class="h6">Log in</h6>
         <div class="form-group mb-3">
@@ -22,7 +20,6 @@
             <a routerLink="/forgot-password" class="forgot-password">forgot password?</a>
         </div>
         <button type="button" class="menu_links login_btn submit_btn" (click)="login()">Submit</button>
-        <!-- <h6 class="h6">Login will be valid for 4 hours</h6> -->
     </div>
 </div>
 
@@ -32,11 +29,13 @@
         <div class="card">
             <div class="request_body">
                 <label>
-                    <input type="radio" name="studioRole" [(ngModel)]="studioRole" (keyup.enter)="nextStep()" value="owner">
+                    <input type="radio" name="studioRole" [(ngModel)]="studioRole" (keyup.enter)="nextStep()"
+                        value="owner">
                     Studio Owner's Passkey
                 </label>
                 <label>
-                    <input type="radio" name="studioRole" [(ngModel)]="studioRole" (keyup.enter)="nextStep()" value="employee">
+                    <input type="radio" name="studioRole" [(ngModel)]="studioRole" (keyup.enter)="nextStep()"
+                        value="employee">
                     Studio Employee Sign-in
                 </label>
                 <button type="button" class="menu_links login_btn submit_btn" (click)="nextStep()">Next</button>
@@ -51,9 +50,11 @@
         <div class="card">
             <div class="request_body">
                 <label>
-                    <input type="password" class="form-control" name="OTP" [(ngModel)]="OTP" (keyup.enter)="OTP === passcode ? closeModal() : handleIncorrectOTP()" maxlength="4">
+                    <input type="password" class="form-control" name="OTP" [(ngModel)]="OTP"
+                        (keyup.enter)="OTP === passcode ? closeModal() : handleIncorrectOTP()" maxlength="4">
                 </label>
-                <button type="button" class="menu_links login_btn submit_btn" (click)="OTP === passcode ? closeModal() : handleIncorrectOTP()">Next</button>
+                <button type="button" class="menu_links login_btn submit_btn"
+                    (click)="OTP === passcode ? closeModal() : handleIncorrectOTP()">Next</button>
             </div>
         </div>
     </div>
