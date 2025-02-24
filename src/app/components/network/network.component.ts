@@ -227,7 +227,8 @@ export class NetworkComponent {
       job_number: this.job_number
     };
     if (!queryParams.job_number) {
-      this.common.showAlertMessage("Booking FL/EO only possible from calendar by clicking on job", this.common.errContent)
+      // this.common.showAlertMessage("Booking FL/EO only possible from calendar by clicking on job", this.common.errContent)
+      this.router.navigate(['calender'])
       return
     }
     // this.router.navigate(['public-calender'], { queryParams: queryParams });
