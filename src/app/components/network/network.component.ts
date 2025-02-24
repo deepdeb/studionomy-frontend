@@ -21,7 +21,7 @@ export class NetworkComponent {
   searchErr = "";
   contactPersonName = "";
   id = "";
-  date = "" as any;
+  date = "" as string;
   equipmentCategory = "" as any;
   company = "" as any;
   stateList = [] as any;
@@ -30,7 +30,7 @@ export class NetworkComponent {
   brandList = [] as any;
   searchData = [] as any;
   myNetworkList = [] as any;
-  currentDate = new Date();
+  todayDate = new Date();
   search_start_date = "" as any;
   search_end_date = "" as any;
   registerType = "" as any;
@@ -61,12 +61,12 @@ export class NetworkComponent {
 
   constructor(private dialog: MatDialog, private router: Router, private rest: RestService, private common: CommonService, private route: ActivatedRoute) {
     this.userType = localStorage.getItem('slUserType');
-
+    this.date = new Date().toLocaleDateString('en-CA')
   }
+
   ngOnInit() {
     this.getMyNetworkList();
     this.getStateList();
-    // this.getAllJob();
     this.getFreelancerRequest();
 
     this.route.queryParams.subscribe(params => {
@@ -77,7 +77,8 @@ export class NetworkComponent {
         this.event_location = params['event_location']
     })
   }
-  search(type: any) {
+
+  searchForNetwork(type: any) {
     this.isLoading = true;
     const data = {
       limit: this.limit,
@@ -93,36 +94,53 @@ export class NetworkComponent {
       date: this.date,
       userType: Number(type)
     };
-    this.datesToCheck = [];
     this.rest.searchForNetwork(data).subscribe((res: any) => {
       if (res.success) {
         this.isLoading = false;
         this.searchData = [];
         this.searchData = res.response;
-        this.datesToCheck.push(this.date)
+
         if (this.date) {
-          for (let i = 1; i <= 3; i++) {
-            this.datesToCheck.push(this.date.split("-")[0] + "-" + this.date.split("-")[1] + "-" + (Number(this.date.split("-")[2]) + i).toString());
-          }
+          var allSevenDates = this.getAllSevenDates(new Date(this.date));
+
+          var networkUserIds = []
+
           for (let i = 0; i <= res.response.length - 1; i++) {
-            const data = {
-              datesToCheck: this.datesToCheck,
-              userId: res.response[i].userId,
-              userType: res.response[i].userType
-            }
-            this.rest.getBookingStatusByDates(data).subscribe((res: any) => {
-              let bookingStatus = []
-              for (let j = 0; j < res.response.length; j++) {
-                bookingStatus.push(res.response[j].req_status)
-              }
-              this.searchData[i].bookingStatus = res.response;
-              bookingStatus = [];
-            });
+            networkUserIds.push(res.response[i].userId);
           }
+
+          this.getBookingStatusByDates(allSevenDates, networkUserIds)
         }
-        //this.clearForm();
       }
     })
+  }
+
+  getAllSevenDates(date: Date) {
+    const allSevenDates: any = [];
+
+    for (let i = -3; i <= 3; i++) {
+      const before = new Date(date);
+      before.setDate(date.getDate() + (i));
+      allSevenDates.push(before.toLocaleDateString('en-CA'));
+    }
+
+    return allSevenDates
+  }
+
+  getBookingStatusByDates(datesToCheck: any, networkUserIds: any) {
+    const data = {
+      datesToCheck: datesToCheck,
+      networkUserIds: networkUserIds
+    }
+    this.rest.getBookingStatusByDates(data).subscribe((res: any) => {
+      let allBookingStatus = res.response
+
+      this.searchData.forEach((data: any) => {
+        if(allBookingStatus[data.userId]) {
+          data.bookingStatus = allBookingStatus[data.userId]
+        }
+      });
+    });
   }
 
   getClassForDate(date: any, statuses: any) {
@@ -135,7 +153,6 @@ export class NetworkComponent {
     }
     return 'green_date';
   }
-
   addToMyNetwork(id: any) {
     const data = {
       userId: Number(localStorage.getItem('slUserId')),
@@ -157,7 +174,6 @@ export class NetworkComponent {
     this.skill = "";
     this.contactPersonName = "";
     this.id = "";
-    this.date = "";
   }
   getStateList() {
     this.rest.getStateList().subscribe((res: any) => {
@@ -186,7 +202,6 @@ export class NetworkComponent {
       }
     })
   }
-
   getAllBrandList() {
     this.rest.getAllBrand().subscribe((res: any) => {
       if (res.success) {
@@ -198,14 +213,12 @@ export class NetworkComponent {
   searchTab(type: any) {
     this.searchData = [];
     this.clearForm();
-    this.date = this.job_startDate ? this.job_startDate : '';
+    this.date = this.job_startDate ? this.job_startDate : this.date;
     if (type == 2) {
       this.getAllEquipmentCategory();
       this.getAllBrandList();
     }
   }
-
-
   goToCalender(userId: any, name: any, mobile: any, userType: any) {
     let queryParams = {
       requestTo: userId,
@@ -255,19 +268,6 @@ export class NetworkComponent {
       }
     })
   }
-
-  // getAllJob() {
-  //   const data = {
-  //     userId: localStorage.getItem('slUserId'),
-  //     userType: localStorage.getItem('slUserType'),
-  //   };
-  //   this.jobList = [];
-  //   this.rest.getAllJobList(data).subscribe((res: any) => {
-  //     if (res.success) {
-  //       this.jobList = res.response;
-  //     }
-  //   })
-  // }
 
   getFreelancerRequest() {
     const data = {
@@ -336,7 +336,10 @@ export class NetworkComponent {
   }
 
   openModal(userId: any, name: any, mobile: any, userType: any): void {
-    this.req_details = { "req_to": userId, "req_to_userType": userType, "req_to_name": name, "req_date": this.job_startDate, "job_number": this.job_number, "req_to_mobile": mobile };
+    this.req_details = { "req_to": userId, "req_to_userType": userType, "req_to_name": name, "req_date": this.dateFormatFullYearFromHalfYear(this.job_startDate), "job_number": this.job_number, "req_to_mobile": mobile };
+
+    // console.log('341>>>>', this.req_details)
+
     const dialogRef = this.dialog.open(RequestForBookingComponent, {
       width: '700px',
       data: {
@@ -402,6 +405,15 @@ export class NetworkComponent {
         this.getFreelancerRequest()
       }
     })
+  }
+
+  dateFormatFullYearFromHalfYear(date: any) {
+    const yearPart = date.split('-')[0]
+    const monthPart = date.split('-')[1]
+    const datePart = date.split('-')[2]
+    
+    let formattedDate = `20${yearPart}-${monthPart}-${datePart}`
+    return formattedDate
   }
 
 }

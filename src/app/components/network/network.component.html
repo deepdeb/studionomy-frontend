@@ -23,10 +23,8 @@
                         type="button" role="tab" aria-controls="nav-payment" aria-selected="false">payment</button>
                 </div>
                 <div style="display: flex;" class="job_details_network" style="font-size:18px;">
-                    <!-- <p *ngIf="job_details"><strong>Job description: </strong>{{job_details}}</p> -->
                     <p *ngIf="job_startDate && job_endDate"><span style="color: #183153;" style="font-weight:500;">Job
                             date: </span> {{job_startDate}} to {{job_endDate}}</p>
-                    <!-- <p *ngIf="event_location"><strong>Event location: </strong> {{event_location}}</p> -->
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -44,8 +42,6 @@
                                         <th>phone no/<br>alt ph no</th>
                                         <th>equipments</th>
                                         <th>my rating</th>
-                                        <!-- <th>available dates ( <i class="fa-regular fa-calendar-days"></i> {{ currentDate | date: 'MMMM' }} )
-                                        </th> -->
                                         <th>Action</th>
                                         <th>payment history</th>
                                     </tr>
@@ -90,15 +86,6 @@
                                         <td style=" text-transform: capitalize ;text-align: center;">
 
                                             <ul class="cal_dates_ul">
-                                                <!-- <li><span class="cal_dates gray_date">21</span></li>
-                                                <li><span class="cal_dates gray_date">22</span></li>
-                                                <li><span class="cal_dates gray_date">23</span></li>
-                                                <li><span class="cal_dates green_date mid_cal_date">{{ currentDate | date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates green_date">23</span></li>
-                                                <li><span class="cal_dates purple_date">22</span></li>
-                                                <li><span class="cal_dates purple_date">21</span></li> -->
-                                                <!-- <li style="padding-left: 8px;border-left: 2px solid black;"><span class="pay"
-                                                        (click)="goToCalender(item.userId,item.userType)" style="cursor: pointer;">book</span></li> -->
                                                 <li style="padding-left: 8px;"><span class="pay"
                                                         (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
                                                         style="cursor: pointer;">book</span></li>
@@ -175,7 +162,7 @@
                             </div>
                         </div>
                         <div style="text-align: center;">
-                            <button class="display_btn" (click)="search(1)">search</button>
+                            <button class="display_btn" (click)="searchForNetwork(1)">search</button>
                         </div>
                     </div>
                     <h5 class="network_heading">Freelancers list</h5>
@@ -233,42 +220,13 @@
                                                             style="color: #ff761e;font-size: 16px;"></i></button></li>
                                             </ul>
                                         </td>
-                                        <td style=" text-transform: capitalize">
+                                        <td *ngIf="date" style="text-transform: capitalize;">
                                             <ul class="cal_dates_ul">
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 *
-                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 *
-                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 *
-                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{
-                                                        datesToCheck[0] | date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{
-                                                        datesToCheck[1] | date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{
-                                                        datesToCheck[2] | date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{
-                                                        datesToCheck[3] | date: 'dd' }}</span></li>
-                                                <li style="padding-left: 8px;border-left: 2px solid black;"><span
-                                                        class="pay"
-                                                        (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
-                                                        style="cursor: pointer;">book</span></li>
-                                                <li style="padding-left: 8px;"><button class="pay renew"
-                                                        [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
-                                                        (click)="addToMyNetwork(item.userId)"
-                                                        [disabled]="item.isDisabled == '1'">add</button></li>
+                                                <li *ngFor="let status of item.bookingStatus">
+                                                    <span
+                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date) >= newDate(todayDate), 'green_date': status.req_status == null && newDate(status.date) >= newDate(todayDate), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                </li>
                                             </ul>
-
-
-                                            <!-- <input type="date" class="form-control" width="100%">
-                                            <div class="d-flex mt-2">
-                                                <p class="pay me-1" (click)="goToCalender()" style="cursor: pointer;">book me</p>
-                                                <a href="#" class="pay renew">add me</a>
-                                            </div> -->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -339,7 +297,7 @@
                             </div>
                         </div>
                         <div style="text-align: center;">
-                            <button class="display_btn" (click)="search(2)">search</button>
+                            <button class="display_btn" (click)="searchForNetwork(2)">search</button>
                         </div>
                     </div>
                     <h5 class="network_heading">Equipment owners</h5>
@@ -355,9 +313,10 @@
                                         <th>phone no/alt ph no</th>
                                         <th>equipments</th>
                                         <th>my rating</th>
-                                        <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date:
-                                            'MMMM' }}
-                                        </th>
+                                        <th *ngIf="date">available dates <i class="fa-regular fa-calendar-days"></i> {{
+                                            date |
+                                            date:'MMMM' }}</th>
+                                        <th>action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -384,9 +343,6 @@
                                                 </p>
                                             </ng-container>
                                         </td>
-                                        <!-- <td>
-                                            {{item.inv_code}}
-                                        </td> -->
                                         <td>
                                             <ul class="cal_dates_ul mt-0">
                                                 <li><i class="fa-regular fa-star"></i></li>
@@ -400,41 +356,24 @@
                                                             style="color: #ff761e;font-size: 16px;"></i></button></li>
                                             </ul>
                                         </td>
-                                        <td style=" text-transform: capitalize">
+                                        <td *ngIf="date" style="text-transform: capitalize;">
                                             <ul class="cal_dates_ul">
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (3 *
-                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (2 *
-                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span class="cal_dates gray_date">{{newDate(date).getTime() - (1 *
-                                                        24 * 3600 * 1000)| date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates mid_cal_date {{ getClassForDate(datesToCheck[0], item.bookingStatus) }}">{{
-                                                        datesToCheck[0] | date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates {{ getClassForDate(datesToCheck[1], item.bookingStatus) }}">{{
-                                                        datesToCheck[1] | date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates {{ getClassForDate(datesToCheck[2], item.bookingStatus) }}">{{
-                                                        datesToCheck[2] | date: 'dd' }}</span></li>
-                                                <li><span
-                                                        class="cal_dates {{ getClassForDate(datesToCheck[3], item.bookingStatus) }}">{{
-                                                        datesToCheck[3] | date: 'dd' }}</span></li>
-                                                <li style="padding-left: 8px;border-left: 2px solid black;"><span
-                                                        class="pay"
-                                                        (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
-                                                        style="cursor: pointer;">book</span></li>
-                                                <li style="padding-left: 8px;"><button class="pay renew"
-                                                        [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
-                                                        (click)="addToMyNetwork(item.userId)"
-                                                        [disabled]="item.isDisabled == 1">add</button></li>
+                                                <li *ngFor="let status of item.bookingStatus">
+                                                    <span
+                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date) >= newDate(todayDate), 'green_date': status.req_status == null && newDate(status.date) >= newDate(todayDate), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                </li>
                                             </ul>
-
-                                            <!-- <input type="date" class="form-control" width="100%">
-                                            <div class="d-flex mt-2">
-                                                <p class="pay me-1" (click)="goToCalender()" style="cursor: pointer;">book me</p>
-                                                <a href="#" class="pay renew">add me</a>
-                                            </div> -->
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <span class="pay renew"
+                                                    (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                    style="cursor: pointer;">book</span>
+                                                <button class="pay renew"
+                                                    [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
+                                                    (click)="addToMyNetwork(item.userId)"
+                                                    [disabled]="item.isDisabled == 1">add</button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -549,7 +488,8 @@
                                                 again</a>
                                             <p *ngIf="+item.total_paid_amount == +item.payment" class="text-center">
                                                 <strong style="color: green;">Amount fully paid. Wait for confirmation
-                                                    from {{item.name}}</strong></p>
+                                                    from {{item.name}}</strong>
+                                            </p>
                                         </td>
                                     </tr>
                                 </tbody>

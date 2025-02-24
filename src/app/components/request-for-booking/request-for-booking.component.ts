@@ -243,10 +243,6 @@ export class RequestForBookingComponent {
   }
 
   sendRequestForEO() {
-    // if(this.isJobEditForEOFlag && this.equipmentBookingDetails.length > 1) {
-    //   this.common.showAlertMessage('Cannot add job for new date from here', this.common.errContent);
-    //   return
-    // }
     if (!this.job_number) {
       this.common.showAlertMessage('Please enter job number', this.common.errContent);
       return
@@ -278,7 +274,6 @@ export class RequestForBookingComponent {
         this.isJobEditForEOFlag = false;
         this.requestSent.emit();
         this.updateReqBookSent.emit();
-        // this.getUserDetails(data)
         this.onClose();
       } else {
         this.common.showAlertMessage(res.message, this.common.errContent);
@@ -293,14 +288,6 @@ export class RequestForBookingComponent {
     if (index != -1) {
       this.selectedSkillItems.splice(index, 1);
     }
-  }
-
-  dateFormat(date: any) {
-    let newdate = new Date(date);
-    let day = newdate.getDate().toString().padStart(2, '0');
-    let month = (newdate.getMonth() + 1).toString().padStart(2, '0');
-    let year = newdate.getFullYear().toString();
-    return `${day}-${month}-${year}`;
   }
 
   handleKeyPress(event: any): void {
@@ -389,10 +376,10 @@ export class RequestForBookingComponent {
 
   addEquipDetails() {
 
-    if(!this.equipmentBookingDetailsEditFlag && this.equipmentBookingDetails.length >= 1) {
-      this.common.showAlertMessage('Cannot add job for new date from here', this.common.errContent);
-      return
-    }
+    // if(!this.equipmentBookingDetailsEditFlag && this.equipmentBookingDetails.length >= 1) {
+    //   this.common.showAlertMessage('Cannot add job for new date from here', this.common.errContent);
+    //   return
+    // }
 
     if (this.equipmentBookingDetailsEditFlag) {
       
@@ -419,6 +406,8 @@ export class RequestForBookingComponent {
       this.equipmentBookingDetails.push({ booked_from: this.bookingDate, equipments: this.selectedEquipmentItems.map((eq: any) => eq.inv_code).join(','), equipments_id: this.selectedEquipmentItems.map((eq: any) => eq.inv_id).join(',') })
       this.selectedEquipmentItems = []
       this.bookingDate = ''
+
+      // console.log('419>>>', this.equipmentBookingDetails)
     }
   }
 
@@ -438,7 +427,7 @@ export class RequestForBookingComponent {
   }
 
   showSelectedEquipments() {
-    console.log('selected eq items >>>>', this.selectedEquipmentItems);
+    // console.log('selected eq items >>>>', this.selectedEquipmentItems);
   }
 
 }
