@@ -213,7 +213,6 @@ export class NetworkComponent {
   searchTab(type: any) {
     this.searchData = [];
     this.clearForm();
-    this.date = this.job_startDate ? this.job_startDate : this.date;
     if (type == 2) {
       this.getAllEquipmentCategory();
       this.getAllBrandList();
@@ -338,8 +337,6 @@ export class NetworkComponent {
   openModal(userId: any, name: any, mobile: any, userType: any): void {
     this.req_details = { "req_to": userId, "req_to_userType": userType, "req_to_name": name, "req_date": this.dateFormatFullYearFromHalfYear(this.job_startDate), "job_number": this.job_number, "req_to_mobile": mobile };
 
-    // console.log('341>>>>', this.req_details)
-
     const dialogRef = this.dialog.open(RequestForBookingComponent, {
       width: '700px',
       data: {
@@ -408,11 +405,11 @@ export class NetworkComponent {
   }
 
   dateFormatFullYearFromHalfYear(date: any) {
-    const yearPart = date.split('-')[0]
+    const datePart = date.split('-')[0]
     const monthPart = date.split('-')[1]
-    const datePart = date.split('-')[2]
+    const yearPart = date.split('-')[2]
     
-    let formattedDate = `20${yearPart}-${monthPart}-${datePart}`
+    let formattedDate = `${datePart}-${monthPart}-20${yearPart}`
     return formattedDate
   }
 
