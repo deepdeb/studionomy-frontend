@@ -224,7 +224,7 @@
                                             <ul class="cal_dates_ul">
                                                 <li *ngFor="let status of item.bookingStatus">
                                                     <span
-                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date) >= newDate(todayDate), 'green_date': status.req_status == null && newDate(status.date) >= newDate(todayDate), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                        [ngClass]="{'mid_cal_date': newDate(status.date).getDate() == newDate(todayDate).getDate(), 'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
                                                 </li>
                                             </ul>
                                         </td>
@@ -360,7 +360,7 @@
                                             <ul class="cal_dates_ul">
                                                 <li *ngFor="let status of item.bookingStatus">
                                                     <span
-                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date) >= newDate(todayDate), 'green_date': status.req_status == null && newDate(status.date) >= newDate(todayDate), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                        [ngClass]="{'mid_cal_date': newDate(status.date).getDate() == newDate(todayDate).getDate(), 'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
                                                 </li>
                                             </ul>
                                         </td>
