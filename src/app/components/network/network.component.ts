@@ -121,6 +121,7 @@ export class NetworkComponent {
     for (let i = -3; i <= 3; i++) {
       const before = new Date(date);
       before.setDate(date.getDate() + (i));
+      console.log('124', before);
       allSevenDates.push(before.toLocaleDateString('en-CA'));
     }
 

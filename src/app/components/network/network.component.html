@@ -162,7 +162,7 @@
                             </div>
                         </div>
                         <div style="text-align: center;">
-                            <button class="display_btn" (click)="searchForNetwork(1)">search</button>
+                            <button class="display_btn" (click)="searchForNetwork(1)">search freelancer</button>
                         </div>
                     </div>
                     <h5 class="network_heading">Freelancers list</h5>
@@ -224,7 +224,7 @@
                                             <ul class="cal_dates_ul">
                                                 <li *ngFor="let status of item.bookingStatus">
                                                     <span
-                                                        [ngClass]="{'mid_cal_date': newDate(status.date).getDate() == newDate(todayDate).getDate(), 'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
                                                 </li>
                                             </ul>
                                         </td>
@@ -297,7 +297,7 @@
                             </div>
                         </div>
                         <div style="text-align: center;">
-                            <button class="display_btn" (click)="searchForNetwork(2)">search</button>
+                            <button class="display_btn" (click)="searchForNetwork(2)">search EO</button>
                         </div>
                     </div>
                     <h5 class="network_heading">Equipment owners</h5>
@@ -360,7 +360,7 @@
                                             <ul class="cal_dates_ul">
                                                 <li *ngFor="let status of item.bookingStatus">
                                                     <span
-                                                        [ngClass]="{'mid_cal_date': newDate(status.date).getDate() == newDate(todayDate).getDate(), 'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
                                                 </li>
                                             </ul>
                                         </td>
