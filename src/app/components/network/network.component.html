@@ -87,7 +87,7 @@
 
                                             <ul class="cal_dates_ul">
                                                 <li style="padding-left: 8px;"><span class="pay"
-                                                        (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                        (click)="goToCalender(item)"
                                                         style="cursor: pointer;">book</span></li>
                                             </ul>
                                         </td>
@@ -181,6 +181,9 @@
                                         <th>available dates <i class="fa-regular fa-calendar-days"></i> {{ date | date:
                                             'MMMM' }}
                                         </th>
+
+                                        <th>action</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -224,10 +227,23 @@
                                             <ul class="cal_dates_ul">
                                                 <li *ngFor="let status of item.bookingStatus">
                                                     <span
-                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null, 'green_date': status.req_status == null, 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
                                                 </li>
                                             </ul>
                                         </td>
+
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <span class="pay renew"
+                                                    (click)="goToCalender(item)"
+                                                    style="cursor: pointer;">book</span>
+                                                <button class="pay renew"
+                                                    [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
+                                                    (click)="addToMyNetwork(item.userId)"
+                                                    [disabled]="item.isDisabled == 1">{{item.isDisabled == 1 ? 'added' : 'add'}}</button>
+                                            </div>
+                                        </td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -360,19 +376,19 @@
                                             <ul class="cal_dates_ul">
                                                 <li *ngFor="let status of item.bookingStatus">
                                                     <span
-                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'green_date': status.req_status == null && newDate(status.date).getDate() >= newDate(todayDate).getDate(), 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
+                                                        [ngClass]="{'cal_dates': true, 'purple_date': status.req_status !== null, 'green_date': status.req_status == null, 'gray_date': newDate(status.date) < newDate(todayDate)}">{{newDate(status.date).getDate()}}</span>
                                                 </li>
                                             </ul>
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <span class="pay renew"
-                                                    (click)="goToCalender(item.userId,item.name,item.mobile,item.userType)"
+                                                    (click)="goToCalender(item)"
                                                     style="cursor: pointer;">book</span>
                                                 <button class="pay renew"
                                                     [ngStyle]="{'cursor': item.isDisabled == '1' ? 'not-allowed' : 'pointer'}"
                                                     (click)="addToMyNetwork(item.userId)"
-                                                    [disabled]="item.isDisabled == 1">add</button>
+                                                    [disabled]="item.isDisabled == 1">{{item.isDisabled == 1 ? 'added' : 'add'}}</button>
                                             </div>
                                         </td>
                                     </tr>

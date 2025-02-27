@@ -302,10 +302,10 @@ export class GetQuoteComponent {
       if (res.success && res.response.insertId) {
 
         // this.setHtmlContent(data);
+        this.generateQuotationPdf(data);
 
         this.disabledSubmit = false;
         this.common.showAlertMessage(res.message, this.common.succContent);
-        // this.router.navigate(['/user']);
 
         this.equipmemtBookingDetails = []
         this.jobDetails = "";
@@ -325,8 +325,6 @@ export class GetQuoteComponent {
         this.customValue = "";
         this.deliverables = "";
         this.termscondition = "";
-
-        // this.generateQuotationPdf(data);
       }
     })
   }

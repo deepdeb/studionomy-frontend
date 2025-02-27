@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { jsPDF } from 'jspdf';
+import { HttpHeaders } from '@angular/common/http';
 import html2canvas from 'html2canvas';
 import { CalendarContentComponent } from '../calendar-content/calendar-content.component';
 
@@ -296,7 +297,7 @@ export class ProfileComponent {
       userId: localStorage.getItem('slUserId'),
     };
     this.rest.delete(data).subscribe((res: any) => {
-      if(res.success) {
+      if (res.success) {
         this.quotation_id = ''
         this.common.showAlertMessage(res.message, this.common.succContent);
         this.getAllQuotes();
@@ -1021,5 +1022,28 @@ export class ProfileComponent {
         content: foundJobDetails,
       },
     });
+  }
+
+  generateQuotationPdf(data: any) {
+    // this.isLoading = true;
+    const httpOptionsPdf = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      responseType: 'blob' as 'json'
+    };
+    this.rest.generatequotationPdf(data, httpOptionsPdf).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a')
+      a.href = url;
+      a.download = `quotation.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      this.isLoading = false;
+    }, error => {
+      console.error('Error: ', error);
+      this.isLoading = false;
+    })
   }
 }

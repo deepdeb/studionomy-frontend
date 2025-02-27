@@ -116,12 +116,12 @@ export class NetworkComponent {
   }
 
   getAllSevenDates(date: Date) {
+
     const allSevenDates: any = [];
 
     for (let i = -3; i <= 3; i++) {
       const before = new Date(date);
       before.setDate(date.getDate() + (i));
-      console.log('124', before);
       allSevenDates.push(before.toLocaleDateString('en-CA'));
     }
 
@@ -137,7 +137,8 @@ export class NetworkComponent {
       let allBookingStatus = res.response
 
       this.searchData.forEach((data: any) => {
-        if(allBookingStatus[data.userId]) {
+
+        if (allBookingStatus[data.userId]) {
           data.bookingStatus = allBookingStatus[data.userId]
         }
       });
@@ -219,21 +220,21 @@ export class NetworkComponent {
       this.getAllBrandList();
     }
   }
-  goToCalender(userId: any, name: any, mobile: any, userType: any) {
+  goToCalender(item: any) {
     let queryParams = {
-      requestTo: userId,
-      requestToName: name,
-      mobile: mobile,
-      req_to_userType: userType,
-      job_number: this.job_number
+      requestTo: item.userId,
+      requestToName: item.name,
+      mobile: item.mobile,
+      req_to_userType: item.userType,
+      job_number: this.job_number,
     };
+
     if (!queryParams.job_number) {
-      // this.common.showAlertMessage("Booking FL/EO only possible from calendar by clicking on job", this.common.errContent)
-      this.router.navigate(['calender'])
+      this.router.navigate(['calender'], {state: { 'item': item}})
       return
+    } else {
+      this.openModal(item)
     }
-    // this.router.navigate(['public-calender'], { queryParams: queryParams });
-    this.openModal(userId, name, mobile, userType)
   }
   getCityList() {
     var stateName = this.getStateNameById(this.state);
@@ -336,8 +337,10 @@ export class NetworkComponent {
     })
   }
 
-  openModal(userId: any, name: any, mobile: any, userType: any): void {
-    this.req_details = { "req_to": userId, "req_to_userType": userType, "req_to_name": name, "req_date": this.dateFormatFullYearFromHalfYear(this.job_startDate), "job_number": this.job_number, "req_to_mobile": mobile };
+  openModal(item: any): void {
+    this.req_details = { "req_to": item.userId, "req_to_userType": item.userType, "req_to_name": item.name, "req_date": this.dateFormatFullYearFromHalfYear(this.job_startDate), "job_number": this.job_number, "req_to_mobile": item.mobile };
+
+    // console.log('343>>>', this.req_details)
 
     const dialogRef = this.dialog.open(RequestForBookingComponent, {
       width: '700px',
@@ -410,7 +413,7 @@ export class NetworkComponent {
     const datePart = date.split('-')[0]
     const monthPart = date.split('-')[1]
     const yearPart = date.split('-')[2]
-    
+
     let formattedDate = `${datePart}-${monthPart}-20${yearPart}`
     return formattedDate
   }

@@ -6,7 +6,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { RestService } from 'src/app/services/rest.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CalendarContentComponent } from '../calendar-content/calendar-content.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RequestForBookingComponent } from '../request-for-booking/request-for-booking.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-calender',
@@ -62,13 +64,17 @@ export class CalenderComponent {
 
   @ViewChild('requestDetails') requestDetailsModal: any;
   @ViewChild('rejectPaymentRemarks') rejectPaymentRemarksModal: any;
+  req_to_item: any;
 
-  constructor(private rest: RestService, private dialog: MatDialog, private router: Router, private common: CommonService) {
+  constructor(private rest: RestService, private dialog: MatDialog, private router: Router, private common: CommonService, private route: ActivatedRoute, private location: Location) {
     this.userType = localStorage.getItem('slUserType');
   }
 
   ngOnInit(): void {
     // this.getAllBuySubscriptionList();
+
+    this.req_to_item = this.location.getState();
+
     if (this.userType == 0) {
       this.getAllJob();
     } else {
@@ -98,19 +104,55 @@ export class CalenderComponent {
             id: item.job_id,
           });
         });
-        console.log("events>>>",this.events);
         this.calendarOption.events = this.events;
       }
     })
   }
+
+
   handleDateClick(args: any) {
     var job_id = args.event.id;
     var result: any = this.getJobDetailsById(job_id, this.eventDetails);
     if (result) {
-      this.openModal();
+      if(this.req_to_item.item) {
+        this.openReqForBookingModal(this.req_to_item.item, result);
+      } else {
+        this.openCalendarContentModal();
+      }
     }
   }
 
+  openCalendarContentModal(): void {
+    const dialogRef = this.dialog.open(CalendarContentComponent, {
+      width: '750px',
+      data: {
+        title: 'Job Details',
+        content: this.foundJobDetails
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+    openReqForBookingModal(req_to_item: any, result: any): void {
+
+      const details_for_req = { "req_to": req_to_item.userId, "req_to_userType": req_to_item.userType, "req_to_name": req_to_item.name, "req_date": result.job_startDate_calendar, "job_number": result.job_number, "req_to_mobile": req_to_item.mobile };
+
+      // console.log('143>>>>', details_for_req);
+  
+      const dialogRef = this.dialog.open(RequestForBookingComponent, {
+        width: '700px',
+        data: {
+          content: details_for_req
+        }
+      });
+      dialogRef.componentInstance.requestSent.subscribe(() => {
+        this.router.navigate(['booking-calender']);
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+      });
+    }
 
   customEventContent(arg: any) {
     //console.log("args>>>>>",arg);
@@ -126,24 +168,9 @@ export class CalenderComponent {
     return { domNodes: [container] };
   }
 
-
-  openModal(): void {
-    console.log('>>>req', this.reqDetails)
-    const dialogRef = this.dialog.open(CalendarContentComponent, {
-      width: '750px',
-      data: {
-        title: 'Job Details',
-        content: this.foundJobDetails
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
-
   getJobDetailsById(job_id: any, eventArray: any) {
     this.foundJobDetails = eventArray.find((job: any) => job.job_id == job_id);
-    console.log("foundJobDetails>>>>>",this.foundJobDetails);
+    // console.log("foundJobDetails>>>>>",this.foundJobDetails);
     return this.foundJobDetails ? this.foundJobDetails : null;
   }
 

@@ -121,7 +121,8 @@
                     <button type="button" class="jobs_btn delivered_btn " (click)="searchJob()">
                         <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
                     </button>
-                    <button type="button" class="jobs_btn delivered_btn " (click)="clearSearchJob()">reset search</button>
+                    <button type="button" class="jobs_btn delivered_btn " (click)="clearSearchJob()">reset
+                        search</button>
                 </div>
             </div>
             <!-- <button>upcoming jobs</button>
@@ -224,8 +225,7 @@
                                 </td>
                                 <td>
                                     <ul class="action_btn">
-                                        <li><a (click)="goToJobDetails(item)"><i
-                                                    class="fa-regular fa-eye"></i></a></li>
+                                        <li><a (click)="goToJobDetails(item)"><i class="fa-regular fa-eye"></i></a></li>
                                         <li><a (click)="goToPaymentDetails(item.job_id)"><i
                                                     class="fa-regular fa-dollar"></i></a></li>
                                         <li *ngIf="compareDates(item.job_endDate) >= todatDate"><a
@@ -290,7 +290,8 @@
                 <div class="col-3 col-md-2 profile_job_search_btn">
                     <button type="button" class="jobs_btn delivered_btn " (click)="searchQuotation()"><i
                             class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
-                    <button type="button" class="jobs_btn delivered_btn " (click)="clearSearchQuotation()">reset search</button>
+                    <button type="button" class="jobs_btn delivered_btn " (click)="clearSearchQuotation()">reset
+                        search</button>
                 </div>
             </div>
             <div class="employee_top_head">
@@ -373,16 +374,19 @@
                                 </td>
                                 <td>
                                     <ul class="action_btn">
-                                        <li><a
-                                                (click)="getQuotationIdForDeleteQuote(item.quotation_id)"><i class="fa-solid fa-trash"
-                                                    data-bs-toggle="modal" data-bs-target="#quotationDeleteModal"></i></a>
+                                        <li><a (click)="getQuotationIdForDeleteQuote(item.quotation_id)"><i
+                                                    class="fa-solid fa-trash" data-bs-toggle="modal"
+                                                    data-bs-target="#quotationDeleteModal"></i></a>
                                         </li>
                                         <li><a (click)="quotation_id = item.quotation_id"><i
                                                     class="fa-solid fa-check-circle fa-lg" data-bs-toggle="modal"
                                                     data-bs-target="#jobConvertModal" style="color:#05bbaa;"></i></a>
                                         </li>
-                                        <li><a (click)="getQuote(item)"><i class="fa-solid fa-file-pdf fa-lg"
+                                        <!-- <li><a (click)="getQuote(item)"><i class="fa-solid fa-file-pdf fa-lg"
                                                     style="color: maroon;"></i></a>
+                                        </li> -->
+                                        <li><a (click)="generateQuotationPdf(item)"><i
+                                                    class="fa-solid fa-file-pdf fa-lg" style="color: maroon;"></i></a>
                                         </li>
                                     </ul>
                                 </td>
@@ -614,7 +618,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteQuotation()">Yes</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deleteQuotation()">Yes</button>
             </div>
         </div>
     </div>
