@@ -36,6 +36,7 @@ export class BookKeepingComponent {
   entryCriteria: any = ''
   recordSubmitButtonDisabled: boolean = false
   openingBalSubmitDisabled: boolean = false
+  custPhoneNum = '' as string
   constructor(private rest: RestService, private router: Router, private location: Location, private common: CommonService, private activateRoute: ActivatedRoute) {
     this.userType = localStorage.getItem('slUserType');
   }
@@ -154,6 +155,7 @@ export class BookKeepingComponent {
       credit_amount: this.credit_amount ? this.credit_amount : 0.00,
       credit_mode: this.credit_mode,
       closing_balance: this.closing_balance,
+      cust_phone_num: this.custPhoneNum,
       remarks: this.remarks
     };
     this.recordSubmitButtonDisabled = true
@@ -168,6 +170,7 @@ export class BookKeepingComponent {
         this.credit_mode = "";
         this.debit_amount = 0.00;
         this.debit_mode = "";
+        this.custPhoneNum = "";
         this.remarks = "";
         this.recordSubmitButtonDisabled = false;
       } else {
