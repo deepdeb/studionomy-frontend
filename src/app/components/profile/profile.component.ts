@@ -122,7 +122,7 @@ export class ProfileComponent {
     this.getUserDetails();
     this.getAllJob();
     this.getAllQuotes();
-    this.getAllBuySubscriptionList();
+    // this.getAllBuySubscriptionList();
     this.getStateList();
     this.studioRole = localStorage.getItem('studioRole');
   }

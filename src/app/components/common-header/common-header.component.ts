@@ -27,7 +27,7 @@ export class CommonHeaderComponent {
     this.studioName = localStorage.getItem('studioName');
     this.name = localStorage.getItem('name');
     this.studioRole = localStorage.getItem('studioRole');
-    this.getAllBuySubscriptionList();
+    // this.getAllBuySubscriptionList();
   }
 
 
@@ -85,7 +85,6 @@ export class CommonHeaderComponent {
   }
 
   goToJob() {
-    console.log('enter here')
     // if(this.buysubscriptionList.length == 0 || (this.buysubscriptionList[0].no_of_jobs - this.buysubscriptionList[0].completejob) == 0 || this.buysubscriptionList[0].end_date < this.todatDate) {
     //   this.common.showAlertMessage('Buy subscription to add jobs', this.common.succContent);
     //   this.router.navigate(['subscription']);
