@@ -23,13 +23,14 @@
                 <div class="col-7 col-sm-4 opening_balance">
                     <label><b>Search Entry</b></label>
                     <div style="position: relative;display: inline-block;">
-                            <input type="text" class="select_list" [(ngModel)]="entryCriteria"
-                            style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;" (input)="getAllBookKeeping()">
+                        <input type="text" class="select_list" [(ngModel)]="entryCriteria"
+                            style="position: relative;font-size: 15px; padding: 1px 58px 1px 2px;"
+                            (input)="getAllBookKeeping()">
                         <button type="submit" class="pay" (click)="clearSearchBookKeeping()">Reset</button>
                     </div>
                 </div>
             </div>
-            
+
             <div class="table-container">
                 <div class="table-responsive">
                     <table class="table custom-table employee-table m-0">
@@ -38,13 +39,13 @@
                                 <th>Date</th>
                                 <th>Description</th>
                                 <th>Opening Balance</th>
-                                <th>Customer Phone no.</th>
                                 <th>Credit Rs</th>
                                 <th>Credit Mode</th>
                                 <th>Debit Rs</th>
                                 <th>Debit Mode</th>
                                 <!-- <th>Closing Balance</th> -->
                                 <th>Remarks</th>
+                                <th>Mobile no.</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -56,9 +57,6 @@
                                 </td>
                                 <td><input type="text" class="select_list" [(ngModel)]="actual_opening_balance" readonly
                                         style="color: rgb(156, 19, 19);font-weight: 600;">
-                                </td>
-                                <td>
-                                    <input type="number" class="select_list" [(ngModel)]="custPhoneNum">
                                 </td>
                                 <td>
                                     <input type="text" class="select_list" [(ngModel)]="credit_amount"
@@ -82,7 +80,11 @@
                                         style="color: rgb(156, 19, 19);font-weight: 600;"></td> -->
                                 <td><textarea type="text" class="select_list" [(ngModel)]="remarks"></textarea>
                                 </td>
-                                <td><button type="submit" class="pay" [disabled]="recordSubmitButtonDisabled" (click)="recordSubmit()">submit</button>
+                                <td>
+                                    <input type="number" class="select_list" [(ngModel)]="custPhoneNum">
+                                </td>
+                                <td><button type="submit" class="pay" [disabled]="recordSubmitButtonDisabled"
+                                        (click)="recordSubmit()">submit</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -128,7 +130,6 @@
                                 <th scope="col" class="sl_no">#</th>
                                 <th>Date</th>
                                 <th>Description</th>
-                                <th>Customer Phone no.</th>
                                 <th>Balance</th>
                                 <th>Credit Rs</th>
                                 <th style="width: 20px;">Credit Mode</th>
@@ -136,6 +137,7 @@
                                 <th style="width: 20px;">Debit Mode</th>
                                 <th>Closing Balance</th>
                                 <th>Remarks</th>
+                                <th>Mobile no.</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -147,9 +149,6 @@
                                 </td>
                                 <td>
                                     <p>{{item.b_description}}</p>
-                                </td>
-                                <td>
-                                    <p>{{item.cust_phone_num}}</p>
                                 </td>
                                 <td>
                                     <p>{{item.opening_balance}}</p>
@@ -171,9 +170,11 @@
                                     <p>{{item.opening_balance + item.credit_amount -
                                         item.debit_amount}}</p>
                                 </td>
-
                                 <td>
                                     <p>{{item.remarks}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.cust_phone_num}}</p>
                                 </td>
                                 <td>
                                     <ul class="action_btn">

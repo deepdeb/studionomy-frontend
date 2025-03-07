@@ -44,38 +44,38 @@ export class FeedbackComponent {
       this.common.showAlertMessage("Please enter name", this.common.errContent);
       return;
     }
-    if (this.mobile == "" || this.mobile == null || this.mobile == undefined) {
-      this.common.showAlertMessage("Please enter mobile no", this.common.errContent);
-      return;
-    }
-    if (this.mobile != null) {
-      if (this.common.phoneNumberFormat(this.mobile) == false) {
-        this.common.showAlertMessage("Please enter valid mobile no", this.common.errContent);
-        return;
-      }
-    }
-    if (this.alt_mobile != null) {
-      if (this.common.phoneNumberFormat(this.alt_mobile) == false) {
-        this.common.showAlertMessage("Please enter valid alternate mobile no", this.common.errContent);
-        return;
-      }
-    }
-    if (this.mobile == this.alt_mobile) {
-      this.common.showAlertMessage("Alternative mobile no must be different", this.common.errContent);
-      return;
-    }
-    if (this.email == "" || this.email == null || this.email == undefined) {
-      this.common.showAlertMessage("Please enter email id", this.common.errContent);
-      return;
-    }
-    if (this.profileImg == "" || this.profileImg == null || this.profileImg == undefined) {
-      this.common.showAlertMessage("Please upload profile picture", this.common.errContent);
-      return;
-    }
-    if (this.feedback_details == "" || this.feedback_details == null || this.feedback_details == undefined) {
-      this.common.showAlertMessage("Please enter feedback", this.common.errContent);
-      return;
-    }
+    // if (this.mobile == "" || this.mobile == null || this.mobile == undefined) {
+    //   this.common.showAlertMessage("Please enter mobile no", this.common.errContent);
+    //   return;
+    // }
+    // if (this.mobile != null) {
+    //   if (this.common.phoneNumberFormat(this.mobile) == false) {
+    //     this.common.showAlertMessage("Please enter valid mobile no", this.common.errContent);
+    //     return;
+    //   }
+    // }
+    // if (this.alt_mobile != null) {
+    //   if (this.common.phoneNumberFormat(this.alt_mobile) == false) {
+    //     this.common.showAlertMessage("Please enter valid alternate mobile no", this.common.errContent);
+    //     return;
+    //   }
+    // }
+    // if (this.mobile == this.alt_mobile) {
+    //   this.common.showAlertMessage("Alternative mobile no must be different", this.common.errContent);
+    //   return;
+    // }
+    // if (this.email == "" || this.email == null || this.email == undefined) {
+    //   this.common.showAlertMessage("Please enter email id", this.common.errContent);
+    //   return;
+    // }
+    // if (this.profileImg == "" || this.profileImg == null || this.profileImg == undefined) {
+    //   this.common.showAlertMessage("Please upload profile picture", this.common.errContent);
+    //   return;
+    // }
+    // if (this.feedback_details == "" || this.feedback_details == null || this.feedback_details == undefined) {
+    //   this.common.showAlertMessage("Please enter feedback", this.common.errContent);
+    //   return;
+    // }
     const data = {
       userId: localStorage.getItem('slUserId') ? localStorage.getItem('slUserId') : 0,
       name: this.name,
