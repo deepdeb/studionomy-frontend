@@ -592,7 +592,7 @@ export class ProfileComponent {
 
   shareProfileToWhatsapp() {
     const text = encodeURIComponent(
-      `*Visit my profile:*\n\nhttps://studionomy.com/#/user-detail/${this.userId}`
+      `*Visit my profile:*\n\nhttps://studionomy.com/#/user-detail/${this.userId}\nStudio: ${this.studioName}`
     );
     const whatsappUrl = `https://api.whatsapp.com/send?phone=&text=${text}`;
     window.open(whatsappUrl, '_blank');
