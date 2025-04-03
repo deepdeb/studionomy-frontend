@@ -51,6 +51,7 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
 import { PaymentFailureComponent } from './components/payment-failure/payment-failure.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { WebsiteTourComponent } from './components/website-tour/website-tour.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { WebsiteTourComponent } from './components/website-tour/website-tour.com
     PaymentSuccessComponent,
     PaymentFailureComponent,
     ReportsComponent,
-    WebsiteTourComponent
+    WebsiteTourComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
